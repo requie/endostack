@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lint skills, links and prose
+        run: node scripts/lint.mjs
+      - name: Generated files are up to date
+        run: node scripts/build.mjs --check
+      - name: Manifests match their schemas
+        run: node scripts/check-manifests.mjs
+      - name: Tests
+        run: node --test 'skills/**/test/*.test.mjs' 'scripts/test/*.test.mjs'
+
+  install-smoke:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install into a scratch project, then uninstall
+        shell: bash
+        run: |
+          proj="$RUNNER_TEMP/proj"
+          mkdir -p "$proj"
+          node scripts/install.mjs --project "$proj" --agents claude-code,codex,gemini-cli,copilot,opencode,kiro,junie,goose
+          test -f "$proj/.agents/skills/tarique-mode/SKILL.md"
+          test -f "$proj/.codex/agents/tarique-agent.toml"
+          node scripts/install.mjs --project "$proj" --uninstall
+          test -z "$(ls -A "$proj")"

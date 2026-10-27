@@ -1,0 +1,107 @@
+# issue-loop configuration (example)
+# Copy this file OUTSIDE the pack, for example to .issue-loop/config.yaml in the
+# target repo, then fill it. Never put a secret value in this file: fields that
+# end in _env name an environment variable or runner secret, not its value.
+
+schema_version: 1
+
+automations:
+  triage_name: issue-loop triage
+  reproduce_name: issue-loop reproduce
+
+runner:
+  kind: github-actions          # github-actions | agent-scheduler | local-cron
+  agent_cli: claude             # claude | codex | gemini (github-actions and local-cron)
+  container_image: ""           # image the reproduce job and local-cron runs use
+
+intake:
+  source: github-issues         # github-issues | chat
+  github:
+    repository: acme/notebook-app
+    ignore_labels: [wontfix, duplicate]
+  chat:
+    platform: slack
+    source_channel_id: ""
+    operations_channel_id: ""   # empty = keep detailed status in run output
+    read_action: ""             # names of the chat actions the runner exposes
+    reply_action: ""
+    download_action: ""
+    status_edit_action: ""
+    prefer_builtin_actions: true
+    bot_token_env: ""           # optional, one narrow gap only
+    allow_root_posts: false     # leave false
+    allow_worker_chat_writes: false   # leave false
+  triage_identity: "issue-loop-triage[bot]"   # only this author's markers are trusted
+  triage_identity_id: ""        # optional numeric account ID; when set it must match too
+
+operations:
+  github_issue_number: 0        # optional pinned status issue; 0 = none
+
+repository:
+  url: https://github.com/acme/notebook-app
+  default_branch: main
+  branch_prefix: issue-loop/
+  draft_only: true              # cannot be turned off; publish-repro refuses false
+  pr_link_template: https://github.com/{owner}/{repo}/pull/{number}
+  lockfile_allowlist: []        # repo-relative lockfiles a fix may change; empty = none
+
+tracker:
+  type: github-issues           # github-issues | linear | jira | other
+  adapter_skill: ""             # required when type is not github-issues
+  team: ""
+  project: ""
+  labels:
+    bug: bug
+    performance: performance
+    intake: issue-loop
+    needs_repro: needs-repro
+  intake_status: Triage
+  source_link_title: Original report
+  require_compensation: true    # refuse to create if the adapter cannot undo
+
+routing:
+  map_path: ""                  # e.g. .issue-loop/routing.yaml; empty = no reroutes
+  owner_pings: false
+  feature_owner_pings: false
+  regression_author_pings: false
+
+control:
+  skill: ""                     # your app-control skill, e.g. notebook-browser-driver
+  feature_map_path: .issue-loop/feature-map.md
+  environment: staging-sandbox  # never production
+  artifact_dir: /tmp/issue-loop-artifacts
+  artifact_retention_hours: 48
+
+markers:
+  bug: "[issue-loop:bug]"
+  performance: "[issue-loop:performance]"
+  other: "[issue-loop:other]"
+  tracker_attribute: tracker
+
+status:                          # labels on github-issues, emoji on chat
+  seen: "issue-loop:seen"
+  reproducing: "issue-loop:reproducing"
+  reproduced: "issue-loop:reproduced"
+  not_reproduced: "issue-loop:not-reproduced"
+  blocked: "issue-loop:blocked"
+  verifying_fix: "issue-loop:verifying-fix"
+  verified: "issue-loop:fix-verified"
+  fixing: "issue-loop:fixing"
+  fix_failed: "issue-loop:fix-failed"
+  pr_opened: "issue-loop:pr-opened"
+
+budgets:
+  poll_interval_seconds: 300
+  verdict_wait_minutes: 45
+  triage_followup_minutes: 30
+  triage_total_minutes: 20
+  repro_minutes: 40
+  rejection_window_minutes: 60
+  fix_minutes: 60
+  ops_followup_minutes: 120
+
+models:                          # tiers; override per role in .tstack/models.toml
+  triage: standard
+  reproduce: standard
+  code: strong
+  media_review: standard
