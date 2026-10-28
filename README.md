@@ -1,4 +1,28 @@
-# ttstack
+<p align="center">
+  <img src="assets/logo.svg" alt="ttstack logo" width="128" height="128">
+</p>
+
+<h1 align="center">ttstack</h1>
+
+<p align="center">Security-first workflows for coding agents. Plan, threat-model, build, review, and verify before you ship.</p>
+
+<p align="center">
+  <a href="https://github.com/requie/ttstack/actions/workflows/ci.yml"><img src="https://github.com/requie/ttstack/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a>
+  <a href="plugin.json"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Frequie%2Fttstack%2Fmain%2Fplugin.json&query=%24.version&label=version&color=2DD4BF" alt="Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/requie/ttstack?color=334155" alt="MIT license"></a>
+  <a href="docs/agents/README.md"><img src="https://img.shields.io/badge/agents-15%20supported-0F172A" alt="15 supported coding agents"></a>
+  <a href="scripts/install.mjs"><img src="https://img.shields.io/badge/node-%E2%89%A522-339933?logo=nodedotjs&logoColor=white" alt="Node 22 or later"></a>
+  <a href="https://github.com/requie/ttstack/stargazers"><img src="https://img.shields.io/github/stars/requie/ttstack?style=flat&color=2DD4BF" alt="GitHub stars"></a>
+  <a href="https://x.com/iam_tarique"><img src="https://img.shields.io/badge/follow-%40iam__tarique-000000?logo=x&logoColor=white" alt="Follow @iam_tarique on X"></a>
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="docs/guide/README.md">Guide</a> ·
+  <a href="#skills">Skills</a> ·
+  <a href="#security-model">Security model</a> ·
+  <a href="docs/agents/README.md">Supported agents</a>
+</p>
 
 I'm Tarique Smith, co-founder and CTO of Cogensec, an AI security lab, and I've spent more than fifteen years in cybersecurity. Coding agents write code faster than anyone can review it, and much of it ships on the strength of a green build and the agent's own say-so. ttstack is the set of habits I want from an agent instead. It reads the code before changing it, tries more than one design, and checks its result against the thing a user would actually run. A threat model and a security review count toward "done". The output is smaller diffs, and every claim in them points at evidence you can rerun. I'm on X at [@iam_tarique](https://x.com/iam_tarique).
 
