@@ -91,13 +91,26 @@ test('a project install writes shared skills once, per-agent files, and a manife
     assert.ok(existsSync(join(p, '.kiro/agents/helper.md')));
     assert.ok(!existsSync(join(p, '.claude')), 'no .claude/skills unless Claude Code or Cline is a target');
     assert.match(out, /one copy serves codex, gemini-cli, opencode/);
-    assert.match(out, /^write  .*alpha\/SKILL\.md$/m, 'each action is printed');
+    assert.doesNotMatch(out, /^write  /m, 'files are summarized per folder by default');
+    assert.match(out, /^wrote\s+\d+ files? in \.\/\.agents\/skills$/m);
+    assert.match(out, /^next   .*\/try-ttstack/m);
     const m = manifestOf(p);
     assert.equal(m.scope, 'project');
     const files = m.entries.filter((e) => e.kind === 'file');
     assert.ok(files.every((e) => /^[0-9a-f]{64}$/.test(e.sha256)));
     assert.ok(files.some((e) => e.path.endsWith('.codex/agents/reviewer.toml')));
     assert.ok(readFileSync(join(p, 'AGENTS.md'), 'utf8').includes(BLOCK_BEGIN));
+  } finally {
+    t.done();
+  }
+});
+
+test('--verbose prints each file written', () => {
+  const t = setup();
+  try {
+    const { code, out } = t.run('--agents', 'codex', '--verbose');
+    assert.equal(code, 0);
+    assert.match(out, /^write  .*alpha\/SKILL\.md$/m);
   } finally {
     t.done();
   }

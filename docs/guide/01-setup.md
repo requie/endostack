@@ -30,7 +30,13 @@ On Claude Code, plugin commands carry a prefix, so you type `/ttstack:tarique-mo
 
 Installing runs nothing. Every skill waits until you type it or `tarique-mode` calls it. The single exception is `setup-ttstack`, which also answers a plain request such as "set up ttstack".
 
+## See it work first
+
+If you want to watch ttstack before trusting it with real code, type `/try-ttstack`. It sets up a small demo app with a bug report, hands you the prompt, and afterwards compares ttstack's fix with the obvious one-line fix on a check you can rerun. The [quickstart](../quickstart.md) has the minute-by-minute version.
+
 ## Run setup
+
+Setup is optional. Every role has a default, so you can skip this section and come back when you want to choose models or control cost.
 
 ```text
 /setup-ttstack

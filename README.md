@@ -28,8 +28,28 @@ I'm Tarique Smith, co-founder and CTO of Cogensec, an AI security lab, and I've 
 
 ttstack is a plugin of skills, playbooks, principles and two subagents. It runs in Claude Code, Cursor, Codex, Gemini CLI, Copilot, Goose, Windsurf, Cline, Roo, OpenCode, Amp, Kiro and other agents that read `SKILL.md` files. Skills never name one agent's tools. Each agent's page under [docs/agents/](docs/agents/) maps the neutral verbs ("spawn a read-only subagent", "ask the user", "track a todo list") onto that agent's real tools, and says which features the agent lacks.
 
+## Quickstart
+
+Install once (macOS or Linux; [Windows and plugin installs](docs/quickstart.md#1-install-about-a-minute)):
+
+```sh
+git clone --depth 1 https://github.com/requie/ttstack ~/.ttstack/src
+~/.ttstack/src/install.sh --scope user
+```
+
+Restart your coding agent, then type `/try-ttstack`. In five minutes you watch `tarique-mode` fix a real-looking bug in a demo app. A check script then shows that the obvious one-line fix for the same bug leaks the app's `.env` file, and ttstack's fix doesn't.
+
+On your own code, the flagship workflow is one line:
+
+```text
+/tarique-mode Fix <issue link, or one sentence describing the broken behavior>.
+```
+
+The [quickstart](docs/quickstart.md) walks through each step.
+
 ## Contents
 
+- [Quickstart](#quickstart)
 - [Install](#install)
 - [Get started](#get-started)
 - [How tarique-mode works](#how-tarique-mode-works)
@@ -77,9 +97,9 @@ Notes that apply to most agents:
 
 ## Get started
 
-Setup comes first, then a real task.
+You can start real work right after installing. Every role has a default model, so setup is optional until you want to pick models or control cost.
 
-**First, run `/setup-ttstack`.** It finds out which models your agent's subagents can use, asks for a reasoning budget (`small`, `medium`, `large`, `unlimited`; `large` is the default), maps every ttstack role to a tier or a model, and writes `~/.ttstack/models.toml`. A team can commit `.ttstack/models.toml` at the repo root instead, and that project file wins key by key. Setup writes only model names it saw your agent accept or that you typed. Before finishing, it makes two one-time offers: build the project a skill that drives the running app to prove changes, and build one that model-checks a property tests rarely reach. Skills read the config when they load, so start a new chat once setup is done.
+**Optional: run `/setup-ttstack`.** It finds out which models your agent's subagents can use, asks for a reasoning budget (`small`, `medium`, `large`, `unlimited`; `large` is the default), maps every ttstack role to a tier or a model, and writes `~/.ttstack/models.toml`. A team can commit `.ttstack/models.toml` at the repo root instead, and that project file wins key by key. Setup writes only model names it saw your agent accept or that you typed. Before finishing, it makes two one-time offers: build the project a skill that drives the running app to prove changes, and build one that model-checks a property tests rarely reach. Skills read the config when they load, so start a new chat once setup is done.
 
 ttstack speaks in three tiers. `strong` handles judgment, prose, review and the hardest code. `fast` handles mechanical edits, exploration and verification sweeps. `standard` sits between them. Out of the box, code-writing delegates for features, refactors, bug fixes, perf fixes and hillclimb attempts run on `fast`, design and review run on `strong`, and review panels default to two seats, one `strong` and one `fast`. A role set to `inherit` runs on whatever model the chat uses. Each panel role is a list whose length is the number of seats.
 
@@ -114,7 +134,8 @@ Large or cross-cutting work, and work you plan to leave running, goes to [`figur
 | --- | --- |
 | [tarique-mode](skills/tarique-mode/SKILL.md) | You start any task that needs rigor. Routes to a playbook and sets security gates, subagent policy and reply style. Typed only. |
 | [tarique-help](skills/tarique-help/SKILL.md) | You want to know which skill fits, how to set up, or why a run went wrong. Answers and hands you a prompt without starting work. |
-| [setup-ttstack](skills/setup-ttstack/SKILL.md) | First install, or you want to change models, budget or cost. Writes `models.toml`. |
+| [try-ttstack](skills/try-ttstack/SKILL.md) | You just installed ttstack and want to see it work. Sets up a five-minute demo, then compares ttstack's fix with the obvious one. |
+| [setup-ttstack](skills/setup-ttstack/SKILL.md) | You want to pick models or control cost. Optional: every role has a default. Writes `models.toml`. |
 | [in-your-own-words](skills/in-your-own-words/SKILL.md) | A request is long or messy and you want the agent to state your goal back before doing anything. |
 | [sharpen](skills/sharpen/SKILL.md) | You have a draft prompt and want an expert-depth version of the same task, without doing it. |
 | [how](skills/how/SKILL.md) | You need to know how part of the code works, or where new code belongs. |

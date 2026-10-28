@@ -33,7 +33,7 @@ const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 // ---------------------------------------------------------------- options --
 
 export function parseArgs(argv) {
-  const o = { scope: 'project', agents: 'auto', link: false, dryRun: false, uninstall: false, rules: true, project: process.cwd(), help: false };
+  const o = { scope: 'project', agents: 'auto', link: false, dryRun: false, verbose: false, uninstall: false, rules: true, project: process.cwd(), help: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = () => {
@@ -48,6 +48,7 @@ export function parseArgs(argv) {
     else if (a === '--project') o.project = resolve(val());
     else if (a === '--link') o.link = true;
     else if (a === '--dry-run') o.dryRun = true;
+    else if (a === '--verbose') o.verbose = true;
     else if (a === '--uninstall') o.uninstall = true;
     else if (a === '--no-rules') o.rules = false;
     else if (a === '-h' || a === '--help') o.help = true;
@@ -65,6 +66,7 @@ export const USAGE = `Usage: install.sh [options]   (Windows: install.ps1, or no
                          ${TARGET_IDS.join(', ')}
   --link                 symlink ttstack's files instead of copying (updates follow git pull)
   --dry-run              print every action without changing anything
+  --verbose              print every file written (default: one line per folder)
   --uninstall            remove exactly what an earlier install wrote
   --no-rules             do not add the ttstack block to AGENTS.md / CLAUDE.md / GEMINI.md
   --project <dir>        project root for --scope project (default: current directory)
@@ -294,6 +296,14 @@ export function install(o) {
   const entries = [];
   const createdDirs = new Set(prev.entries.filter((e) => e.kind === 'dir').map((e) => e.path));
   const counts = { written: 0, skipped: 0, unchanged: 0, removed: 0 };
+  const base = o.scope === 'user' ? o.home : o.project;
+  const perRoot = new Map();
+  const fileLog = (msg, path) => {
+    if (o.verbose || o.dryRun) return log(msg);
+    const rel = relative(base, path).split(/[\\/]/);
+    const root = rel.length > 2 ? rel.slice(0, 2).join('/') : rel.slice(0, -1).join('/') || '.';
+    perRoot.set(root, (perRoot.get(root) ?? 0) + 1);
+  };
 
   const ensureDir = (dir) => {
     const missing = [];
@@ -338,7 +348,7 @@ export function install(o) {
         counts.unchanged++;
         continue;
       }
-      log(`${tag}write  ${a.to}`);
+      fileLog(`${tag}write  ${a.to}`, a.to);
       if (!o.dryRun) {
         ensureDir(dirname(a.to));
         if (exists) rmSync(a.to, { force: true });
@@ -359,7 +369,7 @@ export function install(o) {
         counts.unchanged++;
         continue;
       }
-      log(`${tag}link   ${a.to} -> ${a.from}`);
+      fileLog(`${tag}link   ${a.to} -> ${a.from}`, a.to);
       if (!o.dryRun) {
         ensureDir(dirname(a.to));
         if (exists) rmSync(a.to, { force: true, recursive: false });
@@ -425,9 +435,12 @@ export function install(o) {
     manifest.entries = [...entries, ...[...createdDirs].filter((d) => existsSync(d)).map((d) => ({ kind: 'dir', path: d }))];
     writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
   }
+  const where = o.scope === 'user' ? '~' : '.';
+  for (const [root, n] of [...perRoot].sort()) log(`${o.link ? 'linked' : 'wrote'} ${String(n).padStart(4)} file${n === 1 ? ' ' : 's'} in ${where}/${root}`);
   log(`${tag}manifest ${manifestPath}`);
   for (const n of notes) log(`note   ${n}`);
   log(`${tag}done: ${counts.written} written, ${counts.unchanged} unchanged, ${counts.skipped} skipped, ${counts.removed} removed`);
+  if (!o.dryRun && counts.written + counts.unchanged > 0) log('next   open your coding agent and type /try-ttstack for the five-minute demo');
   return { manifest, counts, notes, manifestPath };
 }
 
