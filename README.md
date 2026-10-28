@@ -1,4 +1,4 @@
-# tstack
+# ttstack
 
 I'm Tarique Smith, co-founder and CTO of Cogensec, an AI security lab, and I've spent more than fifteen years in cybersecurity. Coding agents write code faster than anyone can review it, and much of it ships on the strength of a green build and the agent's own say-so. tstack is the set of habits I want from an agent instead. It reads the code before changing it, tries more than one design, and checks its result against the thing a user would actually run. A threat model and a security review count toward "done". The output is smaller diffs, and every claim in them points at evidence you can rerun. I'm on X at [@iam_tarique](https://x.com/iam_tarique).
 
