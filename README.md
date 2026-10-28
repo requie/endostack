@@ -1,8 +1,8 @@
 # ttstack
 
-I'm Tarique Smith, co-founder and CTO of Cogensec, an AI security lab, and I've spent more than fifteen years in cybersecurity. Coding agents write code faster than anyone can review it, and much of it ships on the strength of a green build and the agent's own say-so. tstack is the set of habits I want from an agent instead. It reads the code before changing it, tries more than one design, and checks its result against the thing a user would actually run. A threat model and a security review count toward "done". The output is smaller diffs, and every claim in them points at evidence you can rerun. I'm on X at [@iam_tarique](https://x.com/iam_tarique).
+I'm Tarique Smith, co-founder and CTO of Cogensec, an AI security lab, and I've spent more than fifteen years in cybersecurity. Coding agents write code faster than anyone can review it, and much of it ships on the strength of a green build and the agent's own say-so. ttstack is the set of habits I want from an agent instead. It reads the code before changing it, tries more than one design, and checks its result against the thing a user would actually run. A threat model and a security review count toward "done". The output is smaller diffs, and every claim in them points at evidence you can rerun. I'm on X at [@iam_tarique](https://x.com/iam_tarique).
 
-tstack is a plugin of skills, playbooks, principles and two subagents. It runs in Claude Code, Cursor, Codex, Gemini CLI, Copilot, Goose, Windsurf, Cline, Roo, OpenCode, Amp, Kiro and other agents that read `SKILL.md` files. Skills never name one agent's tools. Each agent's page under [docs/agents/](docs/agents/) maps the neutral verbs ("spawn a read-only subagent", "ask the user", "track a todo list") onto that agent's real tools, and says which features the agent lacks.
+ttstack is a plugin of skills, playbooks, principles and two subagents. It runs in Claude Code, Cursor, Codex, Gemini CLI, Copilot, Goose, Windsurf, Cline, Roo, OpenCode, Amp, Kiro and other agents that read `SKILL.md` files. Skills never name one agent's tools. Each agent's page under [docs/agents/](docs/agents/) maps the neutral verbs ("spawn a read-only subagent", "ask the user", "track a todo list") onto that agent's real tools, and says which features the agent lacks.
 
 ## Contents
 
@@ -23,17 +23,17 @@ tstack is a plugin of skills, playbooks, principles and two subagents. It runs i
 
 ## Install
 
-Pick your agent. Each agent's page covers updates, where model config lands, and the tstack features that agent cannot run.
+Pick your agent. Each agent's page covers updates, where model config lands, and the ttstack features that agent cannot run.
 
 | Agent | Install | Details |
 | --- | --- | --- |
-| Claude Code | `/plugin marketplace add requie/tstack`, then `/plugin install tstack@tstack` | [claude-code.md](docs/agents/claude-code.md) |
-| Cursor | `git clone https://github.com/requie/tstack ~/.cursor/plugins/local/tstack`, then reload the window | [cursor.md](docs/agents/cursor.md) |
-| Codex CLI | `codex plugin marketplace add requie/tstack`, then install tstack from the Plugins Directory | [codex.md](docs/agents/codex.md) |
-| Gemini CLI | `gemini extensions install https://github.com/requie/tstack` | [gemini-cli.md](docs/agents/gemini-cli.md) |
-| GitHub Copilot | `copilot plugin install requie/tstack` | [copilot.md](docs/agents/copilot.md) |
-| Goose | `goose plugin install https://github.com/requie/tstack.git` | [goose.md](docs/agents/goose.md) |
-| Amp | `amp skill add requie/tstack --global` | [amp.md](docs/agents/amp.md) |
+| Claude Code | `/plugin marketplace add requie/ttstack`, then `/plugin install ttstack@ttstack` | [claude-code.md](docs/agents/claude-code.md) |
+| Cursor | `git clone https://github.com/requie/ttstack ~/.cursor/plugins/local/ttstack`, then reload the window | [cursor.md](docs/agents/cursor.md) |
+| Codex CLI | `codex plugin marketplace add requie/ttstack`, then install ttstack from the Plugins Directory | [codex.md](docs/agents/codex.md) |
+| Gemini CLI | `gemini extensions install https://github.com/requie/ttstack` | [gemini-cli.md](docs/agents/gemini-cli.md) |
+| GitHub Copilot | `copilot plugin install requie/ttstack` | [copilot.md](docs/agents/copilot.md) |
+| Goose | `goose plugin install https://github.com/requie/ttstack.git` | [goose.md](docs/agents/goose.md) |
+| Amp | `amp skill add requie/ttstack --global` | [amp.md](docs/agents/amp.md) |
 | Kiro | Import from GitHub as a custom Power, plus the installer for subagents | [kiro.md](docs/agents/kiro.md) |
 | Devin Desktop (formerly Windsurf), Cline, Roo Code, OpenCode, Aider, Zed, JetBrains Junie | The installer from a clone: `./install.sh --agents <id>` | [devin-desktop.md](docs/agents/devin-desktop.md), [cline.md](docs/agents/cline.md), [roo-code.md](docs/agents/roo-code.md), [opencode.md](docs/agents/opencode.md), [aider.md](docs/agents/aider.md), [zed.md](docs/agents/zed.md), [junie.md](docs/agents/junie.md) |
 
@@ -43,21 +43,21 @@ The installer works for every agent above, including the ones with a plugin rout
 ./install.sh [--scope project|user] [--agents auto|a,b] [--link] [--dry-run] [--uninstall] [--no-rules] [--project <dir>]
 ```
 
-On Windows, run `install.ps1` with the same options. `--scope project` (the default) writes into the current repository and `--scope user` into your home directory. `--agents auto` (the default) detects which agents are installed, or you pass a comma list of agent ids. `--link` symlinks instead of copying, so `git pull` updates the install. `--dry-run` prints every action without writing. `--uninstall` removes exactly what an earlier install wrote. `--no-rules` skips the tstack block in `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`. `--project <dir>` names the project root for a project install. `./install.sh --help` prints the same list.
+On Windows, run `install.ps1` with the same options. `--scope project` (the default) writes into the current repository and `--scope user` into your home directory. `--agents auto` (the default) detects which agents are installed, or you pass a comma list of agent ids. `--link` symlinks instead of copying, so `git pull` updates the install. `--dry-run` prints every action without writing. `--uninstall` removes exactly what an earlier install wrote. `--no-rules` skips the ttstack block in `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`. `--project <dir>` names the project root for a project install. `./install.sh --help` prints the same list.
 
 Notes that apply to most agents:
 
-- Claude Code prefixes plugin commands with the plugin name, so `/tarique-mode` shows up as `/tstack:tarique-mode`. Third-party marketplaces do not auto-update by default; the Claude Code page explains how to enable that or update by hand.
-- Installing runs nothing. A skill loads only when you type it or `tarique-mode` calls it, with one exception: `setup-tstack` also responds to a plain "set up tstack".
+- Claude Code prefixes plugin commands with the plugin name, so `/tarique-mode` shows up as `/ttstack:tarique-mode`. Third-party marketplaces do not auto-update by default; the Claude Code page explains how to enable that or update by hand.
+- Installing runs nothing. A skill loads only when you type it or `tarique-mode` calls it, with one exception: `setup-ttstack` also responds to a plain "set up ttstack".
 - When your agent lacks something a skill assumes (parallel subagents, a hosted PR review bot, scheduled runs, cloud agents, worktrees), the skill skips that step, says so in one line of its reply, and keeps going.
 
 ## Get started
 
 Setup comes first, then a real task.
 
-**First, run `/setup-tstack`.** It finds out which models your agent's subagents can use, asks for a reasoning budget (`small`, `medium`, `large`, `unlimited`; `large` is the default), maps every tstack role to a tier or a model, and writes `~/.tstack/models.toml`. A team can commit `.tstack/models.toml` at the repo root instead, and that project file wins key by key. Setup writes only model names it saw your agent accept or that you typed. Before finishing, it makes two one-time offers: build the project a skill that drives the running app to prove changes, and build one that model-checks a property tests rarely reach. Skills read the config when they load, so start a new chat once setup is done.
+**First, run `/setup-ttstack`.** It finds out which models your agent's subagents can use, asks for a reasoning budget (`small`, `medium`, `large`, `unlimited`; `large` is the default), maps every ttstack role to a tier or a model, and writes `~/.ttstack/models.toml`. A team can commit `.ttstack/models.toml` at the repo root instead, and that project file wins key by key. Setup writes only model names it saw your agent accept or that you typed. Before finishing, it makes two one-time offers: build the project a skill that drives the running app to prove changes, and build one that model-checks a property tests rarely reach. Skills read the config when they load, so start a new chat once setup is done.
 
-tstack speaks in three tiers. `strong` handles judgment, prose, review and the hardest code. `fast` handles mechanical edits, exploration and verification sweeps. `standard` sits between them. Out of the box, code-writing delegates for features, refactors, bug fixes, perf fixes and hillclimb attempts run on `fast`, design and review run on `strong`, and review panels default to two seats, one `strong` and one `fast`. A role set to `inherit` runs on whatever model the chat uses. Each panel role is a list whose length is the number of seats.
+ttstack speaks in three tiers. `strong` handles judgment, prose, review and the hardest code. `fast` handles mechanical edits, exploration and verification sweeps. `standard` sits between them. Out of the box, code-writing delegates for features, refactors, bug fixes, perf fixes and hillclimb attempts run on `fast`, design and review run on `strong`, and review panels default to two seats, one `strong` and one `fast`. A role set to `inherit` runs on whatever model the chat uses. Each panel role is a list whose length is the number of seats.
 
 **Then, start real work with `/tarique-mode`.** Describe the goal and the check that will tell you it succeeded. For example:
 
@@ -84,13 +84,13 @@ Large or cross-cutting work, and work you plan to leave running, goes to [`figur
 
 ## Skills
 
-`tarique-mode` calls most of these itself. The table is for calling them directly, when you want a stronger or lighter dose than the playbook would give. Skills marked "typed only" carry `disable-model-invocation: true`, so agents that honor the flag load them only when you type the command or another tstack skill calls them.
+`tarique-mode` calls most of these itself. The table is for calling them directly, when you want a stronger or lighter dose than the playbook would give. Skills marked "typed only" carry `disable-model-invocation: true`, so agents that honor the flag load them only when you type the command or another ttstack skill calls them.
 
 | Skill | Use it when |
 | --- | --- |
 | [tarique-mode](skills/tarique-mode/SKILL.md) | You start any task that needs rigor. Routes to a playbook and sets security gates, subagent policy and reply style. Typed only. |
 | [tarique-help](skills/tarique-help/SKILL.md) | You want to know which skill fits, how to set up, or why a run went wrong. Answers and hands you a prompt without starting work. |
-| [setup-tstack](skills/setup-tstack/SKILL.md) | First install, or you want to change models, budget or cost. Writes `models.toml`. |
+| [setup-ttstack](skills/setup-ttstack/SKILL.md) | First install, or you want to change models, budget or cost. Writes `models.toml`. |
 | [in-your-own-words](skills/in-your-own-words/SKILL.md) | A request is long or messy and you want the agent to state your goal back before doing anything. |
 | [sharpen](skills/sharpen/SKILL.md) | You have a draft prompt and want an expert-depth version of the same task, without doing it. |
 | [how](skills/how/SKILL.md) | You need to know how part of the code works, or where new code belongs. |
@@ -164,7 +164,7 @@ Playbooks live in [skills/tarique-mode/playbooks/](skills/tarique-mode/playbooks
 
 Some phrasings select a playbook directly once the mode is on. "Check on PR 412" goes to babysit in its one-pass `check` mode. "Land this stack" goes to shipping. "Take over this branch" goes to session-pickup. A babysit never merges. Merging happens when you say to merge, land or ship, and those words route to shipping.
 
-tstack has no separate planning skill, and you can keep using your agent's plan mode next to it. When a change will need several PRs, ask `tarique-mode` for a plan and it routes to the multi-phase-plan playbook. That playbook writes the plan in the format [PLAN-FORMAT.md](skills/tarique-mode/scripts/PLAN-FORMAT.md) defines (a reading section, a Run checklist, one section per PR with Needs, Touches, Changes, Observable result, Unit proof, Live proof, Perf proof, Operator review and Landing blocks, then Finish the run and appendices), lints it with `scripts/check-plan.mjs`, and stops before any implementation. Open design questions get answered in code first, through prototypes or `architect`.
+ttstack has no separate planning skill, and you can keep using your agent's plan mode next to it. When a change will need several PRs, ask `tarique-mode` for a plan and it routes to the multi-phase-plan playbook. That playbook writes the plan in the format [PLAN-FORMAT.md](skills/tarique-mode/scripts/PLAN-FORMAT.md) defines (a reading section, a Run checklist, one section per PR with Needs, Touches, Changes, Observable result, Unit proof, Live proof, Perf proof, Operator review and Landing blocks, then Finish the run and appendices), lints it with `scripts/check-plan.mjs`, and stops before any implementation. Open design questions get answered in code first, through prototypes or `architect`.
 
 ## Principles
 
@@ -339,7 +339,7 @@ on commit 4f1c2ab. Return one table.
 
 ## Security model
 
-tstack treats security as part of the definition of done for every change. Four mechanisms do that work.
+ttstack treats security as part of the definition of done for every change. Four mechanisms do that work.
 
 **Threat model before building.** When a change touches a trust boundary (new input parsing, authentication or authorization, secrets, network calls to destinations a user can influence, file paths built from input, deserialization, new dependencies, or an agent that reads outside content and then acts), `tarique-mode` runs [`threat-model`](skills/threat-model/SKILL.md) after the data shape is settled and before implementation is delegated. The skill maps the code with read-only subagents, draws data flows and trust zones, lists assets, entry points and attacker positions, and writes ranked abuse paths with `file:line` hops. Every mitigation at medium or above gets a named proof: a unit test, an integration test, a policy check, or an adversarial fixture such as a document with injected instructions and an assertion that the forbidden tool was never called. Those proofs become tasks in the playbook's verification step, so they get built with the feature. A change that crosses no boundary gets one todo line saying which boundaries were checked.
 
@@ -361,13 +361,13 @@ Two subagent definitions live in [agents/](agents/).
 
 ## Make it yours
 
-tstack carries my defaults. Your own habits belong in a skill of your own that runs alongside it.
+ttstack carries my defaults. Your own habits belong in a skill of your own that runs alongside it.
 
 [`automate-me`](skills/automate-me/SKILL.md) builds that skill. It mines your recent chat transcripts for this workspace only, splitting them into periods and keeping patterns that show up in more than one. It asks you a few multiple-choice questions to catch preferences you haven't shown yet, groups the results (reply style, autonomy, subagents, standards, verification, process, security habits), drafts `<handle>-mode` through your agent's skill-authoring flow, runs `unslop` over it, and opens a PR. Run it again later and it mines only history newer than the skill's last commit, keeping every rule you haven't contradicted.
 
 Two other skills keep the setup honest over time. [`reflect`](skills/reflect/SKILL.md) turns one session's lessons into skill edits you approve. [`correct`](skills/correct/SKILL.md) finds mistake classes that recur in the repo and blocks each at the strongest level that works: structure first, then types and lint, then tests, with prose rules last.
 
-Models are yours too. Rerun `/setup-tstack` to change the budget or any role. Deleting a line in `models.toml` restores that role's default. Reruns keep the roles you changed. If a default changes in a later tstack release, a file written before the change keeps pinning the old value until you delete that line or rerun setup.
+Models are yours too. Rerun `/setup-ttstack` to change the budget or any role. Deleting a line in `models.toml` restores that role's default. Reruns keep the roles you changed. If a default changes in a later ttstack release, a file written before the change keeps pinning the old value until you delete that line or rerun setup.
 
 ## Automations
 
@@ -395,7 +395,7 @@ scripts/                            installer, build, lint and their tests
 
 ## Contributing
 
-Skills are instructions that agents follow, so a change to one changes agent behavior for everyone who installs tstack. Open every change as a PR. When a skill misbehaves while you are working on something else, note it and correct the skill in a separate PR, so the change gets reviewed as a change to agent behavior.
+Skills are instructions that agents follow, so a change to one changes agent behavior for everyone who installs ttstack. Open every change as a PR. When a skill misbehaves while you are working on something else, note it and correct the skill in a separate PR, so the change gets reviewed as a change to agent behavior.
 
 - Write or edit skills through the authoring-a-skill playbook: `/tarique-mode write a skill that ...`. It checks frontmatter (`name` equal to the folder, a one-sentence `description`), every referenced file and every cross-skill link.
 - To measure whether a skill change helps, ask `tarique-mode` to run the eval playbook. Candidates work in sanitized directories and never learn they are being evaluated, and the judge sees neutral labels only.

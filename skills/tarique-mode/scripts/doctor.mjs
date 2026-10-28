@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// doctor: check that the tools tstack's scripts call are installed, and say what is missing.
-// tstack scripts are plain Node ESM with no npm dependencies, so there is nothing to install;
+// doctor: check that the tools ttstack's scripts call are installed, and say what is missing.
+// ttstack scripts are plain Node ESM with no npm dependencies, so there is nothing to install;
 // this replaces a dependency bootstrap with a presence check.
 //
 // Usage: node doctor.mjs [--json]

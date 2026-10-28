@@ -1,6 +1,6 @@
 # 9. Make it yours
 
-tstack ships with my defaults. Over a few weeks you will find places where your team works differently, mistakes your repo keeps inviting, and procedures you repeat that deserve a skill. This page covers the tools for adapting tstack. The habit it teaches is to start small and add a rule, check or skill only after a failure has happened twice.
+ttstack ships with my defaults. Over a few weeks you will find places where your team works differently, mistakes your repo keeps inviting, and procedures you repeat that deserve a skill. This page covers the tools for adapting ttstack. The habit it teaches is to start small and add a rule, check or skill only after a failure has happened twice.
 
 ## automate-me: your own mode skill
 

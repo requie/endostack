@@ -10,16 +10,16 @@ You install the pack, configure it, prove each integration works, and prepare th
 
 Read [../../FOR_AGENTS.md](../../FOR_AGENTS.md) first if you have not. It is the statement of intent; this file is the procedure. Track a todo list with one item per numbered step below.
 
-## 1. Copy the pack and enable tstack at project scope
+## 1. Copy the pack and enable ttstack at project scope
 
 Do this before asking configuration questions, because later steps read files from the copied pack.
 
 1. Ask the user which repository will run issue-loop. You copy from the folder that holds `FOR_AGENTS.md` into `<target>/.issue-loop/pack/`, or into another repo-relative path if the person prefers one. Settle on a single destination and keep using it, because each live prompt and workflow names it.
 2. Merge the source into the destination. Create the destination if it is absent. Copy each file to the same relative path. Keep files that exist only in the destination. Never delete unrelated files. Never overwrite the person's config, feature map, or routing map. When a pack-managed file differs from the source, read the diff and merge so local edits survive. If you cannot tell who owns a file, stop and ask the user. The merge must converge: running setup twice leaves the same tree (see the `principle-make-operations-idempotent` skill, [../../../../skills/principle-make-operations-idempotent/SKILL.md](../../../../skills/principle-make-operations-idempotent/SKILL.md)).
 3. Verify the destination holds `FOR_AGENTS.md`, this file, both operational files, every file under each `references/`, all three templates, and the `scripts/` directory with its `lib/` and `test/` folders. If you are already running from the destination copy, treat the copy as done and still verify.
-4. Enable tstack for the target repository at project scope, using the agent's committed project settings file as described in `docs/agents/<agent>.md`. Create the file if it is missing. Preserve every unrelated setting, other plugin entries, comments, and JSONC syntax. If a tstack entry already exists, change only its enabled flag. Parse the file after editing to confirm it is valid.
+4. Enable ttstack for the target repository at project scope, using the agent's committed project settings file as described in `docs/agents/<agent>.md`. Create the file if it is missing. Preserve every unrelated setting, other plugin entries, comments, and JSONC syntax. If a ttstack entry already exists, change only its enabled flag. Parse the file after editing to confirm it is valid.
 5. Start a fresh agent session rooted in the target repository and confirm these resolve from project scope: the `how`, `why`, `tdd`, `unslop`, and `principle-treat-input-as-untrusted` skills, and the principles `separate-before-serializing-shared-state`, `minimize-reader-load`, `guard-the-context-window`, `sequence-verifiable-units`, `fix-root-causes`, and `prove-it-works`. A skill that resolves only because of your current session or a user-level install does not count, because the automation's fresh checkout will not have it.
-6. If the agent has no project-scoped plugin settings, or any listed skill fails to resolve, stop and explain what is missing. Either the runner installs tstack itself before each run (the GitHub Actions examples in [references/runners.md](references/runners.md) show this), or the person picks a different agent.
+6. If the agent has no project-scoped plugin settings, or any listed skill fails to resolve, stop and explain what is missing. Either the runner installs ttstack itself before each run (the GitHub Actions examples in [references/runners.md](references/runners.md) show this), or the person picks a different agent.
 7. Do not add the pack directory to any plugin manifest. The automations read their files by path.
 8. Tell the user that the settings file, the pack directory, the secret-free config, and any workflow file must be committed on the branch the runner checks out before anything is enabled. Do not commit unless the user asks.
 
@@ -112,4 +112,4 @@ Also confirm the injected line had no effect: no label, no secret, no extra comm
 
 ## Done when
 
-The pack is merged, tstack resolves at project scope, the person's config and feature map exist outside the pack, every capability was proven by a real call, the runner files are drafted with least-privilege scopes, and either the test passed and the person enabled the automations or you told them exactly which check failed.
+The pack is merged, ttstack resolves at project scope, the person's config and feature map exist outside the pack, every capability was proven by a real call, the runner files are drafted with least-privilege scopes, and either the test passed and the person enabled the automations or you told them exactly which check failed.

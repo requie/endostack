@@ -16,7 +16,7 @@ The launcher is POSIX `sh`. It follows symlinks to find `statechart.mjs` and run
 
 ## Toolchain
 
-Set `TLA2TOOLS` to a `tla2tools.jar` and, if `java` is not on `PATH`, `JAVA` to a Java 11+ binary. Without `TLA2TOOLS`, the command downloads tla2tools 1.7.4 from the official GitHub release once, checks its pinned sha256, and keeps it in `~/.cache/tstack/statechart` (override with `STATECHART_CACHE`; set `STATECHART_NO_DOWNLOAD=1` to forbid the download). Java itself is never installed for you; the error message says how.
+Set `TLA2TOOLS` to a `tla2tools.jar` and, if `java` is not on `PATH`, `JAVA` to a Java 11+ binary. Without `TLA2TOOLS`, the command downloads tla2tools 1.7.4 from the official GitHub release once, checks its pinned sha256, and keeps it in `~/.cache/ttstack/statechart` (override with `STATECHART_CACHE`; set `STATECHART_NO_DOWNLOAD=1` to forbid the download). Java itself is never installed for you; the error message says how.
 
 ## Output
 

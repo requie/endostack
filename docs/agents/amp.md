@@ -1,13 +1,13 @@
-# tstack in Amp
+# ttstack in Amp
 
-Amp reads skills from `.agents/skills/` and several other directories, and has a built-in Task subagent. Custom subagents and commands exist only as TypeScript plugins, which tstack does not ship.
+Amp reads skills from `.agents/skills/` and several other directories, and has a built-in Task subagent. Custom subagents and commands exist only as TypeScript plugins, which ttstack does not ship.
 
 ## Install
 
 **Skill installer:**
 
 ```sh
-amp skill add requie/tstack --global
+amp skill add requie/ttstack --global
 ```
 
 **Files, one project:**
@@ -22,7 +22,7 @@ amp skill add requie/tstack --global
 ./install.sh --scope user --agents amp
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -32,13 +32,13 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | Subagents, commands | Not installed. Amp defines both only in TypeScript plugins. |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Amp |
+| ttstack verb | Tool in Amp |
 | --- | --- |
 | Spawn a subagent | Task |
 | Ask the user | not documented |
@@ -55,14 +55,14 @@ tstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Every subagent runs on the model Amp picks for Task; tstack cannot choose per role. Panels vary each seat's brief instead of its model.
+Every subagent runs on the model Amp picks for Task; ttstack cannot choose per role. Panels vary each seat's brief instead of its model.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 
 - `tarique-agent` and `comment-auditor` are not registered as named subagents. Skills spawn Task with the agent definition pasted into the brief.
-- Amp also scans `~/.claude/skills/` and `~/.claude/plugins/cache/`. With tstack installed for Claude Code too, each skill appears twice; the copies are identical.
+- Amp also scans `~/.claude/skills/` and `~/.claude/plugins/cache/`. With ttstack installed for Claude Code too, each skill appears twice; the copies are identical.
 - `recall`, `reflect`, `show-me-your-work` and `automate-me` cannot read past transcripts from disk.
 
 Non-interactive mode (used by [make-bot-ui](../../skills/make-bot-ui/SKILL.md) for a local bot): `amp -x "<prompt>"` (unverified).

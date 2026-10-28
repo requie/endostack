@@ -1,11 +1,11 @@
 {
-  "name": "tstack",
+  "name": "ttstack",
   "interface": {
-    "displayName": "tstack"
+    "displayName": "ttstack"
   },
   "plugins": [
     {
-      "name": "tstack",
+      "name": "ttstack",
       "source": {
         "source": "local",
         "path": "./"

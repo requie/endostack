@@ -33,7 +33,7 @@ Run the [`arena` skill](../arena/SKILL.md) with:
 - Task: "produce a design sketch" for this change.
 - Grounding: the path to your grounding output.
 - Runner brief: [references/runner-brief.md](references/runner-brief.md), given to every runner unchanged.
-- Runners: the `architect-runners` key from the tstack model config (`.tstack/models.toml` wins over `~/.tstack/models.toml`). This replaces arena's own runner list for this call. With no config, use `strong` and `fast`. `inherit` and rejected model names are handled the way arena handles them.
+- Runners: the `architect-runners` key from the ttstack model config (`.ttstack/models.toml` wins over `~/.ttstack/models.toml`). This replaces arena's own runner list for this call. With no config, use `strong` and `fast`. `inherit` and rejected model names are handled the way arena handles them.
 
 Require at least two candidates that differ in overall structure before you merge, even if the first looks fine. Two variations on one structure do not count. This puts [`principle-exhaust-the-design-space`](../principle-exhaust-the-design-space/SKILL.md) into practice: the first design you see anchors you, and the only cure is a real alternative.
 
@@ -95,4 +95,4 @@ The code is complete against an agreed sketch with every deviation raised, or th
 
 - The [`correct` skill](../correct/SKILL.md) uses the same model of the next contributor and overlapping red flags, applied to an existing repository.
 - The [`threat-model` skill](../threat-model/SKILL.md) goes deeper on the trust boundaries this skill records.
-- The [`setup-tstack` skill](../setup-tstack/SKILL.md) writes the runner list.
+- The [`setup-ttstack` skill](../setup-ttstack/SKILL.md) writes the runner list.

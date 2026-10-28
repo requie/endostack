@@ -27,7 +27,7 @@ behavior
   --allow-draft              do not treat draft as a merge gate
   --review-bot <login>       account whose threads count as review-bot threads (repeatable)
   --approval-check <name>    check that waits on a human approval; reported as a gate (repeatable)
-  --config <file>            JSON config (default: .tstack/watch-pr.json if present)
+  --config <file>            JSON config (default: .ttstack/watch-pr.json if present)
   --pretty                   human-readable text instead of JSON lines
   -h, --help                 show this help
 

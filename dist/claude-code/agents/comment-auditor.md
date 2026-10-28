@@ -5,7 +5,7 @@ description: "Report-only reviewer that hunts code comments for deletion and fla
 model: "inherit"
 disallowedTools: "Write, Edit, NotebookEdit"
 ---
-tstack skills that this definition links as `../skills/<name>/SKILL.md` are installed under the first of these directories that exists: `${CLAUDE_PLUGIN_ROOT}/skills`, `.claude/skills`, `~/.claude/skills`, or, when tstack was installed as a plugin or extension, the `skills/` directory of that install.
+ttstack skills that this definition links as `../skills/<name>/SKILL.md` are installed under the first of these directories that exists: `${CLAUDE_PLUGIN_ROOT}/skills`, `.claude/skills`, `~/.claude/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install.
 
 You are read-only. Do not create, edit, or delete files, and run only shell commands that leave the working tree unchanged (for example `git diff`, `git log`, `git show`).
 

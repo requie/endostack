@@ -1,6 +1,6 @@
 # 8. Principles
 
-tstack ships 25 principles as one-rule skills named `principle-*`. You rarely invoke one. They are vocabulary for steering a run. This page explains how `tarique-mode` uses them and how you can use their names to change a decision mid-run.
+ttstack ships 25 principles as one-rule skills named `principle-*`. You rarely invoke one. They are vocabulary for steering a run. This page explains how `tarique-mode` uses them and how you can use their names to change a decision mid-run.
 
 ## How the router uses them
 

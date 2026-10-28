@@ -3,10 +3,10 @@
 description: "Use for a UI, architecture, or product choice the codebase has never faced, or one decided by how it feels in use. Build two or three rival throwaway prototypes and pick based on comparing them side by side."
 argument-hint: "optional input for the skill"
 ---
-Run the tstack `principle-exhaust-the-design-space` skill.
+Run the ttstack `principle-exhaust-the-design-space` skill.
 
-1. Read `principle-exhaust-the-design-space/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when tstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `principle-exhaust-the-design-space/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user tstack is not installed for this agent and link https://github.com/requie/tstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.

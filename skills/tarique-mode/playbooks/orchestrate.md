@@ -149,7 +149,7 @@ Fix only discovered problems that block the frontier. Park everything else as fo
 
 ## Subagents
 
-All launches run in the background, receive file paths instead of pasted context, and get their reasoning level and speed from the router's subagent rules and the roles in `~/.tstack/models.toml` (or the project's `.tstack/models.toml`).
+All launches run in the background, receive file paths instead of pasted context, and get their reasoning level and speed from the router's subagent rules and the roles in `~/.ttstack/models.toml` (or the project's `.ttstack/models.toml`).
 
 - Helpers write code, one per unit, many at once. `fast` tier for mechanical units, `strong` for the hardest. Remote by default. They return the brief's report.
 - Verifiers run the change and record a ledger row. Read-only except for the ledger and PR comment. Different model family from the author. They return verdict and evidence.

@@ -1,4 +1,4 @@
-# tstack in Codex CLI
+# ttstack in Codex CLI
 
 Codex reads skills from `.agents/skills/` and custom agents from TOML files in `.codex/agents/`. The repository root `plugin.json` is an Agent Plugins manifest with Codex settings under `extensions["com.openai"]`.
 
@@ -7,10 +7,10 @@ Codex reads skills from `.agents/skills/` and custom agents from TOML files in `
 **Plugin:**
 
 ```sh
-codex plugin marketplace add requie/tstack
+codex plugin marketplace add requie/ttstack
 ```
 
-Then install tstack from the Plugins Directory in the Codex app.
+Then install ttstack from the Plugins Directory in the Codex app.
 
 **Files, one project:**
 
@@ -24,7 +24,7 @@ Then install tstack from the Plugins Directory in the Codex app.
 ./install.sh --scope user --agents codex
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -35,13 +35,13 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | Subagents | `.codex/agents/<name>.toml` or `~/.codex/agents/<name>.toml` (fields `name`, `description`, `developer_instructions`). Project agents load only in trusted projects. |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Codex CLI |
+| ttstack verb | Tool in Codex CLI |
 | --- | --- |
 | Spawn a subagent | `spawn_agent` (unverified) |
 | Ask the user | not documented |
@@ -58,9 +58,9 @@ tstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Model choice is per agent definition: the `model` and `model_reasoning_effort` fields in an agent TOML file. The spawn call itself takes no model. tstack's generated agents set neither field, so they run on the session model. To pin a role, add `model` to the installed TOML file (the uninstaller then keeps that file because you changed it).
+Model choice is per agent definition: the `model` and `model_reasoning_effort` fields in an agent TOML file. The spawn call itself takes no model. ttstack's generated agents set neither field, so they run on the session model. To pin a role, add `model` to the installed TOML file (the uninstaller then keeps that file because you changed it).
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 

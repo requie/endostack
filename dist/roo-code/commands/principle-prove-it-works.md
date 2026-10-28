@@ -3,10 +3,10 @@
 description: "Use at the end of every task, before you say it succeeded. Check the actual output yourself, for example by exercising the feature, reading back what got stored, or opening the diff. A proxy signal, a subagent's self-report, or a successful compile does not count."
 argument-hint: "optional input for the skill"
 ---
-Run the tstack `principle-prove-it-works` skill.
+Run the ttstack `principle-prove-it-works` skill.
 
-1. Read `principle-prove-it-works/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when tstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `principle-prove-it-works/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user tstack is not installed for this agent and link https://github.com/requie/tstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.

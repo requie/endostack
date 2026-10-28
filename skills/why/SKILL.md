@@ -117,7 +117,7 @@ The synthesizer brief defines the sections: the question, the code concerned, fi
 | Investigator | one per reachable category, at most seven, one batch | `fast`, high reasoning effort | connector access, no writes |
 | Synthesizer | one, after all investigators | `strong` | connector access, no writes |
 
-Read each role's model from the tstack model config (`.tstack/models.toml` in the project, else `~/.tstack/models.toml`) under the keys `why-investigator` and `why-synthesizer`. If the file or key is missing, use the tier default. A value of `auto` or `inherit` means leave the model unset. If the spawn call rejects the configured model, fall back to the tier default and tell the user; if that is refused too, use the closest valid model in the same family. Reasoning effort and speed come from the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router. If your agent cannot run subagents in parallel, run the investigator briefs one after another yourself, keeping each source's work separate.
+Read each role's model from the ttstack model config (`.ttstack/models.toml` in the project, else `~/.ttstack/models.toml`) under the keys `why-investigator` and `why-synthesizer`. If the file or key is missing, use the tier default. A value of `auto` or `inherit` means leave the model unset. If the spawn call rejects the configured model, fall back to the tier default and tell the user; if that is refused too, use the closest valid model in the same family. Reasoning effort and speed come from the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router. If your agent cannot run subagents in parallel, run the investigator briefs one after another yourself, keeping each source's work separate.
 
 ## Done when
 

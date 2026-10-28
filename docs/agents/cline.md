@@ -1,4 +1,4 @@
-# tstack in Cline
+# ttstack in Cline
 
 Cline reads skills from `.cline/skills/` (project) and `~/.cline/skills/` (user) and does not document `.agents/skills/`. It has a built-in subagent tool but no custom subagent files.
 
@@ -16,7 +16,7 @@ Cline reads skills from `.cline/skills/` (project) and `~/.cline/skills/` (user)
 ./install.sh --scope user --agents cline
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -26,13 +26,13 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | Subagents, commands | Not installed. Cline has no custom subagent format, and skills already appear as `/<name>`. |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Cline |
+| ttstack verb | Tool in Cline |
 | --- | --- |
 | Spawn a subagent | `spawn_agent` |
 | Ask the user | `ask_question` |
@@ -51,7 +51,7 @@ tstack skills use neutral verbs. In this agent they mean:
 
 Every subagent runs on the session model; `spawn_agent` takes no model. Panels vary each seat's brief instead of its model.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 

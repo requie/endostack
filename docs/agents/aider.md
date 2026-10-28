@@ -1,6 +1,6 @@
-# tstack in Aider
+# ttstack in Aider
 
-Aider has no skills, subagents, or file-based commands. tstack gives it an index of skills as read-only context, and you add a skill file to the chat when you want to run it.
+Aider has no skills, subagents, or file-based commands. ttstack gives it an index of skills as read-only context, and you add a skill file to the chat when you want to run it.
 
 ## Install
 
@@ -16,23 +16,23 @@ Aider has no skills, subagents, or file-based commands. tstack gives it an index
 ./install.sh --scope user --agents aider
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
 | What | Path |
 | --- | --- |
 | Skills | `.agents/skills/<name>/` or `~/.agents/skills/<name>/` (plain files Aider does not load by itself) |
-| Index | `.tstack/aider.md` (project) or `~/.tstack/aider.md` (user): one line per skill and how to load it |
+| Index | `.ttstack/aider.md` (project) or `~/.ttstack/aider.md` (user): one line per skill and how to load it |
 | Config | A marked block in `.aider.conf.yml` (project root or home) with `read:` pointing at the index. If the file already has its own `read:` list, the installer leaves it alone and tells you the path to add. |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Aider |
+| ttstack verb | Tool in Aider |
 | --- | --- |
 | Spawn a subagent | none |
 | Ask the user | plain text |
@@ -51,7 +51,7 @@ tstack skills use neutral verbs. In this agent they mean:
 
 No subagents. Every role runs in the main chat on Aider's main model.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 

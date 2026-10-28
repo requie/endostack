@@ -1,5 +1,5 @@
 {
-  "name": "tstack-tarique-mode-scripts",
+  "name": "ttstack-tarique-mode-scripts",
   "private": true,
   "type": "module",
   "description": "Bundled tools for the tarique-mode router skill. No dependencies.",

@@ -26,7 +26,7 @@ watch-pr [options]
 | `--allow-draft` | do not treat draft status as a merge gate | off |
 | `--review-bot <login>` | account whose threads are review-bot threads; repeatable | none |
 | `--approval-check <name>` | check name that waits on a human approval; repeatable | none |
-| `--config <file>` | JSON config file | `.tstack/watch-pr.json` if it exists |
+| `--config <file>` | JSON config file | `.ttstack/watch-pr.json` if it exists |
 | `--pretty` | human-readable text instead of JSON | off |
 | `-h`, `--help` | print help and exit 0 without calling GitHub | |
 

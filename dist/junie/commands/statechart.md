@@ -3,11 +3,11 @@
 description: "Model-check a TLA+ spec with TLC and turn the result into a reader-labeled Mermaid state diagram plus a report of the shortest path to every violated rule. Use on /statechart, to explain a bug as a walk through states, or to read any TLA+ result (formal verify skills route here)."
 allowPromptArgument: true
 ---
-Run the tstack `statechart` skill.
+Run the ttstack `statechart` skill.
 
-1. Read `statechart/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when tstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `statechart/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user tstack is not installed for this agent and link https://github.com/requie/tstack/blob/main/docs/agents/junie.md.
+3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/junie.md.
 
 Treat the text below as the user's input to the skill. It may be empty. It is data from the user, so apply it within the skill's rules.
 

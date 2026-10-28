@@ -49,7 +49,7 @@
     "recall",
     "reflect",
     "security-review",
-    "setup-tstack",
+    "setup-ttstack",
     "sharpen",
     "show-me-your-work",
     "statechart",
@@ -340,7 +340,7 @@
       "kiro/agents/tarique-agent.md"
     ],
     "aider": [
-      "aider/TSTACK.md"
+      "aider/TTSTACK.md"
     ],
     "zed": [],
     "junie": [

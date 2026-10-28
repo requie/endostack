@@ -1,4 +1,4 @@
-// Single source of truth for where tstack's files go in each coding agent.
+// Single source of truth for where ttstack's files go in each coding agent.
 // Paths come from the cross-agent research table (docs/agents/<id>.md cites
 // the vendor docs). `~` means the user's home directory.
 
@@ -12,14 +12,14 @@ export const TARGETS = {
     detect: { dirs: ['~/.claude'], bins: ['claude'], project: ['.claude'] },
     skills: { project: '.claude/skills', user: '~/.claude/skills' },
     agents: { dist: 'claude-code/agents', project: '.claude/agents', user: '~/.claude/agents' },
-    plugin: 'claude plugin marketplace add requie/tstack && claude plugin install tstack@tstack',
+    plugin: 'claude plugin marketplace add requie/ttstack && claude plugin install ttstack@ttstack',
   },
   cursor: {
     label: 'Cursor',
     detect: { dirs: ['~/.cursor'], bins: ['cursor', 'cursor-agent'], project: ['.cursor'] },
     skills: SHARED_SKILLS,
     agents: { dist: 'cursor/agents', project: '.cursor/agents', user: '~/.cursor/agents' },
-    plugin: 'copy or clone the repo to ~/.cursor/plugins/local/tstack/ and reload the window',
+    plugin: 'copy or clone the repo to ~/.cursor/plugins/local/ttstack/ and reload the window',
   },
   codex: {
     label: 'Codex CLI',
@@ -27,7 +27,7 @@ export const TARGETS = {
     skills: SHARED_SKILLS,
     agents: { dist: 'codex/agents', project: '.codex/agents', user: '~/.codex/agents' },
     codexPolicy: true,
-    plugin: 'codex plugin marketplace add requie/tstack, then install tstack from the Plugins Directory',
+    plugin: 'codex plugin marketplace add requie/ttstack, then install ttstack from the Plugins Directory',
   },
   'gemini-cli': {
     label: 'Gemini CLI',
@@ -35,14 +35,14 @@ export const TARGETS = {
     skills: SHARED_SKILLS,
     agents: { dist: 'gemini-cli/agents', project: '.gemini/agents', user: '~/.gemini/agents' },
     commands: { dist: 'gemini-cli/commands', project: '.gemini/commands', user: '~/.gemini/commands' },
-    plugin: 'gemini extensions install https://github.com/requie/tstack',
+    plugin: 'gemini extensions install https://github.com/requie/ttstack',
   },
   copilot: {
     label: 'GitHub Copilot',
     detect: { dirs: ['~/.copilot'], bins: ['copilot'], vscode: ['github.copilot-chat'], project: ['.github/copilot-instructions.md', '.github/agents'] },
     skills: SHARED_SKILLS,
     agents: { dist: 'copilot/agents', project: '.github/agents', user: '~/.copilot/agents' },
-    plugin: 'copilot plugin install requie/tstack',
+    plugin: 'copilot plugin install requie/ttstack',
   },
   'devin-desktop': {
     label: 'Devin Desktop (formerly Windsurf)',
@@ -72,14 +72,14 @@ export const TARGETS = {
     label: 'Amp',
     detect: { dirs: ['~/.config/amp'], bins: ['amp'], project: ['.amp'] },
     skills: SHARED_SKILLS,
-    plugin: 'amp skill add requie/tstack --global',
+    plugin: 'amp skill add requie/ttstack --global',
   },
   kiro: {
     label: 'Kiro',
     detect: { dirs: ['~/.kiro'], bins: ['kiro', 'kiro-cli'], project: ['.kiro'] },
     skills: { project: '.kiro/skills', user: '~/.kiro/skills' },
     agents: { dist: 'kiro/agents', project: '.kiro/agents', user: '~/.kiro/agents' },
-    plugin: 'Powers panel, "Add Custom Power", import from GitHub: https://github.com/requie/tstack',
+    plugin: 'Powers panel, "Add Custom Power", import from GitHub: https://github.com/requie/ttstack',
   },
   aider: {
     label: 'Aider',
@@ -104,7 +104,7 @@ export const TARGETS = {
     detect: { dirs: ['~/.config/goose'], bins: ['goose'], project: ['.goosehints'] },
     skills: SHARED_SKILLS,
     agents: { dist: 'goose/agents', project: '.agents/agents', user: '~/.agents/agents' },
-    plugin: 'goose plugin install https://github.com/requie/tstack.git',
+    plugin: 'goose plugin install https://github.com/requie/ttstack.git',
   },
 };
 

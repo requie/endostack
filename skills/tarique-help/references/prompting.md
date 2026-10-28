@@ -1,4 +1,4 @@
-# Prompting tstack
+# Prompting ttstack
 
 The user supplies the intent and a way to tell when the work is done. The playbook supplies the procedure. That division is why a short, plain prompt usually does better than a detailed specification: the specification competes with the playbook's steps, and the playbook's steps were written to avoid the mistakes a hurried specification makes.
 

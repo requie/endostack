@@ -60,7 +60,7 @@ Test the finished result on the real product against the Phase A predicate. Pass
 
 ## Subagents
 
-Workers follow the fan-out you designed, each writing in its own worktree or branch and each paired with a read-only judge. Architect and arena runs cover irreversible design choices. Counts and model tiers come from your design and the router's guidance; model overrides live in the tstack model config (`.tstack/models.toml`, else `~/.tstack/models.toml`). Default to `fast` for mechanical units and judges that run checks, and `strong` for judgment-heavy units.
+Workers follow the fan-out you designed, each writing in its own worktree or branch and each paired with a read-only judge. Architect and arena runs cover irreversible design choices. Counts and model tiers come from your design and the router's guidance; model overrides live in the ttstack model config (`.ttstack/models.toml`, else `~/.ttstack/models.toml`). Default to `fast` for mechanical units and judges that run checks, and `strong` for judgment-heavy units.
 
 ## Reply
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Install tstack's skills, subagents and commands into the coding agents on
+// Install ttstack's skills, subagents and commands into the coding agents on
 // this machine, and remove exactly what an earlier run wrote.
 //
 //   node scripts/install.mjs [--scope project|user] [--agents auto|<id,id>]
@@ -7,7 +7,7 @@
 //                            [--project <dir>]
 //
 // Every file the installer writes is recorded, with its hash, in
-// .tstack/install-manifest.json (project scope) or ~/.tstack/install-manifest.json
+// .ttstack/install-manifest.json (project scope) or ~/.ttstack/install-manifest.json
 // (user scope). Uninstall deletes only files whose content still matches the
 // recorded hash, and removes only the marked blocks it added to shared files.
 import {
@@ -23,10 +23,10 @@ import { META } from './lib/meta.mjs';
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MANIFEST_VERSION = 1;
-export const BLOCK_BEGIN = '<!-- tstack:begin (managed by tstack install; remove with --uninstall) -->';
-export const BLOCK_END = '<!-- tstack:end -->';
-export const YAML_BEGIN = '# tstack:begin (managed by tstack install; remove with --uninstall)';
-export const YAML_END = '# tstack:end';
+export const BLOCK_BEGIN = '<!-- ttstack:begin (managed by ttstack install; remove with --uninstall) -->';
+export const BLOCK_END = '<!-- ttstack:end -->';
+export const YAML_BEGIN = '# ttstack:begin (managed by ttstack install; remove with --uninstall)';
+export const YAML_END = '# ttstack:end';
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 
@@ -63,10 +63,10 @@ export const USAGE = `Usage: install.sh [options]   (Windows: install.ps1, or no
                          user: write into your home directory for every project
   --agents auto|<list>   auto detects installed agents (default); or a comma list of:
                          ${TARGET_IDS.join(', ')}
-  --link                 symlink tstack's files instead of copying (updates follow git pull)
+  --link                 symlink ttstack's files instead of copying (updates follow git pull)
   --dry-run              print every action without changing anything
   --uninstall            remove exactly what an earlier install wrote
-  --no-rules             do not add the tstack block to AGENTS.md / CLAUDE.md / GEMINI.md
+  --no-rules             do not add the ttstack block to AGENTS.md / CLAUDE.md / GEMINI.md
   --project <dir>        project root for --scope project (default: current directory)
 `;
 
@@ -121,11 +121,11 @@ export function resolveAgents(spec, ctx) {
   return out;
 }
 
-// Claude Code reads tstack from the marketplace plugin when it is installed.
+// Claude Code reads ttstack from the marketplace plugin when it is installed.
 export function claudePluginInstalled(home) {
   const list = join(home, '.claude', 'plugins', 'installed_plugins.json');
-  if (existsSync(list) && /"tstack@/.test(readFileSync(list, 'utf8'))) return true;
-  return existsSync(join(home, '.claude', 'plugins', 'cache', 'tstack'));
+  if (existsSync(list) && /"ttstack@/.test(readFileSync(list, 'utf8'))) return true;
+  return existsSync(join(home, '.claude', 'plugins', 'cache', 'ttstack'));
 }
 
 // ------------------------------------------------------------------ plan --
@@ -152,9 +152,9 @@ function distFiles(source, sub) {
 function rulesBlock(skillsDir) {
   return [
     BLOCK_BEGIN,
-    '## tstack',
+    '## ttstack',
     '',
-    `tstack (${META.homepage}) is installed here. Its skills are in \`${skillsDir}/<name>/SKILL.md\`. Load a skill when the user types \`/<name>\` or when its description matches the task, and resolve links inside a skill relative to that skill's folder.`,
+    `ttstack (${META.homepage}) is installed here. Its skills are in \`${skillsDir}/<name>/SKILL.md\`. Load a skill when the user types \`/<name>\` or when its description matches the task, and resolve links inside a skill relative to that skill's folder.`,
     '',
     `Skills use neutral verbs ("spawn a subagent", "ask the user", "track a todo list"). The per-agent tool names for those verbs are listed at ${META.docsBase}/README.md.`,
     '',
@@ -180,7 +180,7 @@ export function planInstall(o) {
     const t = TARGETS[id];
     if (!t.skills) continue;
     if (id === 'claude-code' && claudePlugin) {
-      notes.push('Claude Code: the tstack plugin is installed, so skills and subagents are not copied into .claude/ (avoids duplicate skills).');
+      notes.push('Claude Code: the ttstack plugin is installed, so skills and subagents are not copied into .claude/ (avoids duplicate skills).');
       continue;
     }
     const d = dest(t.skills[scope]);
@@ -219,11 +219,11 @@ export function planInstall(o) {
   }
 
   if (ids.has('aider')) {
-    const from = join(source, 'dist', 'aider', 'TSTACK.md');
-    const to = join(scopeRoot, '.tstack', 'aider.md');
+    const from = join(source, 'dist', 'aider', 'TTSTACK.md');
+    const to = join(scopeRoot, '.ttstack', 'aider.md');
     actions.push(link ? { kind: 'link', from, to, dir: false } : { kind: 'file', from, to });
     const conf = join(scopeRoot, '.aider.conf.yml');
-    const readPath = scope === 'project' ? '.tstack/aider.md' : to.split(sep).join('/');
+    const readPath = scope === 'project' ? '.ttstack/aider.md' : to.split(sep).join('/');
     actions.push({ kind: 'yaml-block', file: conf, text: `${YAML_BEGIN}\nread:\n  - ${readPath}\n${YAML_END}\n` });
   }
 
@@ -239,11 +239,11 @@ export function planInstall(o) {
   const shared = [...skillDirs.entries()].filter(([, who]) => who.length > 1);
   for (const [d, who] of shared) notes.push(`${d}: one copy serves ${who.join(', ')}.`);
   if (ids.has('claude-code') && !claudePlugin) {
-    notes.push('Claude Code: skills were copied to .claude/skills. Cursor, Copilot, OpenCode, Amp and Goose also read that folder and will list each tstack skill twice. Installing the Claude plugin instead avoids this: claude plugin marketplace add requie/tstack && claude plugin install tstack@tstack');
+    notes.push('Claude Code: skills were copied to .claude/skills. Cursor, Copilot, OpenCode, Amp and Goose also read that folder and will list each ttstack skill twice. Installing the Claude plugin instead avoids this: claude plugin marketplace add requie/ttstack && claude plugin install ttstack@ttstack');
   }
-  if (ids.has('amp') && claudePlugin) notes.push('Amp also scans ~/.claude/plugins/cache/, so it will see tstack skills twice. The copies are identical.');
+  if (ids.has('amp') && claudePlugin) notes.push('Amp also scans ~/.claude/plugins/cache/, so it will see ttstack skills twice. The copies are identical.');
   for (const id of ids) if (TARGETS[id].plugin) notes.push(`${TARGETS[id].label}: native install also available: ${TARGETS[id].plugin}`);
-  return { actions, notes, manifestPath: join(scopeRoot, '.tstack', 'install-manifest.json') };
+  return { actions, notes, manifestPath: join(scopeRoot, '.ttstack', 'install-manifest.json') };
 }
 
 // ---------------------------------------------------------------- manifest --
@@ -251,7 +251,7 @@ export function planInstall(o) {
 export function readManifest(path) {
   if (!existsSync(path)) return { version: MANIFEST_VERSION, entries: [] };
   const m = JSON.parse(readFileSync(path, 'utf8'));
-  if (!Array.isArray(m.entries)) throw new Error(`${path}: not a tstack install manifest`);
+  if (!Array.isArray(m.entries)) throw new Error(`${path}: not a ttstack install manifest`);
   return m;
 }
 
@@ -309,7 +309,7 @@ export function install(o) {
     return e && isOurs(e) ? e : null;
   };
 
-  // A skill folder that already exists and holds nothing tstack wrote belongs
+  // A skill folder that already exists and holds nothing ttstack wrote belongs
   // to the user: skip the whole folder instead of mixing files into it.
   const foreignGroups = new Set();
   for (const a of actions) {
@@ -317,7 +317,7 @@ export function install(o) {
     const ours = prev.entries.some((e) => e.path === a.group || e.path.startsWith(a.group + sep));
     if (!ours) {
       foreignGroups.add(a.group);
-      log(`skip   ${a.group} (folder exists and was not written by tstack)`);
+      log(`skip   ${a.group} (folder exists and was not written by ttstack)`);
       counts.skipped++;
     }
   }
@@ -329,7 +329,7 @@ export function install(o) {
       const hash = sha(data);
       const exists = existsSync(a.to) || isDanglingLink(a.to);
       if (exists && !owned(a.to)) {
-        log(`skip   ${a.to} (exists and was not written by tstack)`);
+        log(`skip   ${a.to} (exists and was not written by ttstack)`);
         counts.skipped++;
         continue;
       }
@@ -349,7 +349,7 @@ export function install(o) {
     } else if (a.kind === 'link') {
       const exists = existsSync(a.to) || isDanglingLink(a.to);
       if (exists && !owned(a.to)) {
-        log(`skip   ${a.to} (exists and was not written by tstack)`);
+        log(`skip   ${a.to} (exists and was not written by ttstack)`);
         counts.skipped++;
         continue;
       }
@@ -392,7 +392,7 @@ export function install(o) {
         counts.unchanged++;
         continue;
       }
-      log(`${tag}block  ${a.file} (${exists ? 'update marked tstack block' : 'create with tstack block'})`);
+      log(`${tag}block  ${a.file} (${exists ? 'update marked ttstack block' : 'create with ttstack block'})`);
       if (!o.dryRun) {
         ensureDir(dirname(a.file));
         writeFileSync(a.file, next);
@@ -411,8 +411,8 @@ export function install(o) {
 
   const manifest = {
     version: MANIFEST_VERSION,
-    tool: 'tstack',
-    tstackVersion: META.version,
+    tool: 'ttstack',
+    ttstackVersion: META.version,
     scope: o.scope,
     agents: o.agents.map((a) => a.id),
     link: !!o.link,
@@ -444,7 +444,7 @@ function removeEntry(e, o) {
   if (e.kind === 'file' || e.kind === 'link') {
     if (!existsSync(e.path) && !isDanglingLink(e.path)) return 0;
     if (!isOurs(e)) {
-      log(`keep   ${e.path} (changed since tstack wrote it)`);
+      log(`keep   ${e.path} (changed since ttstack wrote it)`);
       return 0;
     }
     log(`${tag}remove ${e.path}`);
@@ -458,10 +458,10 @@ function removeEntry(e, o) {
     const next = stripBlock(current, begin, end);
     if (next === null) return 0;
     if (e.createdFile && next.trim() === '') {
-      log(`${tag}remove ${e.path} (only held the tstack block)`);
+      log(`${tag}remove ${e.path} (only held the ttstack block)`);
       if (!o.dryRun) rmSync(e.path);
     } else {
-      log(`${tag}block  ${e.path} (remove marked tstack block)`);
+      log(`${tag}block  ${e.path} (remove marked ttstack block)`);
       if (!o.dryRun) writeFileSync(e.path, next.replace(/\n{3,}$/, '\n'));
     }
     return 1;
@@ -482,7 +482,7 @@ function removeEmptyDirs(dirEntries, o) {
       /* not empty or already gone */
     }
   }
-  if (n) o.log(`${o.tag}rmdir  ${n} empty director${n === 1 ? 'y' : 'ies'} tstack created`);
+  if (n) o.log(`${o.tag}rmdir  ${n} empty director${n === 1 ? 'y' : 'ies'} ttstack created`);
   return n;
 }
 
@@ -490,7 +490,7 @@ export function uninstall(o) {
   const log = o.log ?? console.log;
   const tag = o.dryRun ? '[dry-run] ' : '';
   const scopeRoot = o.scope === 'project' ? o.project : o.home;
-  const manifestPath = join(scopeRoot, '.tstack', 'install-manifest.json');
+  const manifestPath = join(scopeRoot, '.ttstack', 'install-manifest.json');
   if (!existsSync(manifestPath)) {
     log(`nothing to uninstall: ${manifestPath} not found`);
     return { removed: 0, manifestPath };
@@ -501,8 +501,8 @@ export function uninstall(o) {
   log(`${tag}remove ${manifestPath}`);
   if (!o.dryRun) rmSync(manifestPath);
   const dirs = m.entries.filter((e) => e.kind === 'dir');
-  const tstackDir = dirname(manifestPath);
-  if (!dirs.some((e) => e.path === tstackDir)) dirs.push({ kind: 'dir', path: tstackDir, onlyIfEmpty: true });
+  const ttstackDir = dirname(manifestPath);
+  if (!dirs.some((e) => e.path === ttstackDir)) dirs.push({ kind: 'dir', path: ttstackDir, onlyIfEmpty: true });
   removeEmptyDirs(dirs, { ...o, log, tag });
   log(`${tag}done: ${removed} removed`);
   return { removed, manifestPath };
@@ -516,9 +516,9 @@ export function main(argv, env = process.env, log = console.log) {
     log(USAGE);
     return 0;
   }
-  o.home = env.TSTACK_HOME || env.HOME || env.USERPROFILE || homedir();
+  o.home = env.TTSTACK_HOME || env.HOME || env.USERPROFILE || homedir();
   o.envPath = env.PATH ?? env.Path ?? '';
-  o.source = env.TSTACK_SOURCE ? resolve(env.TSTACK_SOURCE) : REPO_ROOT;
+  o.source = env.TTSTACK_SOURCE ? resolve(env.TTSTACK_SOURCE) : REPO_ROOT;
   o.log = log;
   if (o.uninstall) {
     uninstall(o);
@@ -532,7 +532,7 @@ export function main(argv, env = process.env, log = console.log) {
     log(`No coding agents detected. Pass --agents with one or more of: ${TARGET_IDS.join(', ')}`);
     return 1;
   }
-  log(`tstack ${META.version}: ${o.scope} install for ${o.agents.map((a) => `${a.id} (${a.reason})`).join(', ')}`);
+  log(`ttstack ${META.version}: ${o.scope} install for ${o.agents.map((a) => `${a.id} (${a.reason})`).join(', ')}`);
   install(o);
   return 0;
 }
@@ -541,7 +541,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     process.exit(main(process.argv.slice(2)));
   } catch (e) {
-    console.error(`tstack install: ${e.message}`);
+    console.error(`ttstack install: ${e.message}`);
     process.exit(2);
   }
 }

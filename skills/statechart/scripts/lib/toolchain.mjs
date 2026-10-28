@@ -24,7 +24,7 @@ const INSTALL_HINT = [
 export function cacheDir(env = process.env) {
   if (env.STATECHART_CACHE) return env.STATECHART_CACHE;
   const base = env.XDG_CACHE_HOME || path.join(os.homedir(), '.cache');
-  return path.join(base, 'tstack', 'statechart');
+  return path.join(base, 'ttstack', 'statechart');
 }
 
 function sha256File(file) {

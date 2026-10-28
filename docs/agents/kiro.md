@@ -1,10 +1,10 @@
-# tstack in Kiro
+# ttstack in Kiro
 
 Kiro reads skills only from `.kiro/skills/` and `~/.kiro/skills/`. It imports Agent Plugins layouts as Powers, and custom subagents live in `.kiro/agents/`.
 
 ## Install
 
-**Power.** In the Powers panel choose "Add Custom Power", import from GitHub, and enter https://github.com/requie/tstack. Powers load skills only; install the files as well to get the subagents.
+**Power.** In the Powers panel choose "Add Custom Power", import from GitHub, and enter https://github.com/requie/ttstack. Powers load skills only; install the files as well to get the subagents.
 
 **Files, one project:**
 
@@ -18,7 +18,7 @@ Kiro reads skills only from `.kiro/skills/` and `~/.kiro/skills/`. It imports Ag
 ./install.sh --scope user --agents kiro
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -28,13 +28,13 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | Subagents | `.kiro/agents/<name>.md` or `~/.kiro/agents/<name>.md`. Read-only agents get `tools: [read, shell]`. |
 | Rules | A marked block in the project `AGENTS.md`, which Kiro always includes |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Kiro |
+| ttstack verb | Tool in Kiro |
 | --- | --- |
 | Spawn a subagent | `subagent` |
 | Ask the user | not documented |
@@ -51,9 +51,9 @@ tstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Model choice is per agent definition (the `model` field). tstack's generated agents leave it unset, so they run on the session model unless you add one.
+Model choice is per agent definition (the `model` field). ttstack's generated agents leave it unset, so they run on the session model unless you add one.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 

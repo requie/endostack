@@ -116,7 +116,7 @@ Every subagent launched from within a playbook step, whether it writes code or h
 
 ### Tiers and roles
 
-tstack uses three tiers: `fast` for mechanical edits and verification sweeps, `standard` for ordinary work, and `strong` for judgment, prose, and the hardest changes. The `/setup-tstack` skill ([../setup-tstack/SKILL.md](../setup-tstack/SKILL.md)) writes per-role overrides to `~/.tstack/models.toml`, and a project's `.tstack/models.toml` wins over the user file. Defaults when no line is configured:
+ttstack uses three tiers: `fast` for mechanical edits and verification sweeps, `standard` for ordinary work, and `strong` for judgment, prose, and the hardest changes. The `/setup-ttstack` skill ([../setup-ttstack/SKILL.md](../setup-ttstack/SKILL.md)) writes per-role overrides to `~/.ttstack/models.toml`, and a project's `.ttstack/models.toml` wins over the user file. Defaults when no line is configured:
 
 | Role | Used for | Default |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ The same file also holds roles for each routed skill: `how`, `why`, `arena`, `sw
 
 ### Tuning each spawn
 
-1. Start from the role's model and the reasoning effort that `/setup-tstack` recorded for it (the highest standard level if unset).
+1. Start from the role's model and the reasoning effort that `/setup-ttstack` recorded for it (the highest standard level if unset).
 2. Go up one effort level for work that is especially hard or easy to get subtly wrong. Go down one level for judgment tasks, and two or more for routine ones.
 3. Use the host's faster-serving variant only when the job is urgent: trunk or CI is red, or a person is waiting on this result now. The `swarm-workers` role is exempt and may always use it.
 4. Change only effort and speed. The model family stays fixed, so a review panel built for diversity stays diverse. If the exact combination does not exist, take the nearest available one.

@@ -1,4 +1,4 @@
-# tstack in Devin Desktop (formerly Windsurf)
+# ttstack in Devin Desktop (formerly Windsurf)
 
 Windsurf became Devin Desktop on 2026-06-02. It reads `.devin/` paths first and falls back to `.windsurf/`. Skills load from `.agents/skills/`, and manual commands are workflows in `.devin/workflows/`.
 
@@ -16,7 +16,7 @@ Windsurf became Devin Desktop on 2026-06-02. It reads `.devin/` paths first and 
 ./install.sh --scope user --agents devin-desktop
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -24,16 +24,16 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | --- | --- |
 | Skills | `.agents/skills/<name>/` or `~/.agents/skills/<name>/` |
 | Workflows | `.devin/workflows/<name>.md` (project) or `~/.codeium/windsurf/global_workflows/<name>.md` (user), one per command-style skill. Each workflow tells the agent to load the skill by path. |
-| Subagents | Not installed. Devin Local reads `.devin/agents/` and imports `.claude/agents/`; install for Claude Code as well if you want tstack's subagent definitions there. |
+| Subagents | Not installed. Devin Local reads `.devin/agents/` and imports `.claude/agents/`; install for Claude Code as well if you want ttstack's subagent definitions there. |
 | Rules | A marked block in the project `AGENTS.md`, which Devin Desktop always loads |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Devin Desktop (formerly Windsurf) |
+| ttstack verb | Tool in Devin Desktop (formerly Windsurf) |
 | --- | --- |
 | Spawn a subagent | Devin Local subagents (tool name not documented) |
 | Ask the user | not documented |
@@ -50,15 +50,15 @@ tstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Per-subagent model choice is not documented, so every tstack role runs on the session model. Panels vary each seat's brief instead of its model.
+Per-subagent model choice is not documented, so every ttstack role runs on the session model. Panels vary each seat's brief instead of its model.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 
 - Tool names are not documented, so skills rely on their neutral wording and the agent picks its own tools.
 - `recall`, `reflect`, `show-me-your-work` and `automate-me` cannot read past transcripts here. They say so and continue with the sources they can reach.
-- Workflows are capped at 12,000 characters. tstack's workflows are short pointers to the skill file, so the cap does not bite.
+- Workflows are capped at 12,000 characters. ttstack's workflows are short pointers to the skill file, so the cap does not bite.
 
 Non-interactive mode (used by [make-bot-ui](../../skills/make-bot-ui/SKILL.md) for a local bot): not documented.
 

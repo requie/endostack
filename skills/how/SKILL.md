@@ -53,7 +53,7 @@ Where the flow crosses a trust boundary (accepts network input, parses files fro
 | Explorer | two to four, large path only, one batch | `fast`, high reasoning effort | read-only |
 | Explainer | exactly one | `strong` | read-only |
 
-Read each role's model from the tstack model config (`.tstack/models.toml` in the project, else `~/.tstack/models.toml`) under the keys `how-explorer` and `how-explainer`. A missing file or key means the tier default; `auto` or `inherit` means leave the model unset. If the spawn call rejects the configured model, use the tier default and tell the user; if that is refused too, use the closest valid model in the same family. Reasoning effort and speed come from the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router.
+Read each role's model from the ttstack model config (`.ttstack/models.toml` in the project, else `~/.ttstack/models.toml`) under the keys `how-explorer` and `how-explainer`. A missing file or key means the tier default; `auto` or `inherit` means leave the model unset. If the spawn call rejects the configured model, use the tier default and tell the user; if that is refused too, use the closest valid model in the same family. Reasoning effort and speed come from the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router.
 
 ## Output
 

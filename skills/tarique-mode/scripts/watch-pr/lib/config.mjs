@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { UsageError } from './errors.mjs';
 
-export const DEFAULT_CONFIG_PATH = path.join('.tstack', 'watch-pr.json');
+export const DEFAULT_CONFIG_PATH = path.join('.ttstack', 'watch-pr.json');
 
 // Default pattern for a review-pass identifier inside a bot comment, for
 // example "run-id: 8f2c" or "automation_id=42". Override with passIdPattern.

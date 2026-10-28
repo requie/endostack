@@ -20,7 +20,7 @@ Track a todo list with four items: frame, fan out, aggregate, report.
    - *Both*: for example two competing approaches, each run on every slice.
 
    For any race, fix the winner rule before launching: first to pass, a full ranking, or best result by a named measure. Choosing the rule after seeing results lets you pick the rule that favours the result you wanted.
-3. **Choose models.** Workers use the `swarm-workers` key from the tstack model config (`.tstack/models.toml` wins over `~/.tstack/models.toml`), default `fast`. `inherit` (or `auto`) means the session model. In a model race, state which model each competitor runs before launch, and that per-competitor choice overrides `swarm-workers`. If the agent rejects a name, use the default tier and tell the user in one line. If the default cannot be resolved, take the closest model the agent's error lists.
+3. **Choose models.** Workers use the `swarm-workers` key from the ttstack model config (`.ttstack/models.toml` wins over `~/.ttstack/models.toml`), default `fast`. `inherit` (or `auto`) means the session model. In a model race, state which model each competitor runs before launch, and that per-competitor choice overrides `swarm-workers`. If the agent rejects a name, use the default tier and tell the user in one line. If the default cannot be resolved, take the closest model the agent's error lists.
 4. **Pin the inputs.** Writing workers each get a private output location. When workers verify or benchmark commits, every brief lists the exact commit hashes. Benchmark briefs also state the procedure: how many samples, what one sample is, and the order runs alternate in. Workers must echo the hashes and the procedure back in their result, so you can tell which code and which method produced each number.
 
 **One model only.** A model race needs more than one model. If the agent cannot choose a model per subagent, say so in one line ("Single-model swarm: the race compares briefs, not models.") and either turn the race into a race between approaches (each worker gets a different method in its brief) or run it as coverage. Coverage swarms are unaffected.
@@ -78,5 +78,5 @@ A coverage swarm over a monorepo: one read-only worker per package, each running
 ## Related
 
 - The [`tarique-mode` skill](../tarique-mode/SKILL.md) carries the general guidance on subagent effort and speed.
-- The [`setup-tstack` skill](../setup-tstack/SKILL.md) writes `swarm-workers`.
+- The [`setup-ttstack` skill](../setup-ttstack/SKILL.md) writes `swarm-workers`.
 - The [`benchmark-checklist` skill](../benchmark-checklist/SKILL.md) defines a sound benchmark procedure to put in benchmark briefs.

@@ -1,4 +1,4 @@
-# tstack in Cursor
+# ttstack in Cursor
 
 Cursor reads Agent Skills from `.agents/skills/`, has a plugin format (`.cursor-plugin/plugin.json`), and supports custom subagents with a `model` field.
 
@@ -7,7 +7,7 @@ Cursor reads Agent Skills from `.agents/skills/`, has a plugin format (`.cursor-
 **Local plugin:**
 
 ```sh
-git clone https://github.com/requie/tstack ~/.cursor/plugins/local/tstack
+git clone https://github.com/requie/ttstack ~/.cursor/plugins/local/ttstack
 ```
 
 Then run "Developer: Reload Window". Enterprise workspaces must allow local plugin imports.
@@ -24,7 +24,7 @@ Then run "Developer: Reload Window". Enterprise workspaces must allow local plug
 ./install.sh --scope user --agents cursor
 ```
 
-Run the installer from a clone of the tstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -34,13 +34,13 @@ Run the installer from a clone of the tstack repository. Add `--dry-run` to see 
 | Subagents | `.cursor/agents/` or `~/.cursor/agents/` for a files install; the plugin install reads `dist/cursor/agents/` (set in `.cursor-plugin/plugin.json`) |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.tstack/install-manifest.json` (project) or `~/.tstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-tstack skills use neutral verbs. In this agent they mean:
+ttstack skills use neutral verbs. In this agent they mean:
 
-| tstack verb | Tool in Cursor |
+| ttstack verb | Tool in Cursor |
 | --- | --- |
 | Spawn a subagent | Task (several Task calls in one message run in parallel) |
 | Ask the user | Ask questions |
@@ -57,15 +57,15 @@ tstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Per-subagent choice works through the subagent `model` field (default `inherit`). The tier names map to whatever model names `/setup-tstack` detected in your Cursor session; tstack does not hard-code Cursor model names.
+Per-subagent choice works through the subagent `model` field (default `inherit`). The tier names map to whatever model names `/setup-ttstack` detected in your Cursor session; ttstack does not hard-code Cursor model names.
 
-Role assignments live in `~/.tstack/models.toml` or the project's `.tstack/models.toml`, written by [setup-tstack](../../skills/setup-tstack/SKILL.md).
+Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
 
 ## What degrades here
 
 - No todo tool is documented, so skills keep their todo list as a short checklist in the reply.
 - There is no fetch-by-URL tool in the documented list. Skills that fetch a page use a shell command such as `curl` instead, when the user allows it.
-- Cursor also reads `.claude/skills/`. If tstack is installed for Claude Code in the same project, each skill appears twice.
+- Cursor also reads `.claude/skills/`. If ttstack is installed for Claude Code in the same project, each skill appears twice.
 
 Non-interactive mode (used by [make-bot-ui](../../skills/make-bot-ui/SKILL.md) for a local bot): `cursor-agent -p "<prompt>"` (unverified).
 

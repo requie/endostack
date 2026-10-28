@@ -12,7 +12,7 @@ const quiet = { log: () => {} };
 
 function fixture() {
   const root = fixtureSource(tempDir());
-  writeTree(root, { 'assets/logo.png': 'png', 'GEMINI.md': '# g\n', 'skills/setup-tstack/SKILL.md': '---\nname: setup-tstack\ndescription: Setup.\n---\nx\n' });
+  writeTree(root, { 'assets/logo.png': 'png', 'GEMINI.md': '# g\n', 'skills/setup-ttstack/SKILL.md': '---\nname: setup-ttstack\ndescription: Setup.\n---\nx\n' });
   return root;
 }
 
@@ -140,7 +140,7 @@ test('generated manifests satisfy the manifest schema check', () => {
     const claude = JSON.parse(readFileSync(join(root, '.claude-plugin/plugin.json'), 'utf8'));
     assert.deepEqual(claude.agents, ['./dist/claude-code/agents/helper.md', './dist/claude-code/agents/reviewer.md']);
     const mk = JSON.parse(readFileSync(join(root, '.claude-plugin/marketplace.json'), 'utf8'));
-    assert.equal(mk.name, 'tstack');
+    assert.equal(mk.name, 'ttstack');
     assert.equal(mk.plugins[0].source, './');
   } finally {
     cleanup(root);

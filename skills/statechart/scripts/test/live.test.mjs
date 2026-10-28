@@ -39,6 +39,7 @@ const NORMALIZE = [
   [/\([\d,]+ d?s\/min\)/g, '(R)'], [/Finished in [^\n]* at/g, 'Finished in D at'], [/\d+MB heap/g, 'NMB heap'],
   [/val = [\d.E-]+/g, 'val = V'], [/Parsing file [^\n]*\/(\w+\.tla)/g, 'Parsing file $1'], [/on \d+ cores/g, 'on N cores'],
   [/Finished checking temporal properties in [^\n]*/g, 'Finished checking temporal properties'],
+  [/\d+MB offheap memory \[pid: N\] \([^)\n]*\)/g, 'NMB offheap memory [pid: N] (HOST)'],
 ];
 const norm = (s) => NORMALIZE.reduce((t, [re, to]) => t.replace(re, to), s);
 

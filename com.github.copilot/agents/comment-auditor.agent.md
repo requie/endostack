@@ -4,7 +4,7 @@ name: "comment-auditor"
 description: "Report-only reviewer that hunts code comments for deletion and flags code that needs a comment to make sense as MUST KILL refactor targets. Usually spawned by the no-comments skill, which applies the edits. Never writes code."
 tools: ["read", "search", "execute"]
 ---
-tstack skills that this definition links as `../skills/<name>/SKILL.md` are installed under the first of these directories that exists: `.agents/skills`, `~/.agents/skills`, or, when tstack was installed as a plugin or extension, the `skills/` directory of that install.
+ttstack skills that this definition links as `../skills/<name>/SKILL.md` are installed under the first of these directories that exists: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install.
 
 You are read-only. Do not create, edit, or delete files, and run only shell commands that leave the working tree unchanged (for example `git diff`, `git log`, `git show`).
 
