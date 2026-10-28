@@ -15,7 +15,7 @@ const env = {
   GIT_COMMITTER_EMAIL: 'test@example.com',
   GIT_CONFIG_NOSYSTEM: '1',
   GIT_TERMINAL_PROMPT: '0',
-  TTSTACK_TRANSCRIPTS: '',
+  ENDOSTACK_TRANSCRIPTS: '',
 };
 
 let root, repo, chatDir, prsFile;
@@ -262,7 +262,7 @@ test('humanSize, parseArgs, pathNeedles, and the default transcript directory', 
   assert.equal(humanSize(1536), '1.5K');
   assert.equal(humanSize(300 * 1024 * 1024), '300M');
   assert.deepEqual(parseArgs(['--base', 'x', 'r'], {}).base, 'x');
-  assert.deepEqual(parseArgs([], { TTSTACK_TRANSCRIPTS: ['a', 'b'].join(process.platform === 'win32' ? ';' : ':') }).transcripts, ['a', 'b']);
+  assert.deepEqual(parseArgs([], { ENDOSTACK_TRANSCRIPTS: ['a', 'b'].join(process.platform === 'win32' ? ';' : ':') }).transcripts, ['a', 'b']);
   assert.throws(() => parseArgs(['a', 'b'], {}), /unexpected argument/);
   const needles = pathNeedles('C:\\work\\wt');
   assert.ok(needles.includes('C:\\\\work\\\\wt\\\\'));

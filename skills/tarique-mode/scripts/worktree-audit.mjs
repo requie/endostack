@@ -10,7 +10,7 @@
 //       --prs-file <file>     Read PR state from a JSON array of {number, state, headRefName}
 //                             instead of calling `gh pr list`.
 //       --transcripts <dir>   Agent chat transcript directory to scan for CHAT_SEEN.
-//                             Repeatable. Also read from TTSTACK_TRANSCRIPTS (path-list).
+//                             Repeatable. Also read from ENDOSTACK_TRANSCRIPTS (path-list).
 //       --json                Print rows as JSON instead of the table.
 //   -h, --help                Print this help and exit 0.
 //
@@ -59,7 +59,7 @@ export function parseArgs(argv, env = process.env) {
     else if (opts.repo) throw new UsageError(`unexpected argument ${a}`);
     else opts.repo = a;
   }
-  if (env.TTSTACK_TRANSCRIPTS) opts.transcripts.push(...env.TTSTACK_TRANSCRIPTS.split(delimiter).filter(Boolean));
+  if (env.ENDOSTACK_TRANSCRIPTS) opts.transcripts.push(...env.ENDOSTACK_TRANSCRIPTS.split(delimiter).filter(Boolean));
   return opts;
 }
 

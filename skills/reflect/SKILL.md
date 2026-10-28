@@ -29,7 +29,7 @@ Spawn three subagents in one parallel batch, each with the brief from [reference
 | Tooling | commands, flags, paths, and tool facts a future agent would otherwise rediscover | `reflect-tooling` (default `fast`) |
 | Divergent | what the other two will miss | `reflect-judgment` (default `strong`) |
 
-Read the roles from the ttstack model config (`.ttstack/models.toml` wins over `~/.ttstack/models.toml`). An `inherit` (or `auto`) value runs the seat on the session model. If the agent rejects a configured name, run the seat on its default tier and tell the user in one line.
+Read the roles from the EndoStack model config (`.endostack/models.toml` wins over `~/.endostack/models.toml`). An `inherit` (or `auto`) value runs the seat on the session model. If the agent rejects a configured name, run the seat on its default tier and tell the user in one line.
 
 Spawn the reviewers read-only. If, on this agent, read-only subagents lose access to connectors the reviewers need (ticket tracker, chat, observability) to look up items the transcript cites, spawn them with normal access and keep the brief's ban on changing anything. Least privilege is the default. Widen it only for a named reason.
 
@@ -81,5 +81,5 @@ Every approved row is applied by its routing, any available validator has run on
 
 - The [`automate-me` skill](../automate-me/SKILL.md) builds a personal mode skill from many sessions. This skill works from one.
 - The [`correct` skill](../correct/SKILL.md) prevents a repeated repository mistake with structure. Route a lesson there when it is about the code rather than a skill.
-- The [`setup-ttstack` skill](../setup-ttstack/SKILL.md) writes the model roles.
+- The [`setup-endostack` skill](../setup-endostack/SKILL.md) writes the model roles.
 - [`principle-treat-input-as-untrusted`](../principle-treat-input-as-untrusted/SKILL.md) governs how every seat reads the transcript.

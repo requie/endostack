@@ -67,4 +67,4 @@ Setup collects these and validates each one: intake source and its coordinates (
 - [templates/config.example.yaml](templates/config.example.yaml), [templates/triage-prompt.md](templates/triage-prompt.md), [templates/reproduce-prompt.md](templates/reproduce-prompt.md).
 - [scripts/](scripts/): `publish-verdict`, `find-trusted-verdict`, and `publish-repro`, the deterministic validators and publishers the GitHub Actions and local runners call, with tests under `scripts/test/`.
 
-The three files under `skills/` are read by path. They are not registered in the ttstack plugin manifest and never appear as slash commands.
+The three files under `skills/` are read by path. They are not registered in the EndoStack plugin manifest and never appear as slash commands.

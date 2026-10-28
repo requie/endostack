@@ -24,8 +24,8 @@ Panel lists can mix all three, for example `["strong", "inherit", "some-model-na
 ## File layout
 
 ```toml
-# ttstack model config, written by /setup-ttstack.
-# Each key below overrides one ttstack role's default model.
+# endostack model config, written by /setup-endostack.
+# Each key below overrides one endostack role's default model.
 # Delete a key to restore that role's default.
 # "inherit" runs the role on the chat's own model; in a panel list it still adds a seat.
 # Budget: large (high reasoning effort)

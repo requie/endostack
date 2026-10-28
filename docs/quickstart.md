@@ -1,6 +1,6 @@
 # Quickstart
 
-Three steps: install ttstack once, watch it fix a bug in a demo app, then use the same workflow on your own code. You can skip `/setup-ttstack` for now, because every role has a default model until you configure one.
+Three steps: install EndoStack once, watch it fix a bug in a demo app, then use the same workflow on your own code. You can skip `/setup-endostack` for now, because every role has a default model until you configure one.
 
 ## 1. Install (about a minute)
 
@@ -9,37 +9,37 @@ You need git and Node.js 22 or later. The installer detects every coding agent o
 macOS or Linux:
 
 ```sh
-git clone --depth 1 https://github.com/requie/ttstack ~/.ttstack/src
-~/.ttstack/src/install.sh --scope user
+git clone --depth 1 https://github.com/requie/endostack ~/.endostack/src
+~/.endostack/src/install.sh --scope user
 ```
 
 Windows PowerShell:
 
 ```powershell
-git clone --depth 1 https://github.com/requie/ttstack $HOME\.ttstack\src
-& $HOME\.ttstack\src\install.ps1 --scope user
+git clone --depth 1 https://github.com/requie/endostack $HOME\.endostack\src
+& $HOME\.endostack\src\install.ps1 --scope user
 ```
 
 The installer prints one line per folder it wrote to, any files it skipped because they weren't its own, and the next step. Restart your coding agent so it picks up the new skills.
 
-To update, run `git -C ~/.ttstack/src pull`, then the install command again. To remove ttstack, run the install command with `--uninstall` added. It deletes only the files it wrote and keeps any you have edited.
+To update, run `git -C ~/.endostack/src pull`, then the install command again. To remove EndoStack, run the install command with `--uninstall` added. It deletes only the files it wrote and keeps any you have edited.
 
-If you would rather use your agent's own plugin manager (the Claude Code marketplace, Gemini extensions, Copilot or Goose plugins), the [install table in the README](../README.md#install) has each command. In Claude Code, plugin commands carry a prefix, so `/try-ttstack` becomes `/ttstack:try-ttstack`.
+If you would rather use your agent's own plugin manager (the Claude Code marketplace, Gemini extensions, Copilot or Goose plugins), the [install table in the README](../README.md#install) has each command. In Claude Code, plugin commands carry a prefix, so `/try-endostack` becomes `/endostack:try-endostack`.
 
-## 2. Watch it work: `/try-ttstack` (about five minutes)
+## 2. Watch it work: `/try-endostack` (about five minutes)
 
-Type `/try-ttstack` in your agent. It creates a `ttstack-demo` folder holding a small file server and a bug report, `ISSUE.md`: downloading a file with a space in its name returns 404. It runs the app's tests, shows the bug, and gives you one prompt to send in a new chat.
+Type `/try-endostack` in your agent. It creates a `endostack-demo` folder holding a small file server and a bug report, `ISSUE.md`: downloading a file with a space in its name returns 404. It runs the app's tests, shows the bug, and gives you one prompt to send in a new chat.
 
 | Time | What you see |
 | --- | --- |
-| 0:00 | `/try-ttstack` sets up the demo and prints the prompt. |
+| 0:00 | `/try-endostack` sets up the demo and prints the prompt. |
 | 0:30 | You send the prompt. `tarique-mode` picks the bug-fix playbook and reproduces the 404 against the running server. |
 | 1:30 | It finds the cause: the handler never decodes the percent-encoded file name. It notices that the fix changes how request input becomes a file path, and runs `threat-model` on that path before writing code. |
 | 2:30 | It commits a failing test with the reported case plus hostile names (encoded `../`, backslashes, NUL), then the fix: decode first, then confirm the resolved path stays inside `uploads/`. |
 | 4:00 | `security-review` checks the diff, the reproduction runs again, and the reply lists the evidence for each claim. |
-| 4:30 | You type `/try-ttstack compare`. |
+| 4:30 | You type `/try-endostack compare`. |
 
-The compare step puts two fixes side by side. One is the one-line fix most people and most agents write first, `decodeURIComponent(name)` dropped into the existing `readFile` call. It closes the bug report and passes all four of the app's tests. It also lets `GET /files/%2e%2e%2f.env` read the server's `.env` file with its billing token. The other is ttstack's fix, which closes the same bug while every traversal probe stays blocked. A script runs both checks, so you can rerun them yourself.
+The compare step puts two fixes side by side. One is the one-line fix most people and most agents write first, `decodeURIComponent(name)` dropped into the existing `readFile` call. It closes the bug report and passes all four of the app's tests. It also lets `GET /files/%2e%2e%2f.env` read the server's `.env` file with its billing token. The other is EndoStack's fix, which closes the same bug while every traversal probe stays blocked. A script runs both checks, so you can rerun them yourself.
 
 Times depend on the model. A slower model or a large reasoning budget takes longer.
 
@@ -66,7 +66,7 @@ The agent asks before anything irreversible (force-push, deploy, deleting data) 
 
 ## Next
 
-- Pick models and control cost with `/setup-ttstack`.
+- Pick models and control cost with `/setup-endostack`.
 - Ask `/tarique-help` which skill fits a situation. It hands you one prompt and starts no work.
 - Read the [guide](guide/README.md) for the other workflows: features, refactors, perf issues, investigations and overnight runs.
 - See what your agent supports in [docs/agents/](agents/README.md).

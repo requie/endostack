@@ -49,7 +49,7 @@
     "recall",
     "reflect",
     "security-review",
-    "setup-ttstack",
+    "setup-endostack",
     "sharpen",
     "show-me-your-work",
     "statechart",
@@ -60,7 +60,7 @@
     "teach",
     "technical-writing",
     "threat-model",
-    "try-ttstack",
+    "try-endostack",
     "typescript-best-practices",
     "unslop",
     "why"
@@ -103,7 +103,7 @@
     "tarique-mode",
     "tdd",
     "technical-writing",
-    "try-ttstack",
+    "try-endostack",
     "typescript-best-practices",
     "unslop"
   ],
@@ -160,7 +160,7 @@
       "codex/skills/tarique-mode/agents/openai.yaml",
       "codex/skills/tdd/agents/openai.yaml",
       "codex/skills/technical-writing/agents/openai.yaml",
-      "codex/skills/try-ttstack/agents/openai.yaml",
+      "codex/skills/try-endostack/agents/openai.yaml",
       "codex/skills/typescript-best-practices/agents/openai.yaml",
       "codex/skills/unslop/agents/openai.yaml"
     ],
@@ -204,7 +204,7 @@
       "gemini-cli/commands/tarique-mode.toml",
       "gemini-cli/commands/tdd.toml",
       "gemini-cli/commands/technical-writing.toml",
-      "gemini-cli/commands/try-ttstack.toml",
+      "gemini-cli/commands/try-endostack.toml",
       "gemini-cli/commands/typescript-best-practices.toml",
       "gemini-cli/commands/unslop.toml"
     ],
@@ -250,7 +250,7 @@
       "devin-desktop/workflows/tarique-mode.md",
       "devin-desktop/workflows/tdd.md",
       "devin-desktop/workflows/technical-writing.md",
-      "devin-desktop/workflows/try-ttstack.md",
+      "devin-desktop/workflows/try-endostack.md",
       "devin-desktop/workflows/typescript-best-practices.md",
       "devin-desktop/workflows/unslop.md"
     ],
@@ -293,7 +293,7 @@
       "roo-code/commands/tarique-mode.md",
       "roo-code/commands/tdd.md",
       "roo-code/commands/technical-writing.md",
-      "roo-code/commands/try-ttstack.md",
+      "roo-code/commands/try-endostack.md",
       "roo-code/commands/typescript-best-practices.md",
       "roo-code/commands/unslop.md"
     ],
@@ -337,7 +337,7 @@
       "opencode/commands/tarique-mode.md",
       "opencode/commands/tdd.md",
       "opencode/commands/technical-writing.md",
-      "opencode/commands/try-ttstack.md",
+      "opencode/commands/try-endostack.md",
       "opencode/commands/typescript-best-practices.md",
       "opencode/commands/unslop.md"
     ],
@@ -347,7 +347,7 @@
       "kiro/agents/tarique-agent.md"
     ],
     "aider": [
-      "aider/TTSTACK.md"
+      "aider/ENDOSTACK.md"
     ],
     "zed": [],
     "junie": [
@@ -390,7 +390,7 @@
       "junie/commands/tarique-mode.md",
       "junie/commands/tdd.md",
       "junie/commands/technical-writing.md",
-      "junie/commands/try-ttstack.md",
+      "junie/commands/try-endostack.md",
       "junie/commands/typescript-best-practices.md",
       "junie/commands/unslop.md"
     ],

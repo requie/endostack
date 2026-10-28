@@ -1,6 +1,6 @@
-# ttstack per agent
+# EndoStack per agent
 
-ttstack ships one set of skills (`skills/<name>/SKILL.md`) and two subagent definitions (`agents/`). `scripts/build.mjs` turns them into each agent's native agent and command files under `dist/`, and `install.sh` (or `install.ps1`) copies the right ones into place. Each page below lists the install command, where files land, the tool that each ttstack verb maps to, where transcripts are stored, how subagent models are chosen, and what does not work in that agent.
+EndoStack ships one set of skills (`skills/<name>/SKILL.md`) and two subagent definitions (`agents/`). `scripts/build.mjs` turns them into each agent's native agent and command files under `dist/`, and `install.sh` (or `install.ps1`) copies the right ones into place. Each page below lists the install command, where files land, the tool that each EndoStack verb maps to, where transcripts are stored, how subagent models are chosen, and what does not work in that agent.
 
 | Agent | Subagents | Model per subagent | Readable transcripts |
 | --- | --- | --- | --- |
@@ -34,7 +34,7 @@ Detection looks for each agent's home directory (for example `~/.codex`), its CL
 
 Skills go to `.agents/skills/` once for every agent that reads that folder, plus `.claude/skills/`, `.cline/skills/` and `.kiro/skills/` for the three agents that do not. Several agents read both `.agents/skills/` and `.claude/skills/`, so installing for Claude Code by files makes skills appear twice in Cursor, Copilot, OpenCode, Amp and Goose. Use the Claude Code plugin instead; the installer then skips `.claude/` and says so.
 
-When the installer edits a shared file (`AGENTS.md`, an existing `CLAUDE.md` or `GEMINI.md`, `.aider.conf.yml`), it writes only between `ttstack:begin` and `ttstack:end` markers, and uninstall removes only that block.
+When the installer edits a shared file (`AGENTS.md`, an existing `CLAUDE.md` or `GEMINI.md`, `.aider.conf.yml`), it writes only between `endostack:begin` and `endostack:end` markers, and uninstall removes only that block.
 
 ## Capabilities that vary by agent
 

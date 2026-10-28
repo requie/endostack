@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// check-plan: lints a ttstack program plan against PLAN-FORMAT.md.
+// check-plan: lints a endostack program plan against PLAN-FORMAT.md.
 // Invoke as: node check-plan.mjs path/to/plan.md
 // Exits 0 on a clean plan, 1 when it finds problems, 2 on bad arguments or an unreadable file.
 // The format is defined only in PLAN-FORMAT.md; edit that file and this one in the same commit.

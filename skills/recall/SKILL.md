@@ -104,7 +104,7 @@ Pass the brief through the [unslop](../unslop/SKILL.md) skill. Strip private con
 | Transcript miner | several, one batch | cheapest `fast` | read-only |
 | Shared-record investigator | one per available source, concurrent with miners | `fast` | connector access, no writes |
 
-Model overrides come from the ttstack model config (`.ttstack/models.toml`, else `~/.ttstack/models.toml`) under `recall-miner` and `why-investigator`. Reasoning effort and speed follow the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router. If the agent cannot run subagents in parallel, run the briefs in sequence.
+Model overrides come from the EndoStack model config (`.endostack/models.toml`, else `~/.endostack/models.toml`) under `recall-miner` and `why-investigator`. Reasoning effort and speed follow the subagent guidance in the [tarique-mode](../tarique-mode/SKILL.md) router. If the agent cannot run subagents in parallel, run the briefs in sequence.
 
 ## Done when
 

@@ -1,14 +1,14 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "ttstack",
+  "name": "endostack",
   "version": "1.0.0",
   "description": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
   "author": {
     "name": "Tarique Smith",
-    "url": "https://github.com/requie/ttstack"
+    "url": "https://github.com/requie/endostack"
   },
-  "homepage": "https://github.com/requie/ttstack",
-  "repository": "https://github.com/requie/ttstack",
+  "homepage": "https://github.com/requie/endostack",
+  "repository": "https://github.com/requie/endostack",
   "license": "MIT",
   "keywords": [
     "agent-skills",
@@ -20,13 +20,13 @@
   ],
   "extensions": {
     "com.openai": {
-      "onboardingSkill": "./skills/setup-ttstack/SKILL.md",
+      "onboardingSkill": "./skills/setup-endostack/SKILL.md",
       "interface": {
-        "displayName": "ttstack",
+        "displayName": "EndoStack",
         "shortDescription": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
         "developerName": "Tarique Smith",
         "category": "Coding",
-        "websiteURL": "https://github.com/requie/ttstack",
+        "websiteURL": "https://github.com/requie/endostack",
         "logo": "./assets/logo.png"
       }
     }

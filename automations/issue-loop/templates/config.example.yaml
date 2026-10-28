@@ -100,7 +100,7 @@ budgets:
   fix_minutes: 60
   ops_followup_minutes: 120
 
-models:                          # tiers; override per role in .ttstack/models.toml
+models:                          # tiers; override per role in .endostack/models.toml
   triage: standard
   reproduce: standard
   code: strong

@@ -1,6 +1,6 @@
-# ttstack in Roo Code
+# EndoStack in Roo Code
 
-A third-party report says Roo Code was sunset on 2026-05-15; its docs still load without a notice. ttstack installs skills and commands for it, but it gets the least testing of any agent here.
+A third-party report says Roo Code was sunset on 2026-05-15; its docs still load without a notice. EndoStack installs skills and commands for it, but it gets the least testing of any agent here.
 
 ## Install
 
@@ -16,7 +16,7 @@ A third-party report says Roo Code was sunset on 2026-05-15; its docs still load
 ./install.sh --scope user --agents roo-code
 ```
 
-Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the EndoStack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -26,13 +26,13 @@ Run the installer from a clone of the ttstack repository. Add `--dry-run` to see
 | Commands | `.roo/commands/<name>.md` or `~/.roo/commands/<name>.md`, one per command-style skill |
 | Rules | A marked block in the project `AGENTS.md` (unverified) |
 
-The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.endostack/install-manifest.json` (project) or `~/.endostack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-ttstack skills use neutral verbs. In this agent they mean:
+EndoStack skills use neutral verbs. In this agent they mean:
 
-| ttstack verb | Tool in Roo Code |
+| EndoStack verb | Tool in Roo Code |
 | --- | --- |
 | Spawn a subagent | none |
 | Ask the user | not documented |
@@ -51,7 +51,7 @@ ttstack skills use neutral verbs. In this agent they mean:
 
 No subagents, so there is no per-subagent model. Every role runs in the main chat on the session model.
 
-Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
+Role assignments live in `~/.endostack/models.toml` or the project's `.endostack/models.toml`, written by [setup-endostack](../../skills/setup-endostack/SKILL.md).
 
 ## What degrades here
 

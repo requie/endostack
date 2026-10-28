@@ -1,13 +1,13 @@
 ---
-name: setup-ttstack
-description: Configure ttstack. Detect which models this agent's subagents can use, pick a reasoning budget, map each ttstack role to a tier or model, and write models.toml. Use for "set up ttstack", first-time setup, changing models or budget, or cutting ttstack's cost.
+name: setup-endostack
+description: Configure EndoStack. Detect which models this agent's subagents can use, pick a reasoning budget, map each EndoStack role to a tier or model, and write models.toml. Use for "set up EndoStack", first-time setup, changing models or budget, or cutting EndoStack's cost.
 ---
 
-# setup-ttstack
+# setup-endostack
 
-Decide which model each ttstack role runs on and how hard it reasons, using only models this agent can actually reach, and save the result to a TOML file that every ttstack skill reads before it spawns a subagent. Then, once, offer to generate verification skills for the project.
+Decide which model each EndoStack role runs on and how hard it reasons, using only models this agent can actually reach, and save the result to a TOML file that every EndoStack skill reads before it spawns a subagent. Then, once, offer to generate verification skills for the project.
 
-This is the one ttstack skill that may start from a plain request such as "set up ttstack" without the user typing the command. Every other skill loads when typed or when the [`tarique-mode` skill](../tarique-mode/SKILL.md) calls it.
+This is the one EndoStack skill that may start from a plain request such as "set up EndoStack" without the user typing the command. Every other skill loads when typed or when the [`tarique-mode` skill](../tarique-mode/SKILL.md) calls it.
 
 Picking a model for a single run, such as one competitor in a [`swarm`](../swarm/SKILL.md) model race, is handled by that skill, not here.
 
@@ -21,7 +21,7 @@ If you cannot list them, ask the user which model names their agent lets subagen
 
 Record a model name only if you saw it in one of those sources or the user gave it. Never write a name you guessed. `inherit` is always valid even though no detection returns it.
 
-**No per-subagent model choice.** Some agents run every subagent on the session's model and have no way to choose per subagent. If that is the case here, tell the user plainly: every ttstack role will run on whatever model the chat uses, so the role table has no effect on which model runs, and only the budget (if the agent exposes a reasoning setting) and panel sizes matter. Still write the file, with every role set to `inherit`, so that panel sizes are recorded and the file is ready if the agent gains the feature. Skills that run panels on such an agent vary each reviewer's brief and stance instead of its model, and say so in one line.
+**No per-subagent model choice.** Some agents run every subagent on the session's model and have no way to choose per subagent. If that is the case here, tell the user plainly: every EndoStack role will run on whatever model the chat uses, so the role table has no effect on which model runs, and only the budget (if the agent exposes a reasoning setting) and panel sizes matter. Still write the file, with every role set to `inherit`, so that panel sizes are recorded and the file is ready if the agent gains the feature. Skills that run panels on such an agent vary each reviewer's brief and stance instead of its model, and say so in one line.
 
 ## 2. Establish the baseline
 
@@ -54,8 +54,8 @@ If a config file already exists, read it. Its `budget` and each role's value bec
 
 Config locations:
 
-- User: `~/.ttstack/models.toml`
-- Project: `.ttstack/models.toml` at the repository root. When both exist, the project file wins key by key.
+- User: `~/.endostack/models.toml`
+- Project: `.endostack/models.toml` at the repository root. When both exist, the project file wins key by key.
 
 Ask the user which one to write if it is not obvious. Personal model preferences go in the user file. A team that wants the same panel for everyone commits the project file.
 
@@ -72,7 +72,7 @@ Ask the user, with a multiple-choice question if the agent has one, which budget
 
 If the file records a budget, say which one is current. If there is no file, say that `large` matches the built-in defaults.
 
-The budget sets the reasoning effort for every subagent ttstack spawns, on agents that accept an effort or thinking setting per subagent. On agents whose model names encode effort (a name with a `-high` or `-low` variant, for example), rewrite the effort part of each concrete name to the budget's level. If that exact variant was not detected, use the detected variant in the same family with the highest effort not above the target. If none exists, mark the role as needing the user's choice. Tier values and `inherit` are not rewritten: the skill that reads them applies the budget at spawn time.
+The budget sets the reasoning effort for every subagent EndoStack spawns, on agents that accept an effort or thinking setting per subagent. On agents whose model names encode effort (a name with a `-high` or `-low` variant, for example), rewrite the effort part of each concrete name to the budget's level. If that exact variant was not detected, use the detected variant in the same family with the highest effort not above the target. If none exists, mark the role as needing the user's choice. Tier values and `inherit` are not rewritten: the skill that reads them applies the budget at spawn time.
 
 ## 4. Review the table
 
@@ -96,7 +96,7 @@ Replace the whole file each time, so running setup twice with the same answers p
 
 The header comments state:
 
-- The file records per-role model choices that override each ttstack skill's default.
+- The file records per-role model choices that override each EndoStack skill's default.
 - Deleting a key restores that role's default.
 - `inherit` means the role uses the chat's model, and an `inherit` entry in a panel list still adds a seat.
 - Which budget was chosen and the effort it maps to.
@@ -107,7 +107,7 @@ Tell the user:
 
 - Where the file was saved.
 - That only chats started from now on will read it, because skills read the config when they load. Open a new chat.
-- That running `/setup-ttstack` again revises it.
+- That running `/setup-endostack` again revises it.
 - To cut cost: choose a smaller budget, set code roles to `fast` or `inherit`, shorten the panel lists (each entry is one subagent), and keep `/tarique-mode` for work that needs its rigour.
 
 ## 8. One-time offers
@@ -121,7 +121,7 @@ Make each offer at most once. If the user declines, continue and do not raise it
 
 For builders and for skills that spawn subagents:
 
-1. Read the role's key from `.ttstack/models.toml`, then `~/.ttstack/models.toml`. The first file that has the key wins.
+1. Read the role's key from `.endostack/models.toml`, then `~/.endostack/models.toml`. The first file that has the key wins.
 2. If neither file has the key, use the default in the table in step 2.
 3. `inherit` or `auto`: pass no model, so the subagent runs on the chat's model.
 4. A tier: map it to a concrete model using `docs/agents/<agent>.md`.

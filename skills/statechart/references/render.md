@@ -5,7 +5,7 @@ Render every `.mmd` you show the user with Pele, an npm Mermaid renderer, pinned
 ## Install once, outside the repo
 
 ```sh
-mkdir -p ~/.ttstack/render && cd ~/.ttstack/render
+mkdir -p ~/.endostack/render && cd ~/.endostack/render
 npm init -y >/dev/null
 npm install --save-exact pele@1.9.0
 ```
@@ -17,7 +17,7 @@ Installing outside the repo keeps the dependency out of the project's lockfile.
 The defaults are too small for a 500-state diagram, so raise the input size to 1,000,000 characters, the output size to 8,000,000 characters, and the edge count to 10,000. The export and option names below follow Pele 1.9.0's README; if your installed copy differs, check its README and keep the same three limits.
 
 ```js
-// ~/.ttstack/render/render.mjs
+// ~/.endostack/render/render.mjs
 import { readFileSync, writeFileSync } from "node:fs";
 import { render, PeleError } from "pele";
 import { STYLE } from "./style.mjs";
@@ -41,7 +41,7 @@ try {
 }
 ```
 
-Run it with `node ~/.ttstack/render/render.mjs <out>/chart.mmd`. If it exits with a Pele error, give the user the error message and the Mermaid source so they can render it elsewhere.
+Run it with `node ~/.endostack/render/render.mjs <out>/chart.mmd`. If it exits with a Pele error, give the user the error message and the Mermaid source so they can render it elsewhere.
 
 ## Theming
 
@@ -75,7 +75,7 @@ Write the mark rules after the phase-color rules so a marked state shows its mar
 Insert one `<style>` block at the top of each SVG with light-mode values and a `prefers-color-scheme: dark` override, so the image follows the viewer's theme. This palette is a starting point; keep the meaning of each class if you change the colors.
 
 ```js
-// ~/.ttstack/render/style.mjs
+// ~/.endostack/render/style.mjs
 export const STYLE = `<style>
 :root, svg {
 	--pele-bg: #ffffff;

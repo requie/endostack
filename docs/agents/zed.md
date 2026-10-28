@@ -1,4 +1,4 @@
-# ttstack in Zed
+# EndoStack in Zed
 
 Zed's agent reads skills from `.agents/skills/` in trusted worktrees and from `~/.agents/skills/`. It has a `spawn_agent` tool but no custom subagent files.
 
@@ -16,7 +16,7 @@ Zed's agent reads skills from `.agents/skills/` in trusted worktrees and from `~
 ./install.sh --scope user --agents zed
 ```
 
-Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the EndoStack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -25,13 +25,13 @@ Run the installer from a clone of the ttstack repository. Add `--dry-run` to see
 | Skills | `.agents/skills/<name>/` or `~/.agents/skills/<name>/`. Zed loads them only in trusted worktrees. |
 | Rules | A marked block in the project `AGENTS.md`. Zed reads only the first rules file it finds; a `.rules`, `.cursorrules`, `.windsurfrules`, `.clinerules`, `.github/copilot-instructions.md` or `AGENT.md` in the project shadows `AGENTS.md`. |
 
-The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.endostack/install-manifest.json` (project) or `~/.endostack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-ttstack skills use neutral verbs. In this agent they mean:
+EndoStack skills use neutral verbs. In this agent they mean:
 
-| ttstack verb | Tool in Zed |
+| EndoStack verb | Tool in Zed |
 | --- | --- |
 | Spawn a subagent | `spawn_agent` |
 | Ask the user | none |
@@ -50,7 +50,7 @@ ttstack skills use neutral verbs. In this agent they mean:
 
 Every subagent runs on the session model. Panels vary each seat's brief instead of its model.
 
-Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
+Role assignments live in `~/.endostack/models.toml` or the project's `.endostack/models.toml`, written by [setup-endostack](../../skills/setup-endostack/SKILL.md).
 
 ## What degrades here
 

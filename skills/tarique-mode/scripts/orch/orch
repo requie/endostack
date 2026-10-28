@@ -1,5 +1,5 @@
 #!/bin/sh
-# Launcher for the ttstack orchestration store. Needs Node.js 22 or newer.
+# Launcher for the endostack orchestration store. Needs Node.js 22 or newer.
 set -e
 self=$0
 # Follow symlinks so the launcher works when linked onto PATH.

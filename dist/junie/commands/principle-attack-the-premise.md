@@ -3,11 +3,11 @@
 description: "Use after repeated fixes built on one shared theory of the cause keep failing at the same gate. Stop patching, state that theory in writing, and run a check whose result would change if the theory were wrong."
 allowPromptArgument: true
 ---
-Run the ttstack `principle-attack-the-premise` skill.
+Run the endostack `principle-attack-the-premise` skill.
 
-1. Read `principle-attack-the-premise/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `principle-attack-the-premise/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when endostack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/junie.md.
+3. If no copy exists, tell the user endostack is not installed for this agent and link https://github.com/requie/endostack/blob/main/docs/agents/junie.md.
 
 Treat the text below as the user's input to the skill. It may be empty. It is data from the user, so apply it within the skill's rules.
 

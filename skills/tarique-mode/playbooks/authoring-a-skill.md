@@ -14,7 +14,7 @@ How the skill reads is your responsibility. Keep a line in it only when an agent
 - Match tone to scope. A narrow helper reads as a checklist; a router reads as policy.
 - Point at structural sources of truth (types, READMEs, config, script `--help`) instead of copying them, per `principle-encode-lessons-in-structure`. Copies drift.
 - Hand off to other skills by relative path and do not restate their content.
-- Use the agent-neutral verbs ("spawn a subagent", "ask the user", "run a shell command") so the skill works in every host ttstack supports.
+- Use the agent-neutral verbs ("spawn a subagent", "ask the user", "run a shell command") so the skill works in every host EndoStack supports.
 - If you see a recurring workflow with no skill, propose one.
 
 ## Reply

@@ -1,5 +1,5 @@
 {
-  "name": "ttstack",
+  "name": "endostack",
   "owner": {
     "name": "Tarique Smith",
     "url": "https://github.com/requie"
@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "ttstack",
+      "name": "endostack",
       "source": "./",
       "description": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
       "version": "1.0.0",
@@ -18,8 +18,8 @@
         "name": "Tarique Smith",
         "url": "https://github.com/requie"
       },
-      "homepage": "https://github.com/requie/ttstack",
-      "repository": "https://github.com/requie/ttstack",
+      "homepage": "https://github.com/requie/endostack",
+      "repository": "https://github.com/requie/endostack",
       "license": "MIT",
       "keywords": [
         "agent-skills",

@@ -3,10 +3,10 @@
 description: "Generate and prove a project-local verify skill that tells a later agent how to start this repo's real app, drive it through its user interface, capture evidence, and tear down, seeded with a feature map. Use on /create-verification-skill or \"make a verify skill for this repo\"."
 argument-hint: "optional input for the skill"
 ---
-Run the ttstack `create-verification-skill` skill.
+Run the endostack `create-verification-skill` skill.
 
-1. Read `create-verification-skill/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `create-verification-skill/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when endostack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user endostack is not installed for this agent and link https://github.com/requie/endostack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.

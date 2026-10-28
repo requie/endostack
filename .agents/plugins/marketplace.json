@@ -1,11 +1,11 @@
 {
-  "name": "ttstack",
+  "name": "endostack",
   "interface": {
-    "displayName": "ttstack"
+    "displayName": "EndoStack"
   },
   "plugins": [
     {
-      "name": "ttstack",
+      "name": "endostack",
       "source": {
         "source": "local",
         "path": "./"

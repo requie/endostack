@@ -3,10 +3,10 @@
 description: "Audit the comments in a change, delete the ones that explain or excuse a problem, fix the problem in scope, and turn \"do not touch\" comments into enforced checks. Use on /no-comments or when asked to strip, audit, or clean up comments in a diff."
 argument-hint: "optional input for the skill"
 ---
-Run the ttstack `no-comments` skill.
+Run the endostack `no-comments` skill.
 
-1. Read `no-comments/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `no-comments/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when endostack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user endostack is not installed for this agent and link https://github.com/requie/endostack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.

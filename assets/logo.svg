@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="title">
-  <title id="title">ttstack</title>
+  <title id="title">EndoStack</title>
   <rect x="4" y="4" width="504" height="504" rx="108" fill="#0F172A" stroke="#334155" stroke-width="8"/>
-  <path d="M244 92 V330 Q244 400 314 400 H344" fill="none" stroke="#F1F5F9" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M152 210 L214 272 L362 124" fill="none" stroke="#2DD4BF" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M369 202 A128 128 0 1 0 351 348" fill="none" stroke="#F1F5F9" stroke-width="50" stroke-linecap="round"/>
+  <path d="M146 236 L212 300 L368 198" fill="none" stroke="#2DD4BF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

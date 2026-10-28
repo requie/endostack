@@ -1,4 +1,4 @@
-// Keeps the try-ttstack demo honest. The shipped app must show the bug with the
+// Keeps the try-endostack demo honest. The shipped app must show the bug with the
 // traversal guard intact, the bundled naive fix must close the bug and open the
 // hole, and a careful fix must do both jobs.
 import assert from 'node:assert/strict';
@@ -10,7 +10,7 @@ import { after, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 const demo = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'demo');
-const scratch = mkdtempSync(path.join(tmpdir(), 'try-ttstack-'));
+const scratch = mkdtempSync(path.join(tmpdir(), 'try-endostack-'));
 after(() => rmSync(scratch, { recursive: true, force: true }));
 
 function copyApp(label) {

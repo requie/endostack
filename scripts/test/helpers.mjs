@@ -2,7 +2,7 @@ import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 
-export function tempDir(prefix = 'ttstack-test-') {
+export function tempDir(prefix = 'endostack-test-') {
   return mkdtempSync(join(tmpdir(), prefix));
 }
 

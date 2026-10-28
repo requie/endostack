@@ -17,7 +17,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { splitFrontmatter, keyLine } from './lib/frontmatter.mjs';
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SKIP_DIRS = new Set(['.git', 'node_modules', 'dist', 'com.github.copilot', '.ttstack']);
+const SKIP_DIRS = new Set(['.git', 'node_modules', 'dist', 'com.github.copilot', '.endostack']);
 const TEXT_EXT = /\.(md|mdc|mjs|js|cjs|ts|json|toml|ya?ml|sh|ps1|txt|tla|cfg)$/i;
 
 export const BANNED_WORDS = [

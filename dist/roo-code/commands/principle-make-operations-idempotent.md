@@ -3,10 +3,10 @@
 description: "Use when designing commands, setup or install flows, lifecycle steps, or processing loops that might be retried or restarted. Every run, including one following a crash at any step, must end in the same correct state."
 argument-hint: "optional input for the skill"
 ---
-Run the ttstack `principle-make-operations-idempotent` skill.
+Run the endostack `principle-make-operations-idempotent` skill.
 
-1. Read `principle-make-operations-idempotent/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `principle-make-operations-idempotent/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when endostack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user endostack is not installed for this agent and link https://github.com/requie/endostack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.

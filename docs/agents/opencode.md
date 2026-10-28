@@ -1,4 +1,4 @@
-# ttstack in OpenCode
+# EndoStack in OpenCode
 
 OpenCode reads skills from `.agents/skills/`, subagents from `.opencode/agents/` (`mode: subagent`), and commands from `.opencode/commands/`.
 
@@ -16,7 +16,7 @@ OpenCode reads skills from `.agents/skills/`, subagents from `.opencode/agents/`
 ./install.sh --scope user --agents opencode
 ```
 
-Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the EndoStack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -27,13 +27,13 @@ Run the installer from a clone of the ttstack repository. Add `--dry-run` to see
 | Commands | `.opencode/commands/<name>.md` or `~/.config/opencode/commands/<name>.md`; `$ARGUMENTS` carries what you type |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.endostack/install-manifest.json` (project) or `~/.endostack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-ttstack skills use neutral verbs. In this agent they mean:
+EndoStack skills use neutral verbs. In this agent they mean:
 
-| ttstack verb | Tool in OpenCode |
+| EndoStack verb | Tool in OpenCode |
 | --- | --- |
 | Spawn a subagent | Task (permission key `task`); `@<name>` by hand |
 | Ask the user | `question` (unverified) |
@@ -50,9 +50,9 @@ ttstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Model choice is per agent definition: `model: <provider>/<model-id>` in the agent file. ttstack's generated agents leave it unset, so they run on the session model unless you add one.
+Model choice is per agent definition: `model: <provider>/<model-id>` in the agent file. EndoStack's generated agents leave it unset, so they run on the session model unless you add one.
 
-Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
+Role assignments live in `~/.endostack/models.toml` or the project's `.endostack/models.toml`, written by [setup-endostack](../../skills/setup-endostack/SKILL.md).
 
 ## What degrades here
 

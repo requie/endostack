@@ -1,12 +1,12 @@
 ---
 name: unslop
-description: Rewrite prose so it stops reading as machine-generated, using ttstack's numbered catalog of AI-writing tells. Use on /unslop, "de-AI this", "clean up this draft", "make this plain", and whenever another skill sends text here for a slop pass.
+description: Rewrite prose so it stops reading as machine-generated, using EndoStack's numbered catalog of AI-writing tells. Use on /unslop, "de-AI this", "clean up this draft", "make this plain", and whenever another skill sends text here for a slop pass.
 disable-model-invocation: true
 ---
 
 # unslop
 
-Edit the given text so a reader cannot tell a model wrote it. Keep the author's meaning, every real qualification, and the register they chose. This file is the canonical catalog of writing tells for ttstack. Other skills cite its rule ids (`U1`, `U2`, and so on), so ids are permanent. A retired rule keeps its id and is marked retired. New rules get the next unused number.
+Edit the given text so a reader cannot tell a model wrote it. Keep the author's meaning, every real qualification, and the register they chose. This file is the canonical catalog of writing tells for EndoStack. Other skills cite its rule ids (`U1`, `U2`, and so on), so ids are permanent. A retired rule keeps its id and is marked retired. New rules get the next unused number.
 
 Do not use this skill on product UI copy that has its own style guide, on code or configuration, or on text that must stay verbatim (quotations, legal wording, error strings that code matches on).
 

@@ -13,7 +13,7 @@ Apply four layers of public writing guidance, each answering a different questio
 3. Statement size: does each sentence carry one thing? (ASD-STE100 Simplified Technical English)
 4. Syntax: can a non-native reader misparse it? (Microsoft and other Global English guidance)
 
-The rule wording below is ttstack's own summary of those sources.
+The rule wording below is EndoStack's own summary of those sources.
 
 Do not use this skill for product UI strings (follow the product's copy guide), code comments (see the `no-comments` skill, [../no-comments/SKILL.md](../no-comments/SKILL.md)), or casual chat replies.
 

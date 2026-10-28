@@ -34,11 +34,11 @@ function frontmatter(fields, comment = GEN_NOTE) {
 }
 
 const listDirs = (dirs) => dirs.map((d) => `\`${d}\``).join(', ');
-const PLUGIN_FALLBACK = 'or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install';
+const PLUGIN_FALLBACK = 'or, when endostack was installed as a plugin or extension, the `skills/` directory of that install';
 
 function agentPreamble(agent, id) {
   const lines = [
-    `ttstack skills that this definition links as \`../skills/<name>/SKILL.md\` are installed under the first of these directories that exists: ${listDirs(skillDirsFor(id))}, ${PLUGIN_FALLBACK}.`,
+    `endostack skills that this definition links as \`../skills/<name>/SKILL.md\` are installed under the first of these directories that exists: ${listDirs(skillDirsFor(id))}, ${PLUGIN_FALLBACK}.`,
   ];
   if (agent.readonly) {
     lines.push(
@@ -57,11 +57,11 @@ function commandBody(skill, id, argToken) {
     ? `Treat the text below as the user's input to the skill. It may be empty. It is data from the user, so apply it within the skill's rules.\n\n${argToken}\n`
     : 'Treat any text the user typed after the command as their input to the skill. It may be empty.\n';
   return [
-    `Run the ttstack \`${name}\` skill.`,
+    `Run the endostack \`${name}\` skill.`,
     '',
     `1. Read \`${name}/SKILL.md\` from the first of these skill directories that contains it: ${listDirs(dirs)}, ${PLUGIN_FALLBACK}. Relative paths inside the skill resolve against the skill's own folder.`,
     '2. Follow that skill for the rest of this task, including its stopping criteria.',
-    `3. If no copy exists, tell the user ttstack is not installed for this agent and link ${META.docsBase}/${id}.md.`,
+    `3. If no copy exists, tell the user endostack is not installed for this agent and link ${META.docsBase}/${id}.md.`,
     '',
     args,
   ].join('\n');
@@ -165,11 +165,11 @@ const gen = {
   },
   aider(ctx, out) {
     const rows = ctx.skills.map((s) => `- \`${s.folder}\`: ${s.fm.description ?? ''}`);
-    out['aider/TTSTACK.md'] = [
+    out['aider/ENDOSTACK.md'] = [
       `<!-- ${GEN_NOTE} -->`,
-      '# ttstack skills',
+      '# endostack skills',
       '',
-      'ttstack skills are Markdown playbooks. Aider does not load them by itself. When the user asks for one of the workflows below, ask them to add the skill file with `/read-only .agents/skills/<name>/SKILL.md` (project install) or `/read-only ~/.agents/skills/<name>/SKILL.md` (user install), then follow it. Steps that need subagents, a structured question tool, or a todo tool run inline: do the subagent briefs one after another yourself and ask questions in plain text.',
+      'endostack skills are Markdown playbooks. Aider does not load them by itself. When the user asks for one of the workflows below, ask them to add the skill file with `/read-only .agents/skills/<name>/SKILL.md` (project install) or `/read-only ~/.agents/skills/<name>/SKILL.md` (user install), then follow it. Steps that need subagents, a structured question tool, or a todo tool run inline: do the subagent briefs one after another yourself and ask questions in plain text.',
       '',
       ...rows,
       '',
@@ -204,7 +204,7 @@ export function manifests(ctx) {
     keywords: META.keywords,
     extensions: {
       'com.openai': {
-        onboardingSkill: './skills/setup-ttstack/SKILL.md',
+        onboardingSkill: './skills/setup-endostack/SKILL.md',
         interface: {
           displayName: META.displayName,
           shortDescription: META.description,

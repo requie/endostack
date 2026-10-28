@@ -1,4 +1,4 @@
-# ttstack in Goose
+# EndoStack in Goose
 
 Goose reads skills through its Skills extension, installs Open Plugins (root `plugin.json`) and Gemini extensions, and reads custom agents from `.agents/agents/`.
 
@@ -7,7 +7,7 @@ Goose reads skills through its Skills extension, installs Open Plugins (root `pl
 **Plugin:**
 
 ```sh
-goose plugin install https://github.com/requie/ttstack.git
+goose plugin install https://github.com/requie/endostack.git
 ```
 
 **Files, one project:**
@@ -22,7 +22,7 @@ goose plugin install https://github.com/requie/ttstack.git
 ./install.sh --scope user --agents goose
 ```
 
-Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the EndoStack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
@@ -32,13 +32,13 @@ Run the installer from a clone of the ttstack repository. Add `--dry-run` to see
 | Subagents | `.agents/agents/<name>.md` or `~/.agents/agents/<name>.md` |
 | Rules | A marked block in the project `AGENTS.md` |
 
-The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.endostack/install-manifest.json` (project) or `~/.endostack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-ttstack skills use neutral verbs. In this agent they mean:
+EndoStack skills use neutral verbs. In this agent they mean:
 
-| ttstack verb | Tool in Goose |
+| EndoStack verb | Tool in Goose |
 | --- | --- |
 | Spawn a subagent | `delegate` |
 | Ask the user | not documented |
@@ -55,9 +55,9 @@ ttstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Model choice is per agent definition (the `model` field). ttstack's generated agents leave it unset, so they run on the session model unless you add one.
+Model choice is per agent definition (the `model` field). EndoStack's generated agents leave it unset, so they run on the session model unless you add one.
 
-Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
+Role assignments live in `~/.endostack/models.toml` or the project's `.endostack/models.toml`, written by [setup-endostack](../../skills/setup-endostack/SKILL.md).
 
 ## What degrades here
 

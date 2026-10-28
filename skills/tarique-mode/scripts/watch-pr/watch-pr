@@ -1,5 +1,5 @@
 #!/bin/sh
-# Launcher for the ttstack PR watcher. Needs Node.js 22 or newer and gh.
+# Launcher for the endostack PR watcher. Needs Node.js 22 or newer and gh.
 set -e
 self=$0
 # Follow symlinks so the launcher works when linked onto PATH.

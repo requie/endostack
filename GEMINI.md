@@ -1,10 +1,10 @@
-# ttstack
+# EndoStack
 
-ttstack is installed as a Gemini CLI extension. Its skills live in this extension's `skills/` folder and load through `activate_skill` when a request matches a skill's description, or when the user names the skill.
+EndoStack is installed as a Gemini CLI extension. Its skills live in this extension's `skills/` folder and load through `activate_skill` when a request matches a skill's description, or when the user names the skill.
 
-When a ttstack skill tells you to do something with a neutral verb, use these Gemini CLI tools:
+When a EndoStack skill tells you to do something with a neutral verb, use these Gemini CLI tools:
 
-| ttstack verb | Gemini CLI tool |
+| EndoStack verb | Gemini CLI tool |
 | --- | --- |
 | spawn a subagent | the tool named after the subagent (for example `tarique-agent`) |
 | ask the user | `ask_user` |

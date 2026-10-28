@@ -1,5 +1,5 @@
 {
-  "name": "ttstack-statechart",
+  "name": "endostack-statechart",
   "private": true,
   "type": "module",
   "description": "TLA+ model-check front end: runs TLC, writes a report and a Mermaid state chart.",

@@ -17,7 +17,7 @@ Every runner receives identical instructions, so the instructions are the job. G
 
 1. **Name the artifact.** Say exactly what each runner produces and in what form: "a module with these three public functions and tests", not "an implementation".
 2. **Write the rubric.** Three to six criteria specific to this task, each something you can grade on its own. "Handles a partial write without corrupting the index" is gradable. "Good quality" is not. Runners never see the rubric. You and the judge use it. If the artifact touches a trust boundary, include a criterion for it, such as "untrusted input is parsed once, at the edge".
-3. **Choose runners.** Read the `arena-runners` key from the ttstack model config (`.ttstack/models.toml` wins over `~/.ttstack/models.toml`). One entry is one runner. With no config, use two: `strong` and `fast`. A caller such as architect may pass its own list, which replaces this one. `inherit` (or `auto`) means the runner uses the session model, so pass no model. Add runners when you want more design directions explored. Repeat one model in every slot when the work needs volume more than judgment.
+3. **Choose runners.** Read the `arena-runners` key from the EndoStack model config (`.endostack/models.toml` wins over `~/.endostack/models.toml`). One entry is one runner. With no config, use two: `strong` and `fast`. A caller such as architect may pass its own list, which replaces this one. `inherit` (or `auto`) means the runner uses the session model, so pass no model. Add runners when you want more design directions explored. Repeat one model in every slot when the work needs volume more than judgment.
 4. **Isolate.** Give every runner its own place to write: a separate git worktree if the agent supports it, otherwise a per-runner folder under a temp directory for this arena. Runners writing to shared files would overwrite each other and see each other's work, which destroys their independence ([`principle-separate-before-serializing-shared-state`](../principle-separate-before-serializing-shared-state/SKILL.md)).
 
 **Model names that fail.** If the agent rejects a configured name, run that slot on its default tier and tell the user in one line. If a tier itself cannot be resolved, take the closest model the agent's error lists. Never block the arena on a model-name problem.
@@ -89,4 +89,4 @@ The merged artifact passes verification and the synthesis note is complete. Wild
 ## Related
 
 - The [`tarique-mode` skill](../tarique-mode/SKILL.md) carries the general guidance on subagent effort and speed.
-- The [`setup-ttstack` skill](../setup-ttstack/SKILL.md) writes `arena-runners` and `arena-judges`.
+- The [`setup-endostack` skill](../setup-endostack/SKILL.md) writes `arena-runners` and `arena-judges`.

@@ -1,13 +1,13 @@
-# ttstack in Gemini CLI
+# EndoStack in Gemini CLI
 
-Gemini CLI installs ttstack as an extension (`gemini-extension.json` at the repository root) and reads skills, subagents, and TOML commands. Google has moved consumer accounts to Antigravity CLI; Gemini CLI still works with paid Gemini API keys and Code Assist Standard or Enterprise.
+Gemini CLI installs EndoStack as an extension (`gemini-extension.json` at the repository root) and reads skills, subagents, and TOML commands. Google has moved consumer accounts to Antigravity CLI; Gemini CLI still works with paid Gemini API keys and Code Assist Standard or Enterprise.
 
 ## Install
 
 **Extension (recommended):**
 
 ```sh
-gemini extensions install https://github.com/requie/ttstack
+gemini extensions install https://github.com/requie/endostack
 ```
 
 **Files, one project:**
@@ -22,25 +22,25 @@ gemini extensions install https://github.com/requie/ttstack
 ./install.sh --scope user --agents gemini-cli
 ```
 
-Run the installer from a clone of the ttstack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
+Run the installer from a clone of the EndoStack repository. Add `--dry-run` to see every file it would write, `--link` to symlink instead of copy, and `--uninstall` (with the same `--scope`) to remove exactly what it wrote. On Windows use `install.ps1` with the same options.
 
 ## Where the files land
 
 | What | Path |
 | --- | --- |
-| Extension install | Skills from the extension's `skills/`; context from `GEMINI.md`, which maps ttstack's verbs to Gemini tools. |
+| Extension install | Skills from the extension's `skills/`; context from `GEMINI.md`, which maps EndoStack's verbs to Gemini tools. |
 | Skills (files) | `.agents/skills/<name>/` or `~/.agents/skills/<name>/` (both win over `.gemini/skills/`) |
 | Subagents (files) | `.gemini/agents/` or `~/.gemini/agents/` |
 | Commands (files) | `.gemini/commands/<name>.toml` or `~/.gemini/commands/<name>.toml`, one per command-style skill; `{{args}}` carries what you type after the command |
 | Rules | A marked block in `AGENTS.md`, plus an `@AGENTS.md` import block in an existing project `GEMINI.md`. Gemini reads `AGENTS.md` directly only if `context.fileName` in `settings.json` lists it. |
 
-The installer records every file it writes, with a hash, in `.ttstack/install-manifest.json` (project) or `~/.ttstack/install-manifest.json` (user). It never overwrites a file it did not write.
+The installer records every file it writes, with a hash, in `.endostack/install-manifest.json` (project) or `~/.endostack/install-manifest.json` (user). It never overwrites a file it did not write.
 
 ## Tool names
 
-ttstack skills use neutral verbs. In this agent they mean:
+EndoStack skills use neutral verbs. In this agent they mean:
 
-| ttstack verb | Tool in Gemini CLI |
+| EndoStack verb | Tool in Gemini CLI |
 | --- | --- |
 | Spawn a subagent | a tool named after each subagent (for example `tarique-agent`); `@<name>` forces delegation |
 | Ask the user | `ask_user` |
@@ -57,9 +57,9 @@ ttstack skills use neutral verbs. In this agent they mean:
 
 ## Models per subagent
 
-Model choice is per subagent definition (the `model` field). ttstack's generated agents leave it unset, so they run on the session model unless you add one.
+Model choice is per subagent definition (the `model` field). EndoStack's generated agents leave it unset, so they run on the session model unless you add one.
 
-Role assignments live in `~/.ttstack/models.toml` or the project's `.ttstack/models.toml`, written by [setup-ttstack](../../skills/setup-ttstack/SKILL.md).
+Role assignments live in `~/.endostack/models.toml` or the project's `.endostack/models.toml`, written by [setup-endostack](../../skills/setup-endostack/SKILL.md).
 
 ## What degrades here
 

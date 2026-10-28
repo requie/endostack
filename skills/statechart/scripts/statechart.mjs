@@ -39,7 +39,7 @@ and no chart is written when nothing breaks.
 
 Toolchain: set TLA2TOOLS to a tla2tools.jar and JAVA to a Java 11+ binary
 (default: java on PATH). Without TLA2TOOLS the pinned jar is downloaded once
-into ~/.cache/ttstack/statechart.
+into ~/.cache/endostack/statechart.
 
 Exit codes: 0 every rule holds; 1 some rule breaks; 2 error (bad input, TLC
 or SANY failure, view error, output folder conflict); 130/143 interrupted.

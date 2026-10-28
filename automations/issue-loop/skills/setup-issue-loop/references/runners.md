@@ -316,13 +316,13 @@ Schedule it with cron:
 */10 * * * * $HOME/issue-loop/run-triage.sh >> $HOME/issue-loop/triage.log 2>&1
 ```
 
-or launchd on macOS (`~/Library/LaunchAgents/io.ttstack.issue-loop.triage.plist`):
+or launchd on macOS (`~/Library/LaunchAgents/io.endostack.issue-loop.triage.plist`):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-  <key>Label</key><string>io.ttstack.issue-loop.triage</string>
+  <key>Label</key><string>io.endostack.issue-loop.triage</string>
   <key>ProgramArguments</key><array><string>/bin/bash</string><string>-lc</string><string>$HOME/issue-loop/run-triage.sh</string></array>
   <key>StartInterval</key><integer>600</integer>
   <key>StandardOutPath</key><string>/tmp/issue-loop-triage.log</string>
@@ -330,6 +330,6 @@ or launchd on macOS (`~/Library/LaunchAgents/io.ttstack.issue-loop.triage.plist`
 </dict></plist>
 ```
 
-Load it with `launchctl load ~/Library/LaunchAgents/io.ttstack.issue-loop.triage.plist`. Reproduce uses the same pattern with its own state file, its own prompt, and the container image that runs your app.
+Load it with `launchctl load ~/Library/LaunchAgents/io.endostack.issue-loop.triage.plist`. Reproduce uses the same pattern with its own state file, its own prompt, and the container image that runs your app.
 
 A local runner stops when the machine sleeps. Add a staleness check (the newest processed issue is older than the newest open issue by more than an hour) to the log so you notice.

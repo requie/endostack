@@ -29,7 +29,7 @@ Write one paragraph on the purpose of the change. Your sources are what the user
 
 ### 3. Launch the panel
 
-Read the `interrogate-reviewers` key from the ttstack model config (`.ttstack/models.toml` in the project, which wins key by key over `~/.ttstack/models.toml`). Each entry in the list is one reviewer seat, labelled A, B, C in order. With no config, use two seats: `strong` and `fast`. An `inherit` (or `auto`) entry runs on the session's model and still counts as a seat.
+Read the `interrogate-reviewers` key from the EndoStack model config (`.endostack/models.toml` in the project, which wins key by key over `~/.endostack/models.toml`). Each entry in the list is one reviewer seat, labelled A, B, C in order. With no config, use two seats: `strong` and `fast`. An `inherit` (or `auto`) entry runs on the session's model and still counts as a seat.
 
 Add one more seat, labelled S, for the security reviewer. It runs on the `judgment` role (default `strong`). Its brief adds the security stance in [references/reviewer-brief.md](references/reviewer-brief.md).
 
@@ -74,5 +74,5 @@ Every finding from every seat sits in exactly one bucket with attribution and a 
 
 - The [`tarique-mode` skill](../tarique-mode/SKILL.md) can call this skill as a review step.
 - The [`architect` skill](../architect/SKILL.md) can run it on a design sketch before coding starts.
-- The [`setup-ttstack` skill](../setup-ttstack/SKILL.md) writes the reviewer roster.
+- The [`setup-endostack` skill](../setup-endostack/SKILL.md) writes the reviewer roster.
 - The rubric draws on [`principle-boundary-discipline`](../principle-boundary-discipline/SKILL.md), [`principle-fix-root-causes`](../principle-fix-root-causes/SKILL.md), [`principle-make-operations-idempotent`](../principle-make-operations-idempotent/SKILL.md), [`principle-separate-before-serializing-shared-state`](../principle-separate-before-serializing-shared-state/SKILL.md), [`principle-prove-it-works`](../principle-prove-it-works/SKILL.md), [`principle-encode-lessons-in-structure`](../principle-encode-lessons-in-structure/SKILL.md), [`principle-migrate-callers-then-delete-legacy-apis`](../principle-migrate-callers-then-delete-legacy-apis/SKILL.md), [`principle-subtract-before-you-add`](../principle-subtract-before-you-add/SKILL.md), and [`principle-treat-input-as-untrusted`](../principle-treat-input-as-untrusted/SKILL.md).

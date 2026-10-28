@@ -15,7 +15,7 @@ Inputs: the slow scenario, its surface (UI, CLI, service), and any target.
    5. Move it off the user's wait.
    6. Parallelize it.
    7. Make each unit cheaper.
-3. **Let the trace drive the fix design.** When the fix spans more than one function, run the `architect` skill ([../../architect/SKILL.md](../../architect/SKILL.md)) before writing it. Spawn a subagent on the perf role from `~/.ttstack/models.toml` (default `fast`, `strong` for the hardest), effort and speed per the router. Read its diff. For caching rungs, confirm the cache key includes user or tenant identity and the cache is bounded. Trace again, and confirm each attempt before the next ([principle-sequence-verifiable-units](../../principle-sequence-verifiable-units/SKILL.md)).
+3. **Let the trace drive the fix design.** When the fix spans more than one function, run the `architect` skill ([../../architect/SKILL.md](../../architect/SKILL.md)) before writing it. Spawn a subagent on the perf role from `~/.endostack/models.toml` (default `fast`, `strong` for the hardest), effort and speed per the router. Read its diff. For caching rungs, confirm the cache key includes user or tenant identity and the cache is bounded. Trace again, and confirm each attempt before the next ([principle-sequence-verifiable-units](../../principle-sequence-verifiable-units/SKILL.md)).
 4. **Compare traces by program,** for example JSON loaded into sqlite and diffed by query. An inconclusive result, or one from a different surface, fails and is reported as such.
 5. **Put the figures in the PR description,** then follow [Opening a PR](opening-a-pr.md).
 

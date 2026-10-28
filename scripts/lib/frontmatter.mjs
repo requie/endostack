@@ -1,6 +1,6 @@
 // Minimal YAML frontmatter reader for SKILL.md and agent files.
 // Supports `key: value` scalars (plain, single- or double-quoted), `>`/`|` block
-// scalars, and `- item` lists. That is the whole subset ttstack's sources use.
+// scalars, and `- item` lists. That is the whole subset endostack's sources use.
 
 export function splitFrontmatter(text) {
   const src = text.replace(/\r\n/g, '\n');

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Install ttstack's skills, subagents and commands into the coding agents on
+// Install endostack's skills, subagents and commands into the coding agents on
 // this machine, and remove exactly what an earlier run wrote.
 //
 //   node scripts/install.mjs [--scope project|user] [--agents auto|<id,id>]
@@ -7,7 +7,7 @@
 //                            [--project <dir>]
 //
 // Every file the installer writes is recorded, with its hash, in
-// .ttstack/install-manifest.json (project scope) or ~/.ttstack/install-manifest.json
+// .endostack/install-manifest.json (project scope) or ~/.endostack/install-manifest.json
 // (user scope). Uninstall deletes only files whose content still matches the
 // recorded hash, and removes only the marked blocks it added to shared files.
 import {
@@ -23,10 +23,10 @@ import { META } from './lib/meta.mjs';
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MANIFEST_VERSION = 1;
-export const BLOCK_BEGIN = '<!-- ttstack:begin (managed by ttstack install; remove with --uninstall) -->';
-export const BLOCK_END = '<!-- ttstack:end -->';
-export const YAML_BEGIN = '# ttstack:begin (managed by ttstack install; remove with --uninstall)';
-export const YAML_END = '# ttstack:end';
+export const BLOCK_BEGIN = '<!-- endostack:begin (managed by endostack install; remove with --uninstall) -->';
+export const BLOCK_END = '<!-- endostack:end -->';
+export const YAML_BEGIN = '# endostack:begin (managed by endostack install; remove with --uninstall)';
+export const YAML_END = '# endostack:end';
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 
@@ -64,11 +64,11 @@ export const USAGE = `Usage: install.sh [options]   (Windows: install.ps1, or no
                          user: write into your home directory for every project
   --agents auto|<list>   auto detects installed agents (default); or a comma list of:
                          ${TARGET_IDS.join(', ')}
-  --link                 symlink ttstack's files instead of copying (updates follow git pull)
+  --link                 symlink endostack's files instead of copying (updates follow git pull)
   --dry-run              print every action without changing anything
   --verbose              print every file written (default: one line per folder)
   --uninstall            remove exactly what an earlier install wrote
-  --no-rules             do not add the ttstack block to AGENTS.md / CLAUDE.md / GEMINI.md
+  --no-rules             do not add the endostack block to AGENTS.md / CLAUDE.md / GEMINI.md
   --project <dir>        project root for --scope project (default: current directory)
 `;
 
@@ -123,11 +123,11 @@ export function resolveAgents(spec, ctx) {
   return out;
 }
 
-// Claude Code reads ttstack from the marketplace plugin when it is installed.
+// Claude Code reads endostack from the marketplace plugin when it is installed.
 export function claudePluginInstalled(home) {
   const list = join(home, '.claude', 'plugins', 'installed_plugins.json');
-  if (existsSync(list) && /"ttstack@/.test(readFileSync(list, 'utf8'))) return true;
-  return existsSync(join(home, '.claude', 'plugins', 'cache', 'ttstack'));
+  if (existsSync(list) && /"endostack@/.test(readFileSync(list, 'utf8'))) return true;
+  return existsSync(join(home, '.claude', 'plugins', 'cache', 'endostack'));
 }
 
 // ------------------------------------------------------------------ plan --
@@ -154,9 +154,9 @@ function distFiles(source, sub) {
 function rulesBlock(skillsDir) {
   return [
     BLOCK_BEGIN,
-    '## ttstack',
+    '## endostack',
     '',
-    `ttstack (${META.homepage}) is installed here. Its skills are in \`${skillsDir}/<name>/SKILL.md\`. Load a skill when the user types \`/<name>\` or when its description matches the task, and resolve links inside a skill relative to that skill's folder.`,
+    `endostack (${META.homepage}) is installed here. Its skills are in \`${skillsDir}/<name>/SKILL.md\`. Load a skill when the user types \`/<name>\` or when its description matches the task, and resolve links inside a skill relative to that skill's folder.`,
     '',
     `Skills use neutral verbs ("spawn a subagent", "ask the user", "track a todo list"). The per-agent tool names for those verbs are listed at ${META.docsBase}/README.md.`,
     '',
@@ -182,7 +182,7 @@ export function planInstall(o) {
     const t = TARGETS[id];
     if (!t.skills) continue;
     if (id === 'claude-code' && claudePlugin) {
-      notes.push('Claude Code: the ttstack plugin is installed, so skills and subagents are not copied into .claude/ (avoids duplicate skills).');
+      notes.push('Claude Code: the endostack plugin is installed, so skills and subagents are not copied into .claude/ (avoids duplicate skills).');
       continue;
     }
     const d = dest(t.skills[scope]);
@@ -221,11 +221,11 @@ export function planInstall(o) {
   }
 
   if (ids.has('aider')) {
-    const from = join(source, 'dist', 'aider', 'TTSTACK.md');
-    const to = join(scopeRoot, '.ttstack', 'aider.md');
+    const from = join(source, 'dist', 'aider', 'ENDOSTACK.md');
+    const to = join(scopeRoot, '.endostack', 'aider.md');
     actions.push(link ? { kind: 'link', from, to, dir: false } : { kind: 'file', from, to });
     const conf = join(scopeRoot, '.aider.conf.yml');
-    const readPath = scope === 'project' ? '.ttstack/aider.md' : to.split(sep).join('/');
+    const readPath = scope === 'project' ? '.endostack/aider.md' : to.split(sep).join('/');
     actions.push({ kind: 'yaml-block', file: conf, text: `${YAML_BEGIN}\nread:\n  - ${readPath}\n${YAML_END}\n` });
   }
 
@@ -241,11 +241,11 @@ export function planInstall(o) {
   const shared = [...skillDirs.entries()].filter(([, who]) => who.length > 1);
   for (const [d, who] of shared) notes.push(`${d}: one copy serves ${who.join(', ')}.`);
   if (ids.has('claude-code') && !claudePlugin) {
-    notes.push('Claude Code: skills were copied to .claude/skills. Cursor, Copilot, OpenCode, Amp and Goose also read that folder and will list each ttstack skill twice. Installing the Claude plugin instead avoids this: claude plugin marketplace add requie/ttstack && claude plugin install ttstack@ttstack');
+    notes.push('Claude Code: skills were copied to .claude/skills. Cursor, Copilot, OpenCode, Amp and Goose also read that folder and will list each endostack skill twice. Installing the Claude plugin instead avoids this: claude plugin marketplace add requie/endostack && claude plugin install endostack@endostack');
   }
-  if (ids.has('amp') && claudePlugin) notes.push('Amp also scans ~/.claude/plugins/cache/, so it will see ttstack skills twice. The copies are identical.');
+  if (ids.has('amp') && claudePlugin) notes.push('Amp also scans ~/.claude/plugins/cache/, so it will see endostack skills twice. The copies are identical.');
   for (const id of ids) if (TARGETS[id].plugin) notes.push(`${TARGETS[id].label}: native install also available: ${TARGETS[id].plugin}`);
-  return { actions, notes, manifestPath: join(scopeRoot, '.ttstack', 'install-manifest.json') };
+  return { actions, notes, manifestPath: join(scopeRoot, '.endostack', 'install-manifest.json') };
 }
 
 // ---------------------------------------------------------------- manifest --
@@ -253,7 +253,7 @@ export function planInstall(o) {
 export function readManifest(path) {
   if (!existsSync(path)) return { version: MANIFEST_VERSION, entries: [] };
   const m = JSON.parse(readFileSync(path, 'utf8'));
-  if (!Array.isArray(m.entries)) throw new Error(`${path}: not a ttstack install manifest`);
+  if (!Array.isArray(m.entries)) throw new Error(`${path}: not a endostack install manifest`);
   return m;
 }
 
@@ -319,7 +319,7 @@ export function install(o) {
     return e && isOurs(e) ? e : null;
   };
 
-  // A skill folder that already exists and holds nothing ttstack wrote belongs
+  // A skill folder that already exists and holds nothing endostack wrote belongs
   // to the user: skip the whole folder instead of mixing files into it.
   const foreignGroups = new Set();
   for (const a of actions) {
@@ -327,7 +327,7 @@ export function install(o) {
     const ours = prev.entries.some((e) => e.path === a.group || e.path.startsWith(a.group + sep));
     if (!ours) {
       foreignGroups.add(a.group);
-      log(`skip   ${a.group} (folder exists and was not written by ttstack)`);
+      log(`skip   ${a.group} (folder exists and was not written by endostack)`);
       counts.skipped++;
     }
   }
@@ -339,7 +339,7 @@ export function install(o) {
       const hash = sha(data);
       const exists = existsSync(a.to) || isDanglingLink(a.to);
       if (exists && !owned(a.to)) {
-        log(`skip   ${a.to} (exists and was not written by ttstack)`);
+        log(`skip   ${a.to} (exists and was not written by endostack)`);
         counts.skipped++;
         continue;
       }
@@ -359,7 +359,7 @@ export function install(o) {
     } else if (a.kind === 'link') {
       const exists = existsSync(a.to) || isDanglingLink(a.to);
       if (exists && !owned(a.to)) {
-        log(`skip   ${a.to} (exists and was not written by ttstack)`);
+        log(`skip   ${a.to} (exists and was not written by endostack)`);
         counts.skipped++;
         continue;
       }
@@ -402,7 +402,7 @@ export function install(o) {
         counts.unchanged++;
         continue;
       }
-      log(`${tag}block  ${a.file} (${exists ? 'update marked ttstack block' : 'create with ttstack block'})`);
+      log(`${tag}block  ${a.file} (${exists ? 'update marked endostack block' : 'create with endostack block'})`);
       if (!o.dryRun) {
         ensureDir(dirname(a.file));
         writeFileSync(a.file, next);
@@ -421,8 +421,8 @@ export function install(o) {
 
   const manifest = {
     version: MANIFEST_VERSION,
-    tool: 'ttstack',
-    ttstackVersion: META.version,
+    tool: 'endostack',
+    endostackVersion: META.version,
     scope: o.scope,
     agents: o.agents.map((a) => a.id),
     link: !!o.link,
@@ -440,7 +440,7 @@ export function install(o) {
   log(`${tag}manifest ${manifestPath}`);
   for (const n of notes) log(`note   ${n}`);
   log(`${tag}done: ${counts.written} written, ${counts.unchanged} unchanged, ${counts.skipped} skipped, ${counts.removed} removed`);
-  if (!o.dryRun && counts.written + counts.unchanged > 0) log('next   open your coding agent and type /try-ttstack for the five-minute demo');
+  if (!o.dryRun && counts.written + counts.unchanged > 0) log('next   open your coding agent and type /try-endostack for the five-minute demo');
   return { manifest, counts, notes, manifestPath };
 }
 
@@ -457,7 +457,7 @@ function removeEntry(e, o) {
   if (e.kind === 'file' || e.kind === 'link') {
     if (!existsSync(e.path) && !isDanglingLink(e.path)) return 0;
     if (!isOurs(e)) {
-      log(`keep   ${e.path} (changed since ttstack wrote it)`);
+      log(`keep   ${e.path} (changed since endostack wrote it)`);
       return 0;
     }
     log(`${tag}remove ${e.path}`);
@@ -471,10 +471,10 @@ function removeEntry(e, o) {
     const next = stripBlock(current, begin, end);
     if (next === null) return 0;
     if (e.createdFile && next.trim() === '') {
-      log(`${tag}remove ${e.path} (only held the ttstack block)`);
+      log(`${tag}remove ${e.path} (only held the endostack block)`);
       if (!o.dryRun) rmSync(e.path);
     } else {
-      log(`${tag}block  ${e.path} (remove marked ttstack block)`);
+      log(`${tag}block  ${e.path} (remove marked endostack block)`);
       if (!o.dryRun) writeFileSync(e.path, next.replace(/\n{3,}$/, '\n'));
     }
     return 1;
@@ -495,7 +495,7 @@ function removeEmptyDirs(dirEntries, o) {
       /* not empty or already gone */
     }
   }
-  if (n) o.log(`${o.tag}rmdir  ${n} empty director${n === 1 ? 'y' : 'ies'} ttstack created`);
+  if (n) o.log(`${o.tag}rmdir  ${n} empty director${n === 1 ? 'y' : 'ies'} endostack created`);
   return n;
 }
 
@@ -503,7 +503,7 @@ export function uninstall(o) {
   const log = o.log ?? console.log;
   const tag = o.dryRun ? '[dry-run] ' : '';
   const scopeRoot = o.scope === 'project' ? o.project : o.home;
-  const manifestPath = join(scopeRoot, '.ttstack', 'install-manifest.json');
+  const manifestPath = join(scopeRoot, '.endostack', 'install-manifest.json');
   if (!existsSync(manifestPath)) {
     log(`nothing to uninstall: ${manifestPath} not found`);
     return { removed: 0, manifestPath };
@@ -514,8 +514,8 @@ export function uninstall(o) {
   log(`${tag}remove ${manifestPath}`);
   if (!o.dryRun) rmSync(manifestPath);
   const dirs = m.entries.filter((e) => e.kind === 'dir');
-  const ttstackDir = dirname(manifestPath);
-  if (!dirs.some((e) => e.path === ttstackDir)) dirs.push({ kind: 'dir', path: ttstackDir, onlyIfEmpty: true });
+  const endostackDir = dirname(manifestPath);
+  if (!dirs.some((e) => e.path === endostackDir)) dirs.push({ kind: 'dir', path: endostackDir, onlyIfEmpty: true });
   removeEmptyDirs(dirs, { ...o, log, tag });
   log(`${tag}done: ${removed} removed`);
   return { removed, manifestPath };
@@ -529,9 +529,9 @@ export function main(argv, env = process.env, log = console.log) {
     log(USAGE);
     return 0;
   }
-  o.home = env.TTSTACK_HOME || env.HOME || env.USERPROFILE || homedir();
+  o.home = env.ENDOSTACK_HOME || env.HOME || env.USERPROFILE || homedir();
   o.envPath = env.PATH ?? env.Path ?? '';
-  o.source = env.TTSTACK_SOURCE ? resolve(env.TTSTACK_SOURCE) : REPO_ROOT;
+  o.source = env.ENDOSTACK_SOURCE ? resolve(env.ENDOSTACK_SOURCE) : REPO_ROOT;
   o.log = log;
   if (o.uninstall) {
     uninstall(o);
@@ -545,7 +545,7 @@ export function main(argv, env = process.env, log = console.log) {
     log(`No coding agents detected. Pass --agents with one or more of: ${TARGET_IDS.join(', ')}`);
     return 1;
   }
-  log(`ttstack ${META.version}: ${o.scope} install for ${o.agents.map((a) => `${a.id} (${a.reason})`).join(', ')}`);
+  log(`endostack ${META.version}: ${o.scope} install for ${o.agents.map((a) => `${a.id} (${a.reason})`).join(', ')}`);
   install(o);
   return 0;
 }
@@ -554,7 +554,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     process.exit(main(process.argv.slice(2)));
   } catch (e) {
-    console.error(`ttstack install: ${e.message}`);
+    console.error(`endostack install: ${e.message}`);
     process.exit(2);
   }
 }

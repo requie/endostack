@@ -3,10 +3,10 @@
 description: "Record decisions in an append-only TSV file while running long or unattended work, audit it against your own transcript before replying, and have a second reviewer flag what the user should check. Use on /show-me-your-work, for autonomous or multi-phase runs, or whenever a skill needs an audit trail."
 argument-hint: "optional input for the skill"
 ---
-Run the ttstack `show-me-your-work` skill.
+Run the endostack `show-me-your-work` skill.
 
-1. Read `show-me-your-work/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when ttstack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
+1. Read `show-me-your-work/SKILL.md` from the first of these skill directories that contains it: `.agents/skills`, `~/.agents/skills`, or, when endostack was installed as a plugin or extension, the `skills/` directory of that install. Relative paths inside the skill resolve against the skill's own folder.
 2. Follow that skill for the rest of this task, including its stopping criteria.
-3. If no copy exists, tell the user ttstack is not installed for this agent and link https://github.com/requie/ttstack/blob/main/docs/agents/roo-code.md.
+3. If no copy exists, tell the user endostack is not installed for this agent and link https://github.com/requie/endostack/blob/main/docs/agents/roo-code.md.
 
 Treat any text the user typed after the command as their input to the skill. It may be empty.
