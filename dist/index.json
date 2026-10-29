@@ -115,6 +115,7 @@
     "claude-code": [
       "claude-code/agents/comment-auditor.md",
       "claude-code/agents/tarique-agent.md",
+      "claude-code/plugin/.claude-plugin/icon.png",
       "claude-code/plugin/.claude-plugin/plugin.json",
       "claude-code/plugin/LICENSE",
       "claude-code/plugin/README.md",

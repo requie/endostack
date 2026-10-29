@@ -313,6 +313,10 @@ function claudePlugin(root, ctx, dist) {
   const readme = join(root, 'packaging', 'claude-plugin', 'README.md');
   if (existsSync(readme)) dist[`${base}/README.md`] = readFileSync(readme, 'utf8');
   if (existsSync(join(root, 'LICENSE'))) dist[`${base}/LICENSE`] = readFileSync(join(root, 'LICENSE'), 'utf8');
+  // The directory takes its listing icon from .claude-plugin/icon.png (square
+  // PNG, 512 to 2048 px, under 2 MB). assets/logo.png is 512 x 512.
+  const icon = join(root, 'assets', 'logo.png');
+  if (existsSync(icon)) dist[`${base}/.claude-plugin/icon.png`] = readFileSync(icon);
   dist[`${base}/.claude-plugin/plugin.json`] = json({
     name: META.name,
     displayName: META.displayName,

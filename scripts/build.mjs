@@ -32,8 +32,9 @@ export function build(root, { check = false, log = console.log } = {}) {
   ]);
   for (const [rel, content] of expected) {
     const abs = join(root, rel);
-    const current = existsSync(abs) ? readFileSync(abs, 'utf8') : null;
-    if (current === content) continue;
+    const binary = Buffer.isBuffer(content);
+    const current = existsSync(abs) ? readFileSync(abs, binary ? undefined : 'utf8') : null;
+    if (binary ? current?.equals(content) : current === content) continue;
     if (check) problems.push(`${rel}: ${current === null ? 'missing' : 'out of date'}`);
     else {
       mkdirSync(dirname(abs), { recursive: true });

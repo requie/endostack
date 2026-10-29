@@ -160,6 +160,7 @@ test('the Claude directory plugin stays inside the directory limits', () => {
     assert.equal(manifest.agents, undefined, 'agents load from the default agents/ folder');
     assert.ok(files.includes('claude-code/plugin/agents/helper.md'));
     assert.ok(files.includes('claude-code/plugin/LICENSE'));
+    assert.ok(files.includes('claude-code/plugin/.claude-plugin/icon.png'));
   } finally {
     cleanup(root);
   }

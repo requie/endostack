@@ -11,7 +11,7 @@ const PATH_SEP = ' / ';
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
 function edgeKey(from, to, action) {
-  return `${from}>${to}>${action}`;
+  return [from, to, action].map(String).join('>');
 }
 
 // ---- trees of chart states ----
@@ -173,8 +173,8 @@ export function condition(contexts, others) {
     });
     return { kind: 'and', phrase: single ? parts[0] : parts.join(' and ') };
   }
-  const set = new Set(contexts);
-  const allowed = others.map((o, i) => o.leaves.filter((l) => universe.filter((u) => u[i] === l).every((u) => set.has(JSON.stringify(u)))));
+  const seen = new Set(contexts);
+  const allowed = others.map((o, i) => o.leaves.filter((l) => universe.filter((u) => u[i] === l).every((u) => seen.has(JSON.stringify(u)))));
   const covered = universe.filter((u) => u.some((v, i) => allowed[i].includes(v)));
   if (covered.length === ctx.length && allowed.some((a) => a.length)) {
     const parts = [];

@@ -88,7 +88,7 @@ export function renderMermaid(model, { title, colors, ruleName }) {
   const legend = new Map(); // class -> text
 
   // Legend entries collected from marks.
-  const ruleNames = (set) => [...set].map(ruleName).sort().join(' or ');
+  const ruleNames = (ids) => [...ids].map(ruleName).sort().join(' or ');
   const breakRules = new Set();
   const mayRules = new Set();
   const pathRules = new Set();
