@@ -127,7 +127,7 @@ export function buildFullGraph(opts) {
   for (const e of dot.edges) {
     const from = idToIndex.get(e.from);
     const to = idToIndex.get(e.to);
-    const k = `${from}>${to}>${e.action}`;
+    const k = [from, to, e.action].map(String).join('>');
     if (seen.has(k)) continue;
     seen.add(k);
     g.edges.push({ from, to, action: e.action ?? 'Next' });
