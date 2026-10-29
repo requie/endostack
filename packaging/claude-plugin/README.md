@@ -33,7 +33,7 @@ The `recall`, `catch-up` and `reflect` skills read Claude Code's own transcripts
 
 EndoStack collects no data. It has no telemetry, no analytics and no account. Whatever Claude sends to Anthropic while it works is covered by your Claude terms, not by this plugin.
 
-The `/try-endostack` demo includes a deliberately vulnerable sample app with a `.env` file of fake values. The demo copies it into a scratch folder and serves it only on 127.0.0.1.
+The `/try-endostack` demo includes a deliberately vulnerable sample app. Its check script writes a `.env` file holding one marker line into the demo folder, and the app is served only on 127.0.0.1.
 
 ## Support and security
 

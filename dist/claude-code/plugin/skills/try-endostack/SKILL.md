@@ -15,13 +15,13 @@ Everything this skill needs sits next to this file: `demo/app/` (the app the use
 ## Setup: `/try-endostack`
 
 1. **Pick the folder.** Use the folder the user named. Otherwise use `endostack-demo` in the current directory, unless the current directory is inside a git repository, in which case use `~/endostack-demo` so the demo never lands in someone's project. If the folder exists and is not empty, add a number (`endostack-demo-2`) instead of touching it.
-2. **Copy and commit the baseline.** Copy everything in `demo/app/`, including the dotfile `.env`, into the folder. Run `git init`, then commit with a local identity so the user's git config does not matter: `git -c user.name="endostack demo" -c user.email=demo@example.invalid commit -m "baseline"` after `git add -A`. Tag that commit `baseline`.
-3. **Show the starting state.** Run `node --test` in the folder (4 tests pass) and `node <this skill>/demo/check.mjs <folder>`. Expect:
+2. **Copy and commit the baseline.** Copy everything in `demo/app/`, including the dotfile `.gitignore`, into the folder. Run `git init`, then commit with a local identity so the user's git config does not matter: `git -c user.name="endostack demo" -c user.email=demo@example.invalid commit -m "baseline"` after `git add -A`. Tag that commit `baseline`.
+3. **Show the starting state.** Run `node --test` in the folder (4 tests pass) and `node <this skill>/demo/check.mjs <folder>`. On its first run the check writes the app's `.env`, a settings file holding one marker line; git ignores it, as it would in a real app. Expect:
    ```
    Spaces bug (GET /files/meeting%20notes.txt): present (404)
    Path traversal: blocked (5 probes, none read .env)
    ```
-4. **Hand over the prompt.** Tell the user, in four or five sentences: this is a tiny file server; `ISSUE.md` is a real-looking bug report about files with spaces; the server has a `.env` with a (fake) billing token next to its uploads folder; `tarique-mode` will now fix the bug while you watch. Do not mention path traversal, decoding, or what the naive fix is: the point is that EndoStack finds the risk without being told. Then give the prompt, filled in with the real folder path:
+4. **Hand over the prompt.** Tell the user, in four or five sentences: this is a tiny file server; `ISSUE.md` is a real-looking bug report about files with spaces; the server keeps a `.env` settings file next to its uploads folder; `tarique-mode` will now fix the bug while you watch. Do not mention path traversal, decoding, or what the naive fix is: the point is that EndoStack finds the risk without being told. Then give the prompt, filled in with the real folder path:
    ```
    /tarique-mode Fix the bug in <folder>/ISSUE.md. This is a local demo repo with no remote, so commit the fix locally and skip opening a PR.
    ```
@@ -52,6 +52,6 @@ On a fast model this takes three to five minutes. A slower model or a large reas
 
 ## Rules
 
-- Never print the contents of the demo `.env` beyond confirming the probe read it. It is fake, but the habit matters.
+- Never print the contents of the demo `.env` beyond confirming the probe read it. It holds only a marker line, but the habit matters.
 - Never run the demo server on a public interface. `check.mjs` binds to `127.0.0.1`; if the user starts `server.mjs` by hand, it is for local use only.
 - The demo folder is disposable. Do not install dependencies into it or connect it to a remote.

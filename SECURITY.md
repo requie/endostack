@@ -15,7 +15,7 @@ Include the affected file or skill, the agent you were using, steps to reproduce
 ## Out of scope
 
 - Vulnerabilities in the coding agents themselves or in their model providers. Report those to the vendor.
-- The demo app in `skills/try-endostack/demo/`. It ships with a deliberate path traversal trap for the `/try-endostack` demo. Its `.env` holds fake values.
+- The demo app in `skills/try-endostack/demo/`. It ships with a deliberate path traversal trap for the `/try-endostack` demo. Its check script writes a `.env` holding one marker line into the demo folder; no credential ships with it.
 
 ## Supported versions
 

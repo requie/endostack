@@ -39,7 +39,7 @@ Type `/try-endostack` in your agent. It creates a `endostack-demo` folder holdin
 | 4:00 | `security-review` checks the diff, the reproduction runs again, and the reply lists the evidence for each claim. |
 | 4:30 | You type `/try-endostack compare`. |
 
-The compare step puts two fixes side by side. One is the one-line fix most people and most agents write first, `decodeURIComponent(name)` dropped into the existing `readFile` call. It closes the bug report and passes all four of the app's tests. It also lets `GET /files/%2e%2e%2f.env` read the server's `.env` file with its billing token. The other is EndoStack's fix, which closes the same bug while every traversal probe stays blocked. A script runs both checks, so you can rerun them yourself.
+The compare step puts two fixes side by side. One is the one-line fix most people and most agents write first, `decodeURIComponent(name)` dropped into the existing `readFile` call. It closes the bug report and passes all four of the app's tests. It also lets `GET /files/%2e%2e%2f.env` read the server's `.env` settings file, which sits outside the uploads folder. The other is EndoStack's fix, which closes the same bug while every traversal probe stays blocked. A script runs both checks, so you can rerun them yourself.
 
 Times depend on the model. A slower model or a large reasoning budget takes longer.
 

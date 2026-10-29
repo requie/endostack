@@ -280,7 +280,7 @@
       "claude-code/plugin/skills/threat-model/references/mapper-brief.md",
       "claude-code/plugin/skills/threat-model/references/template.md",
       "claude-code/plugin/skills/try-endostack/SKILL.md",
-      "claude-code/plugin/skills/try-endostack/demo/app/.env",
+      "claude-code/plugin/skills/try-endostack/demo/app/.gitignore",
       "claude-code/plugin/skills/try-endostack/demo/app/ISSUE.md",
       "claude-code/plugin/skills/try-endostack/demo/app/package.json",
       "claude-code/plugin/skills/try-endostack/demo/app/server.mjs",
