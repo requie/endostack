@@ -25,6 +25,8 @@ export function fixtureSource(root) {
     'skills/beta/references/notes.md': '# notes\n\nBeta notes.\n',
     'agents/reviewer.md': '---\nname: reviewer\ndescription: Read-only reviewer for "quoted" diffs.\ntools: read-only (read files, search)\n---\n\nReview the diff. Text with """ triple quotes and a \\ backslash.\n',
     'agents/helper.md': '---\nname: helper\ndescription: Writes code for the parent.\n---\n\nDo the task.\n',
+    'LICENSE': 'MIT License\n',
+    'packaging/claude-plugin/README.md': '# Fixture plugin\n',
   });
   return root;
 }

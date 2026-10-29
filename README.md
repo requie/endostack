@@ -435,6 +435,9 @@ automations/issue-loop/             the dormant issue triage and reproduction pa
 docs/guide/                         the ten-page user guide
 docs/agents/                        one page per supported agent
 scripts/                            installer, build, lint and their tests
+dist/                               generated per-agent files; never edit by hand
+dist/claude-code/plugin/            the self-contained Claude plugin (skills without test fixtures, agents, README, LICENSE) that the Claude marketplace and directory install
+packaging/claude-plugin/README.md   the README that ships inside the Claude plugin
 ```
 
 `orch` and `watch-pr` document their CLIs in a README beside them, `check-plan.mjs` enforces the format in [PLAN-FORMAT.md](skills/tarique-mode/scripts/PLAN-FORMAT.md), and `worktree-audit.mjs` prints its usage, columns and buckets with `--help`. `orch` records one verdict per PR head, from strongest to weakest `live-proven`, `tests-proven`, `types-only`, `check-blocked` and `check-failed`, and `ledger check` prints `NO-VERDICT` when a head was never verified. `worktree-audit.mjs` prints the columns `DISK IDLE IN_BASE EDITS UPSTREAM PULL CHAT_SEEN ADVICE PATH`. `node skills/tarique-mode/scripts/doctor.mjs` checks that the tools those scripts call (Node 22 or later, git, and optionally `gh` and Java) are installed.

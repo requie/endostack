@@ -12,6 +12,16 @@ import { fileURLToPath } from 'node:url';
 import { parseConfigYaml, parseMarker, findSecret } from '../lib/common.mjs';
 import { checkPatch } from '../publish-repro.mjs';
 
+// Token-shaped strings for the secret-scanner tests, joined at runtime so the
+// source file never contains a literal that looks like a real credential.
+const glue = (...parts) => parts.join('');
+const FAKE = {
+  github: glue('gh', 'p_', 'abcdefghijklmnopqrstuvwxyz0123456789'),
+  aws: glue('AK', 'IA', 'ABCDEFGHIJKLMNOP'),
+  sshKey: glue('-----BEGIN OPENSSH ', 'PRIVATE KEY-----'),
+  anthropic: glue('sk-', 'ant-', 'abcdefghijklmnopqrstuvwx1234'),
+};
+
 const here = dirname(fileURLToPath(import.meta.url));
 const scripts = resolve(here, '..');
 const pack = resolve(scripts, '..');
@@ -67,9 +77,9 @@ test('marker parser accepts the configured forms only', () => {
 });
 
 test('secret scan flags token shapes and leaves commit hashes alone', () => {
-  assert.ok(findSecret('token ghp_abcdefghijklmnopqrstuvwxyz0123456789'));
-  assert.ok(findSecret('AKIAABCDEFGHIJKLMNOP'));
-  assert.ok(findSecret('-----BEGIN OPENSSH PRIVATE KEY-----'));
+  assert.ok(findSecret(`token ${FAKE.github}`));
+  assert.ok(findSecret(FAKE.aws));
+  assert.ok(findSecret(FAKE.sshKey));
   assert.equal(findSecret('fixed in 3f2a9c1e5b7d4f6a8c0e2b4d6f8a0c2e4b6d8f0a'), null);
 });
 
@@ -103,7 +113,7 @@ test('publish-verdict refuses a second marker in the body', () => {
 
 test('publish-verdict refuses secrets, unknown labels, and contradicting labels', () => {
   for (const [verdict, labels, why] of [
-    ['Log shows sk-ant-abcdefghijklmnopqrstuvwx1234\n[issue-loop:bug]\n', '', /shaped like/],
+    [`Log shows ${FAKE.anthropic}\n[issue-loop:bug]\n`, '', /shaped like/],
     ['Bug.\n[issue-loop:bug]\n', 'approved\n', /not in the config/],
     ['Question.\n[issue-loop:other]\n', 'bug\n', /contradicts/],
   ]) {
@@ -272,7 +282,7 @@ test('publish-repro refuses patches to .github, lockfiles, secrets files, and od
   const allowCfg = { ...cfg, repository: { ...cfg.repository, lockfile_allowlist: ['package-lock.json'] } };
   const lock = 'diff --git a/package-lock.json b/package-lock.json\n--- a/package-lock.json\n+++ b/package-lock.json\n@@ -1 +1 @@\n-a\n+b\n';
   assert.doesNotThrow(() => checkPatch(allowCfg, lock));
-  assert.throws(() => checkPatch(cfg, GOOD_PATCH.replace('rows.length + 1', '"ghp_abcdefghijklmnopqrstuvwxyz0123456789"')), /shaped like/);
+  assert.throws(() => checkPatch(cfg, GOOD_PATCH.replace('rows.length + 1', `"${FAKE.github}"`)), /shaped like/);
   assert.throws(() => checkPatch(cfg, 'diff --git a/l b/l\nnew file mode 120000\n'), /symlink/);
 });
 

@@ -7,8 +7,8 @@
 //   node scripts/build.mjs --root <dir>
 import { fileURLToPath } from 'node:url';
 import { dirname, join, relative, resolve, sep } from 'node:path';
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
-import { generate } from './lib/generate.mjs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, statSync, chmodSync } from 'node:fs';
+import { generate, CLAUDE_PLUGIN_DIR } from './lib/generate.mjs';
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -40,6 +40,19 @@ export function build(root, { check = false, log = console.log } = {}) {
       writeFileSync(abs, content);
       log(`write ${rel}`);
     }
+  }
+  // Copied skill files keep their source's executable bit (the sh launchers).
+  const copiedPrefix = `dist/${CLAUDE_PLUGIN_DIR}/skills/`;
+  for (const rel of expected.keys()) {
+    if (!rel.startsWith(copiedPrefix)) continue;
+    const src = join(root, 'skills', rel.slice(copiedPrefix.length));
+    const abs = join(root, rel);
+    if (!existsSync(src) || !existsSync(abs)) continue;
+    const wantExec = (statSync(src).mode & 0o111) !== 0;
+    const isExec = (statSync(abs).mode & 0o111) !== 0;
+    if (wantExec === isExec) continue;
+    if (check) problems.push(`${rel}: executable bit differs from its source`);
+    else chmodSync(abs, wantExec ? 0o755 : 0o644);
   }
   // Files the build owns that it no longer generates.
   const owned = [...walk(distDir).map((p) => `dist/${p}`), ...walk(join(root, 'com.github.copilot')).map((p) => `com.github.copilot/${p}`)];

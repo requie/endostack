@@ -1,5 +1,7 @@
-// Pure generation: canonical sources in, { relativePath: content } out.
-// No I/O here so build, --check, and tests all share one code path.
+// Generation: canonical sources in, { relativePath: content } out. It only
+// reads files, so build, --check, and tests all share one code path.
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { loadSkills, loadAgents, isCommandSkill } from './sources.mjs';
 import { META, AGENT_PLUGINS_SCHEMA } from './meta.mjs';
 import { TARGETS, skillDirsFor } from './targets.mjs';
@@ -235,7 +237,7 @@ export function manifests(ctx) {
     plugins: [
       {
         name: META.name,
-        source: './',
+        source: `./dist/${CLAUDE_PLUGIN_DIR}`,
         description: META.description,
         version: META.version,
         author,
@@ -287,10 +289,53 @@ export function manifests(ctx) {
   return files;
 }
 
+// The Claude directory plugin: a self-contained folder with only what Claude
+// loads (skills without their test fixtures, Claude-format agents in the
+// default agents/ folder, README, LICENSE), so the directory's file limits and
+// scans see the plugin and nothing else from the repo.
+export const CLAUDE_PLUGIN_DIR = 'claude-code/plugin';
+const SKIP_DIRS = new Set(['test', 'node_modules', '.git']);
+const SKIP_FILES = new Set(['.DS_Store', 'Thumbs.db', 'desktop.ini']);
+
+function listFiles(dir, prefix = '') {
+  const out = [];
+  for (const name of readdirSync(dir).sort()) {
+    const abs = join(dir, name);
+    if (statSync(abs).isDirectory()) {
+      if (!SKIP_DIRS.has(name)) out.push(...listFiles(abs, `${prefix}${name}/`));
+    } else if (!SKIP_FILES.has(name)) out.push(`${prefix}${name}`);
+  }
+  return out;
+}
+
+function claudePlugin(root, ctx, dist) {
+  const base = CLAUDE_PLUGIN_DIR;
+  for (const s of ctx.skills) {
+    const dir = join(root, 'skills', s.folder);
+    for (const rel of listFiles(dir)) dist[`${base}/skills/${s.folder}/${rel}`] = readFileSync(join(dir, rel), 'utf8');
+  }
+  for (const a of ctx.agents) dist[`${base}/agents/${a.name}.md`] = dist[`claude-code/agents/${a.name}.md`];
+  const readme = join(root, 'packaging', 'claude-plugin', 'README.md');
+  if (existsSync(readme)) dist[`${base}/README.md`] = readFileSync(readme, 'utf8');
+  if (existsSync(join(root, 'LICENSE'))) dist[`${base}/LICENSE`] = readFileSync(join(root, 'LICENSE'), 'utf8');
+  dist[`${base}/.claude-plugin/plugin.json`] = json({
+    name: META.name,
+    displayName: META.displayName,
+    version: META.version,
+    description: META.description,
+    author: { name: META.author.name, url: META.author.url },
+    homepage: META.homepage,
+    repository: META.repository,
+    license: META.license,
+    keywords: META.keywords,
+  });
+}
+
 export function generate(root) {
   const ctx = { skills: loadSkills(root), agents: loadAgents(root) };
   const dist = {};
   for (const id of Object.keys(gen)) gen[id](ctx, dist);
+  claudePlugin(root, ctx, dist);
   const index = {
     note: GEN_NOTE,
     version: META.version,

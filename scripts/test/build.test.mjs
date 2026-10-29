@@ -141,7 +141,27 @@ test('generated manifests satisfy the manifest schema check', () => {
     assert.deepEqual(claude.agents, ['./dist/claude-code/agents/helper.md', './dist/claude-code/agents/reviewer.md']);
     const mk = JSON.parse(readFileSync(join(root, '.claude-plugin/marketplace.json'), 'utf8'));
     assert.equal(mk.name, 'endostack');
-    assert.equal(mk.plugins[0].source, './');
+    assert.equal(mk.plugins[0].source, './dist/claude-code/plugin');
+  } finally {
+    cleanup(root);
+  }
+});
+
+test('the Claude directory plugin stays inside the directory limits', () => {
+  const root = fixture();
+  try {
+    const { dist } = generate(root);
+    const files = Object.keys(dist).filter((p) => p.startsWith('claude-code/plugin/'));
+    assert.ok(files.length > 0 && files.length <= 512, `${files.length} files; the directory holds plugins over 512 for review`);
+    for (const p of files) {
+      assert.ok(Buffer.byteLength(dist[p]) < 256 * 1024, `${p} is 256 KiB or larger`);
+      assert.doesNotMatch(p, /\/test\//, `${p}: test fixtures stay out of the plugin`);
+    }
+    const manifest = JSON.parse(dist['claude-code/plugin/.claude-plugin/plugin.json']);
+    assert.equal(manifest.name, 'endostack');
+    assert.equal(manifest.agents, undefined, 'agents load from the default agents/ folder');
+    assert.ok(files.includes('claude-code/plugin/agents/helper.md'));
+    assert.ok(files.includes('claude-code/plugin/LICENSE'));
   } finally {
     cleanup(root);
   }
