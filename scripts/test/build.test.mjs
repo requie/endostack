@@ -175,6 +175,7 @@ test('the OpenAI package meets the Plugins Directory listing limits', () => {
     assert.match(m.name, /^[a-z0-9]+(-[a-z0-9]+)*$/);
     assert.ok(m.name.length <= 64 && m.description.length <= 4000);
     const oa = m.extensions['com.openai'];
+    assert.equal(oa.requires_local_executor, true, 'the skills run local programs');
     for (const ui of [oa.interface, JSON.parse(rootFiles['.codex-plugin/plugin.json']).interface, JSON.parse(rootFiles['plugin.json']).extensions['com.openai'].interface]) {
       assert.ok(ui.displayName.length <= 30, 'displayName is 30 characters or fewer');
       assert.ok(ui.shortDescription.length <= 30, `shortDescription "${ui.shortDescription}" is over 30 characters`);

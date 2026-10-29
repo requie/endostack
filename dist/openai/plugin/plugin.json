@@ -21,6 +21,7 @@
   "extensions": {
     "com.openai": {
       "onboardingSkill": "./skills/try-endostack/SKILL.md",
+      "requires_local_executor": true,
       "interface": {
         "displayName": "EndoStack",
         "shortDescription": "Security-first agent workflows",

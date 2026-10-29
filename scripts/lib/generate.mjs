@@ -395,6 +395,9 @@ function openaiPlugin(root, ctx, dist) {
     extensions: {
       'com.openai': {
         onboardingSkill: './skills/try-endostack/SKILL.md',
+        // The skills run git, gh and bundled Node scripts on the user's
+        // machine, so the package is a desktop-execution plugin.
+        requires_local_executor: true,
         interface: OPENAI_INTERFACE,
         publication: { release_notes: OPENAI_RELEASE_NOTES },
       },
