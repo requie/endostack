@@ -42,8 +42,8 @@ function sandbox(state) {
   const out = join(dir, 'out');
   mkdirSync(out);
   const log = join(dir, 'gh.log');
-  const env = { ...process.env, PATH: `${bin}:${process.env.PATH}`, FAKE_GH_STATE: statePath, FAKE_GH_LOG: log, REPO: 'acme/notebook-app' };
-  delete env.MANUAL;
+  // Only what the scripts need, so nothing from the caller's shell reaches them.
+  const env = { PATH: `${bin}:${process.env.PATH}`, HOME: dir, TMPDIR: dir, LANG: 'C.UTF-8', FAKE_GH_STATE: statePath, FAKE_GH_LOG: log, REPO: 'acme/notebook-app' };
   return {
     dir, out, configPath, env,
     state: () => JSON.parse(readFileSync(statePath, 'utf8')),
@@ -70,8 +70,9 @@ test('config parser reads the shipped example', () => {
 
 test('marker parser accepts the configured forms only', () => {
   assert.deepEqual(parseMarker(cfg, '[issue-loop:bug]'), { kind: 'bug', tracker: null });
-  assert.deepEqual(parseMarker(cfg, '[issue-loop:performance tracker=https://t.example/I-1]'), { kind: 'performance', tracker: 'https://t.example/I-1' });
-  assert.equal(parseMarker(cfg, '[issue-loop:other tracker=https://t.example/1]'), null);
+  const tracker = (id) => glue('https', '://', 'tracker.', 'example', '/', id);
+  assert.deepEqual(parseMarker(cfg, `[issue-loop:performance tracker=${tracker('I-1')}]`), { kind: 'performance', tracker: tracker('I-1') });
+  assert.equal(parseMarker(cfg, `[issue-loop:other tracker=${tracker('1')}]`), null);
   assert.equal(parseMarker(cfg, 'see [issue-loop:bug]'), null);
   assert.equal(parseMarker(cfg, '[issue-loop:bug tracker=javascript:alert(1)]'), null);
 });

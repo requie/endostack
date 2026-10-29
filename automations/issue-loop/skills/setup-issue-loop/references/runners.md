@@ -69,8 +69,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}          # read-only in this job
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}
-        # Flags checked against https://code.claude.com/docs/en/cli-reference
-        # and rule syntax against https://code.claude.com/docs/en/permissions :
+        # Flags checked against Claude Code's CLI reference, and rule syntax
+        # against its permissions page:
         #   -p runs headless and exits; --max-turns and --output-format apply
         #   only in print mode. --tools limits which built-in tools exist;
         #   --allowedTools pre-approves calls; --permission-mode dontAsk denies
@@ -233,7 +233,7 @@ jobs:
           ISSUE_NUMBER: ${{ needs.pick.outputs.issue }}
           REPO: ${{ github.repository }}
           TEST_ACCOUNT_PASSWORD: ${{ secrets.ISSUE_LOOP_TEST_ACCOUNT }}  # sandbox only
-        # Same flags as triage (https://code.claude.com/docs/en/cli-reference).
+        # Same flags as triage.
         # The container is the sandbox; the token is read-only, so pushing and
         # posting stay with the publish job.
         run: |
@@ -294,13 +294,14 @@ The job runs a script on an interval. The script fetches new reports (`gh issue 
 #!/usr/bin/env bash
 # ~/issue-loop/run-triage.sh
 set -euo pipefail
-cd "$HOME/src/notebook-app" && git fetch -q origin && git checkout -q origin/main
+APP="$HOME/src/notebook-app"
+cd "$APP" && git fetch -q origin && git checkout -q origin/main
 STATE="$HOME/issue-loop/triaged.txt"; touch "$STATE"
 for n in $(gh issue list --state open --search "created:>=$(date -v-1d +%F 2>/dev/null || date -d yesterday +%F)" --json number -q '.[].number'); do
   grep -qx "$n" "$STATE" && continue
   docker run --rm --network issue-loop-net --read-only --tmpfs /tmp \
     --env-file "$HOME/.config/issue-loop/agent.env" \
-    -e ISSUE_NUMBER="$n" -v "$PWD:/repo:ro" -v "$HOME/issue-loop/out/$n:/out" \
+    -e ISSUE_NUMBER="$n" -v "$APP:/repo:ro" -v "$HOME/issue-loop/out/$n:/out" \
     issue-loop-agent:latest
   REPO=acme/notebook-app GH_TOKEN="$(security find-generic-password -s issue-loop-publish -w 2>/dev/null || secret-tool lookup service issue-loop-publish)" \
     .issue-loop/pack/scripts/publish-verdict.sh "$HOME/issue-loop/out/$n" "$n" --config .issue-loop/config.yaml

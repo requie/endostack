@@ -218,18 +218,8 @@ export function manifests(ctx) {
       },
     },
   });
-  files['.claude-plugin/plugin.json'] = json({
-    name: META.name,
-    displayName: META.displayName,
-    version: META.version,
-    description: META.description,
-    author,
-    homepage: META.homepage,
-    repository: META.repository,
-    license: META.license,
-    keywords: META.keywords,
-    agents: ctx.agents.map((a) => `./dist/claude-code/agents/${a.name}.md`),
-  });
+  // No root .claude-plugin/plugin.json: Claude installs come from the
+  // marketplace entry, which points at the self-contained plugin folder.
   files['.claude-plugin/marketplace.json'] = json({
     name: META.name,
     owner: author,

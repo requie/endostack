@@ -101,7 +101,7 @@ test('build writes dist, --check passes, and then edits and stale files are dete
   try {
     build(root, quiet);
     assert.ok(existsSync(join(root, 'dist/index.json')));
-    assert.ok(existsSync(join(root, '.claude-plugin/plugin.json')));
+    assert.ok(!existsSync(join(root, '.claude-plugin/plugin.json')));
     assert.deepEqual(build(root, { check: true, ...quiet }).problems, []);
 
     writeFileSync(join(root, 'dist/goose/agents/helper.md'), 'tampered');
@@ -137,8 +137,6 @@ test('generated manifests satisfy the manifest schema check', () => {
   try {
     build(root, quiet);
     assert.deepEqual(checkManifests(root), []);
-    const claude = JSON.parse(readFileSync(join(root, '.claude-plugin/plugin.json'), 'utf8'));
-    assert.deepEqual(claude.agents, ['./dist/claude-code/agents/helper.md', './dist/claude-code/agents/reviewer.md']);
     const mk = JSON.parse(readFileSync(join(root, '.claude-plugin/marketplace.json'), 'utf8'));
     assert.equal(mk.name, 'endostack');
     assert.equal(mk.plugins[0].source, './dist/claude-code/plugin');

@@ -31,7 +31,7 @@ Run the installer from a clone of the EndoStack repository. Add `--dry-run` to s
 
 | What | Path |
 | --- | --- |
-| Plugin install | Claude Code keeps its own copy of the repository. Skills load from its `skills/`, subagents from `dist/claude-code/agents/` (listed in `.claude-plugin/plugin.json`). |
+| Plugin install | Claude Code keeps its own copy of the plugin folder `dist/claude-code/plugin/`, which the marketplace entry in `.claude-plugin/marketplace.json` points at. Skills load from its `skills/` and subagents from its `agents/`. |
 | Skills (files) | `.claude/skills/<name>/` or `~/.claude/skills/<name>/` |
 | Subagents (files) | `.claude/agents/` or `~/.claude/agents/` |
 | Rules | The project installer adds a marked `@AGENTS.md` import block to an existing `CLAUDE.md`. It never creates `CLAUDE.md`. |

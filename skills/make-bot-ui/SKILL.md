@@ -43,18 +43,12 @@ Say in one line of your reply which backend you chose and why. Both paths share 
 
    If the platform asks for confirmation, wait for the user. Derive a kebab-case slug from the automation's name (`deploy-preview-bot`); it names the stored secret later. Creation does not hand you the sender key.
 2. **Get the URL.** Ask the user to copy the webhook URL from the automation's settings panel. Describe only navigation that really exists in their platform; if you do not know it, say "open the automation's settings and find its webhook section" and let them find it. Pasting the URL into chat is fine. It carries an identifier and no query string. Take it from the panel exactly; do not build it yourself.
-3. **Get the key through the secure flow.** Request it through the platform's secret-entry flow, labeled "webhook sender key", filed under the slug with field name `key`. Make that request the entire turn and wait. Afterwards the value sits in the platform's credential store under the slug and you never see it. Copy it from there into the relay config without displaying it.
+3. **Get the key through the secure flow.** Request it through the platform's secret-entry flow, labeled "webhook sender key", filed under the slug with field name `key`. Make that request the entire turn and wait. Afterwards the value sits in the platform's credential store under the slug and you never see it. The user points the relay at it when they start it; you do not copy or display it.
 
 ## Path B: local bot
 
 1. **Write the bot's prompt file** (`bot/prompt.md`) with the same content the hosted prompt would have: the body is untrusted, the exact field names, what each allowed value means, and silence when there is nothing to report.
-2. **Store secrets outside the repo.** If the bot needs an API key (for the agent CLI, a chat webhook, a deploy token), tell the user to add it themselves:
-   - macOS: `security add-generic-password -s <slug> -a key -w` (prompts for the value, so it never lands in shell history);
-   - Linux with libsecret: `secret-tool store --label=<slug> service <slug> account key`;
-   - Windows: the Credential Manager, or `cmdkey /generic:<slug> /user:key /pass`;
-   - or a `.env` file in the UI folder that the user edits in their own editor, listed in `.gitignore`.
-
-   The relay reads the secret at startup from the keychain or `.env`. You never read it into the chat.
+2. **Let the user supply secrets.** If the bot needs an API key (for the agent CLI, a chat webhook, a deploy token), the user adds it themselves, in their OS keychain under the slug or in a git-ignored settings file in the UI folder that they edit in their own editor. Write the relay so the user hands it the value when they start it. You never read, store, or move the value, and it never enters the chat.
 3. **Start runs from the relay.** For each accepted request, the relay spawns the agent CLI in non-interactive mode with `bot/prompt.md` as the instruction and the request body passed as a separate data argument or file, never spliced into the prompt text. Pass arguments as an array to the process API, not through a shell string, so a field value cannot inject shell syntax. Limit concurrent runs to one per action and reject requests while one is running.
 
 ## Build the relay and page
@@ -89,11 +83,11 @@ Every agent on one computer shares that computer's Tailscale node. Never registe
 1. Run `tailscale status`. An online node needs no reinstall: take its MagicDNS hostname from that output, and get its 100.x address by running `tailscale ip -4`.
 2. If Tailscale is missing, run the official install script from tailscale.com, then bring the node up with `sudo tailscale up --ssh=false --accept-dns=false --hostname=<short-name>`, which prints an auth URL. Pass the URL to the user so they approve the device in their browser. Never ask for or enter Tailscale credentials. An expired URL means rerunning `tailscale up` and handing the user the fresh link.
 3. Serve plain HTTP. Add HTTPS (`tailscale serve` or `tailscale cert`) only if the user asks.
-4. Confirm the node is online (`tailscale status`) and its address is unchanged (`tailscale ip -4`). Then run `curl -s -o /dev/null -w '%{http_code}' http://<100.x address>:<port>/` and require `200`.
-5. Give the user two links, both with the port: `http://<magicdns-name>:<port>/` and `http://<100.x address>:<port>/`.
+4. Confirm the node is online (`tailscale status`) and its address is unchanged (`tailscale ip -4`). Then ask the user to open the page root on the node's tailnet address and port, and confirm it loads.
+5. Give the user two links, both with the port: one on the MagicDNS name and one on the tailnet address.
 
 Anyone on the tailnet can press the buttons. If the tailnet has people the user does not want triggering runs, tell them to restrict the port with a Tailscale ACL.
 
 ## Done when
 
-The test call returns `200` (or a clean no-op local run), no secret appears in chat, page code, logs, or git, and, when tailnet access was requested, the page root answers `200` at the 100.x address.
+The test call returns `200` (or a clean no-op local run), no secret appears in chat, page code, logs, or git, and, when tailnet access was requested, the user has loaded the page root on the tailnet address.

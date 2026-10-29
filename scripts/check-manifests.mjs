@@ -80,24 +80,6 @@ export const SCHEMAS = {
       extensions: { type: 'object', additionalProperties: { type: 'object' } },
     },
   },
-  '.claude-plugin/plugin.json': {
-    type: 'object',
-    required: ['name', 'version', 'description', 'author'],
-    properties: {
-      name: kebab,
-      displayName: str,
-      version: semver,
-      description: str,
-      author,
-      homepage: url,
-      repository: url,
-      license: str,
-      keywords: { type: 'array', items: str },
-      skills: { anyOf: [relPath, { type: 'array', items: relPath }] },
-      agents: { anyOf: [relPath, { type: 'array', items: { type: 'string', pattern: '^\\./.*\\.md$' } }] },
-      commands: { anyOf: [relPath, { type: 'array', items: relPath }, { type: 'object' }] },
-    },
-  },
   '.claude-plugin/marketplace.json': {
     type: 'object',
     required: ['name', 'owner', 'plugins'],
@@ -168,7 +150,6 @@ export const SCHEMAS = {
 function pathsToCheck(file, m) {
   const out = [];
   const add = (v) => [].concat(v ?? []).forEach((p) => typeof p === 'string' && out.push(p));
-  if (file === '.claude-plugin/plugin.json') ['skills', 'agents'].forEach((k) => add(m[k]));
   if (file === '.cursor-plugin/plugin.json') ['skills', 'agents', 'commands', 'rules', 'logo'].forEach((k) => add(m[k]));
   if (file === 'gemini-extension.json') add(m.contextFileName ?? 'GEMINI.md');
   if (file === 'plugin.json') {
