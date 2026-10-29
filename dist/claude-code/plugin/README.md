@@ -31,7 +31,7 @@ The plugin has no hooks and no MCP servers, and nothing in it runs on its own. S
 
 The `recall`, `catch-up` and `reflect` skills read Claude Code's own transcripts for the current project so Claude can summarize past work. They read them on your machine and send nothing anywhere.
 
-EndoStack collects no data. It has no telemetry, no analytics and no account. Whatever Claude sends to Anthropic while it works is covered by your Claude terms, not by this plugin.
+EndoStack collects no data. It has no telemetry, no analytics and no account. Whatever Claude sends to Anthropic while it works is covered by your Claude terms, not by this plugin. The full [privacy policy](https://github.com/requie/endostack/blob/main/docs/privacy.md) has the details.
 
 The `/try-endostack` demo includes a deliberately vulnerable sample app. Its check script writes a `.env` file holding one marker line into the demo folder, and the app is served only on 127.0.0.1.
 

@@ -465,7 +465,7 @@ CI runs the same commands, with `build.mjs --check`, and fails when generated pe
 
 - **Support:** open an issue at [github.com/requie/endostack/issues](https://github.com/requie/endostack/issues). Questions about which skill to use can also go to `/tarique-help` inside your agent.
 - **Security reports:** use GitHub's private vulnerability reporting on this repository, as described in [SECURITY.md](SECURITY.md). Please don't file security problems as public issues.
-- **Privacy:** EndoStack collects no data. It has no telemetry, no analytics and no account. Its skills are text files your coding agent reads, and its scripts run on your machine. The only network requests come from tools you run: `statechart` downloads the TLA+ tools jar from its official GitHub release once, and `watch-pr`, `orch`, `worktree-audit` and the issue-loop helpers call the GitHub API through your own `gh` login. Whatever your coding agent sends to its model provider is governed by that provider's terms, not by EndoStack.
+- **Privacy:** EndoStack collects no data. It has no telemetry, no analytics and no account. Its skills are text files your coding agent reads, and its scripts run on your machine. The only network requests come from tools you run: `statechart` downloads the TLA+ tools jar from its official GitHub release once, and `watch-pr`, `orch`, `worktree-audit` and the issue-loop helpers call the GitHub API through your own `gh` login. Whatever your coding agent sends to its model provider is governed by that provider's terms, not by EndoStack. The full [privacy policy](docs/privacy.md) lists everything EndoStack reads, writes and sends.
 
 ## License
 
