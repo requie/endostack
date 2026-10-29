@@ -139,6 +139,22 @@ export const SCHEMAS = {
       rules: { anyOf: [str, { type: 'array', items: str }] },
     },
   },
+  '.codex-plugin/plugin.json': {
+    type: 'object',
+    required: ['name', 'version', 'description', 'author'],
+    properties: {
+      name: kebab,
+      version: semver,
+      description: str,
+      author,
+      homepage: url,
+      repository: url,
+      license: str,
+      keywords: { type: 'array', items: str },
+      skills: str,
+      interface: { type: 'object' },
+    },
+  },
   'gemini-extension.json': {
     type: 'object',
     required: ['name', 'version'],
@@ -152,6 +168,7 @@ function pathsToCheck(file, m) {
   const add = (v) => [].concat(v ?? []).forEach((p) => typeof p === 'string' && out.push(p));
   if (file === '.cursor-plugin/plugin.json') ['skills', 'agents', 'commands', 'rules', 'logo'].forEach((k) => add(m[k]));
   if (file === 'gemini-extension.json') add(m.contextFileName ?? 'GEMINI.md');
+  if (file === '.codex-plugin/plugin.json') { add(m.skills); add(m.interface?.logo); }
   if (file === 'plugin.json') {
     const oa = m.extensions?.['com.openai'];
     add(oa?.onboardingSkill);
@@ -180,7 +197,7 @@ export function checkManifests(root) {
       continue;
     }
     for (const e of validate(schema, m)) errors.push(`${file}: ${e}`);
-    const base = file.endsWith('marketplace.json') ? dirname(dirname(abs)) : dirname(abs) === join(root, '.claude-plugin') || dirname(abs) === join(root, '.cursor-plugin') ? root : dirname(abs);
+    const base = file.endsWith('marketplace.json') ? dirname(dirname(abs)) : dirname(abs) === join(root, '.claude-plugin') || dirname(abs) === join(root, '.cursor-plugin') || dirname(abs) === join(root, '.codex-plugin') ? root : dirname(abs);
     for (const p of pathsToCheck(file, m)) {
       const target = resolve(base, p);
       if (relative(root, target).startsWith('..')) errors.push(`${file}: path escapes the plugin root: ${p}`);

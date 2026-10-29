@@ -263,6 +263,39 @@ export function manifests(ctx) {
     skills: './skills/',
     agents: './dist/cursor/agents/',
   });
+  // Codex's own manifest. The awesome-codex-plugins registry and the HOL
+  // scanner read this file; Codex also understands the root plugin.json.
+  files['.codex-plugin/plugin.json'] = json({
+    name: META.name,
+    version: META.version,
+    description: META.description,
+    author,
+    homepage: META.homepage,
+    repository: META.repository,
+    license: META.license,
+    keywords: META.keywords,
+    skills: './skills/',
+    interface: {
+      displayName: META.displayName,
+      shortDescription: 'Security-first workflows for coding agents',
+      longDescription:
+        'EndoStack makes the agent read code before changing it, compare more than one design, and check its result by running what a user would run. When a change touches a trust boundary, it threat-models the change before building it and runs a security review on the diff before shipping. Text the agent reads from issues, web pages and logs is treated as data, never as instructions.',
+      developerName: META.author.name,
+      category: 'Developer Tools',
+      capabilities: ['Interactive', 'Read', 'Write'],
+      websiteURL: META.homepage,
+      privacyPolicyURL: `${META.homepage}/blob/main/docs/privacy.md`,
+      termsOfServiceURL: `${META.homepage}/blob/main/LICENSE`,
+      defaultPrompt: [
+        'Run $try-endostack for the five-minute demo',
+        'Threat model the changes on this branch before I merge',
+        "Run a security review on this branch's diff",
+      ],
+      brandColor: '#0F172A',
+      logo: './assets/logo.png',
+      screenshots: [],
+    },
+  });
   files['gemini-extension.json'] = json({
     name: META.name,
     version: META.version,
