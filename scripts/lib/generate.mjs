@@ -296,6 +296,10 @@ export function manifests(ctx) {
 export const CLAUDE_PLUGIN_DIR = 'claude-code/plugin';
 const SKIP_DIRS = new Set(['test', 'node_modules', '.git']);
 const SKIP_FILES = new Set(['.DS_Store', 'Thumbs.db', 'desktop.ini']);
+// Skills left out of the Claude plugin only. make-bot-ui has the user store a
+// webhook secret that a local relay reads and sends, which the Claude
+// directory always holds for review; other agents still install it.
+export const CLAUDE_PLUGIN_SKIP_SKILLS = new Set(['make-bot-ui']);
 
 function listFiles(dir, prefix = '') {
   const out = [];
@@ -311,6 +315,7 @@ function listFiles(dir, prefix = '') {
 function claudePlugin(root, ctx, dist) {
   const base = CLAUDE_PLUGIN_DIR;
   for (const s of ctx.skills) {
+    if (CLAUDE_PLUGIN_SKIP_SKILLS.has(s.folder)) continue;
     const dir = join(root, 'skills', s.folder);
     for (const rel of listFiles(dir)) dist[`${base}/skills/${s.folder}/${rel}`] = readFileSync(join(dir, rel), 'utf8');
   }

@@ -12,30 +12,30 @@ const ENUMS = {
   state: ['OPEN', 'CLOSED', 'MERGED'],
 };
 
-function enumField(fields, key, { nullable = false } = {}) {
-  if (!(key in fields)) throw new QueryError('missing-key', `gh pr view did not return ${key}`);
-  let value = fields[key];
+function enumField(fields, name, { nullable = false } = {}) {
+  if (!(name in fields)) throw new QueryError('missing-field', `gh pr view did not return ${name}`);
+  let value = fields[name];
   // gh prints "no review decision" as an empty string.
-  if (key === 'reviewDecision' && (value === '' || value === null)) return null;
+  if (name === 'reviewDecision' && (value === '' || value === null)) return null;
   if (nullable && value === null) return null;
-  if (typeof value !== 'string' || !ENUMS[key].includes(value)) {
-    throw new QueryError('unexpected-value', `${key} has an unrecognized value`, { raw: value });
+  if (typeof value !== 'string' || !ENUMS[name].includes(value)) {
+    throw new QueryError('unexpected-value', `${name} has an unrecognized value`, { raw: value });
   }
   return value;
 }
 
 export function parsePrFields(fields) {
-  if (!fields || typeof fields !== 'object') throw new QueryError('missing-key', 'gh pr view returned no object');
+  if (!fields || typeof fields !== 'object') throw new QueryError('missing-field', 'gh pr view returned no object');
   const state = enumField(fields, 'state');
   const mergedAt = fields.mergedAt ?? null;
   if (state === 'MERGED' || (typeof mergedAt === 'string' && mergedAt !== '')) {
     return { status: 'merged', state: 'MERGED' };
   }
   if (state === 'CLOSED') return { status: 'closed', state };
-  for (const key of ['headRefOid', 'headRefName', 'baseRefName']) {
-    if (typeof fields[key] !== 'string' || fields[key] === '') throw new QueryError('missing-key', `gh pr view did not return ${key}`);
+  for (const name of ['headRefOid', 'headRefName', 'baseRefName']) {
+    if (typeof fields[name] !== 'string' || fields[name] === '') throw new QueryError('missing-field', `gh pr view did not return ${name}`);
   }
-  if (typeof fields.isDraft !== 'boolean') throw new QueryError('missing-key', 'gh pr view did not return isDraft');
+  if (typeof fields.isDraft !== 'boolean') throw new QueryError('missing-field', 'gh pr view did not return isDraft');
   return {
     status: 'open',
     state,
@@ -77,9 +77,9 @@ export async function readThreads(reader, owner, repo, number, cfg) {
     const conn = await reader.threadPage(owner, repo, number, cursor);
     const info = conn?.pageInfo;
     if (!info || typeof info.hasNextPage !== 'boolean') {
-      throw new QueryError('missing-key', `review threads page ${page + 1} has no pageInfo`);
+      throw new QueryError('missing-field', `review threads page ${page + 1} has no pageInfo`);
     }
-    if (!Array.isArray(conn.nodes)) throw new QueryError('missing-key', `review threads page ${page + 1} has no nodes`);
+    if (!Array.isArray(conn.nodes)) throw new QueryError('missing-field', `review threads page ${page + 1} has no nodes`);
     for (const node of conn.nodes) {
       const first = node?.comments?.nodes?.[0] ?? {};
       const author = first.author?.login ?? null;
@@ -101,7 +101,7 @@ export async function readThreads(reader, owner, repo, number, cfg) {
     }
     if (!info.hasNextPage) break;
     if (typeof info.endCursor !== 'string' || info.endCursor === '') {
-      throw new QueryError('missing-key', `review threads page ${page + 1} says more pages follow but has no cursor`);
+      throw new QueryError('missing-field', `review threads page ${page + 1} says more pages follow but has no cursor`);
     }
     cursor = info.endCursor;
   }
@@ -195,7 +195,7 @@ export async function readChecks(reader, owner, repo, number, cfg) {
     const info = conn?.pageInfo;
     if (!info?.hasNextPage) break;
     if (typeof info.endCursor !== 'string' || info.endCursor === '') {
-      throw new QueryError('missing-key', `check rollup page ${page + 1} says more pages follow but has no cursor`);
+      throw new QueryError('missing-field', `check rollup page ${page + 1} says more pages follow but has no cursor`);
     }
     cursor = info.endCursor;
   }

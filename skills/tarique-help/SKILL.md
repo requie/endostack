@@ -124,7 +124,7 @@ Source: the file of the skill you suggest. Lead with `/tarique-mode`, since it b
 | Capture how the user likes to work as a personal mode skill | `automate-me` |
 | Convert what a session taught into proposed skill edits | `reflect` |
 | Keep agents in this repository from repeating the same mistake | `correct` |
-| A local web page whose buttons fire a chat bot through webhooks | `make-bot-ui` |
+| A local web page whose buttons fire a chat bot through webhooks | `make-bot-ui` (installed by the EndoStack installer and the other agents' plugins; left out of the Claude directory plugin because it handles a webhook secret) |
 | Find your way around EndoStack itself | `tarique-help` |
 
 If a skill folder in the repository is absent from these tables, decide from its frontmatter description. Principles are covered under "Playbooks and principles".

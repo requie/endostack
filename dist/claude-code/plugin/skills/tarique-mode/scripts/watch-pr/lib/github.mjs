@@ -76,7 +76,7 @@ function pullRequestNode(data, what) {
   const pr = data?.data?.repository?.pullRequest;
   if (!pr || typeof pr !== 'object') {
     const message = data?.errors?.[0]?.message;
-    throw new QueryError('missing-key', `${what}: response has no pullRequest${message ? ` (${message})` : ''}`);
+    throw new QueryError('missing-field', `${what}: response has no pullRequest${message ? ` (${message})` : ''}`);
   }
   return pr;
 }
@@ -107,7 +107,7 @@ export function githubReader(run) {
     async threadPage(owner, repo, number, cursor) {
       const data = await runJson(run, 'gh', graphqlArgs(THREADS_QUERY, { owner, repo, number, cursor }));
       const conn = pullRequestNode(data, 'review threads').reviewThreads;
-      if (!conn || typeof conn !== 'object') throw new QueryError('missing-key', 'review threads: reviewThreads is missing');
+      if (!conn || typeof conn !== 'object') throw new QueryError('missing-field', 'review threads: reviewThreads is missing');
       return conn;
     },
 
@@ -120,7 +120,7 @@ export function githubReader(run) {
     async rollupPage(owner, repo, number, cursor) {
       const data = await runJson(run, 'gh', graphqlArgs(ROLLUP_QUERY, { owner, repo, number, cursor }));
       const commits = pullRequestNode(data, 'check rollup').commits?.nodes;
-      if (!Array.isArray(commits)) throw new QueryError('missing-key', 'check rollup: commits are missing');
+      if (!Array.isArray(commits)) throw new QueryError('missing-field', 'check rollup: commits are missing');
       const rollup = commits[0]?.commit?.statusCheckRollup;
       if (!rollup) return { nodes: [], pageInfo: { hasNextPage: false, endCursor: null } };
       return rollup.contexts ?? { nodes: [], pageInfo: { hasNextPage: false, endCursor: null } };
@@ -129,7 +129,7 @@ export function githubReader(run) {
     async commitRollups(owner, repo, number) {
       const data = await runJson(run, 'gh', graphqlArgs(COMMITS_QUERY, { owner, repo, number }));
       const nodes = pullRequestNode(data, 'commit rollups').commits?.nodes;
-      if (!Array.isArray(nodes)) throw new QueryError('missing-key', 'commit rollups: commits are missing');
+      if (!Array.isArray(nodes)) throw new QueryError('missing-field', 'commit rollups: commits are missing');
       return nodes.map((n) => ({ oid: n?.commit?.oid ?? null, state: n?.commit?.statusCheckRollup?.state ?? null }));
     },
   };

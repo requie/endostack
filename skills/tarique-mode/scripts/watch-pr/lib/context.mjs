@@ -109,10 +109,10 @@ export function buildStack(seed, openPrs) {
 
 export async function discoverStack(reader, owner, repo, seed) {
   const list = await reader.listOpenPrs(owner, repo);
-  if (!Array.isArray(list)) throw new QueryError('missing-key', 'gh pr list did not return a list');
+  if (!Array.isArray(list)) throw new QueryError('missing-field', 'gh pr list did not return a list');
   for (const p of list) {
     if (!Number.isSafeInteger(p?.number) || typeof p.headRefName !== 'string' || typeof p.baseRefName !== 'string') {
-      throw new QueryError('missing-key', 'gh pr list row is missing number, headRefName, or baseRefName');
+      throw new QueryError('missing-field', 'gh pr list row is missing number, headRefName, or baseRefName');
     }
   }
   return buildStack(seed, list);

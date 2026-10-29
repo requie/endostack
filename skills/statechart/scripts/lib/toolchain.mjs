@@ -1,6 +1,6 @@
-// Finds Java and tla2tools.jar, downloading the pinned jar into a cache
-// folder when TLA2TOOLS is not set, and runs TLC or SANY with output
-// streamed to files.
+// Finds Java and tla2tools.jar, fetching the pinned jar into a cache folder
+// (through release.mjs) when TLA2TOOLS is not set, and runs TLC or SANY with
+// output streamed to files.
 
 import { spawn, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -8,18 +8,11 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-export const TLA2TOOLS_VERSION = '1.7.4';
-export const TLA2TOOLS_URL = `https://github.com/tlaplus/tlaplus/releases/download/v${TLA2TOOLS_VERSION}/tla2tools.jar`;
-export const TLA2TOOLS_SHA256 = '936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88';
+import { TLA2TOOLS_VERSION, TLA2TOOLS_SHA256, INSTALL_HINT, downloadJar } from './release.mjs';
+
+export { TLA2TOOLS_VERSION, TLA2TOOLS_SHA256 };
 
 export class ToolchainError extends Error {}
-
-const INSTALL_HINT = [
-  'Install the toolchain yourself and point the command at it:',
-  `  1. Install Java 11 or later (for example a Temurin build from https://adoptium.net).`,
-  `  2. Download ${TLA2TOOLS_URL}`,
-  '  3. export TLA2TOOLS=/path/to/tla2tools.jar  (and JAVA=/path/to/java if java is not on PATH)',
-].join('\n');
 
 export function cacheDir(env = process.env) {
   if (env.STATECHART_CACHE) return env.STATECHART_CACHE;
@@ -32,23 +25,12 @@ function sha256File(file) {
 }
 
 export function javaMajor(javaBin, env = process.env) {
-  const r = spawnSync(javaBin, ['-version'], { encoding: 'utf8', env });
+  const r = spawnSync(javaBin, ['-version'], { encoding: 'utf8', env: javaEnv(env) });
   if (r.error || r.status !== 0) return null;
   const m = /version "(\d+)(?:\.(\d+))?/.exec(`${r.stderr}${r.stdout}`);
   if (!m) return null;
   const major = Number(m[1]);
   return major === 1 ? Number(m[2]) : major;
-}
-
-async function download(url, dest) {
-  const tmp = `${dest}.${process.pid}.part`;
-  const curl = spawnSync('curl', ['-fsSL', '--retry', '2', '-o', tmp, url], { stdio: ['ignore', 'ignore', 'pipe'], encoding: 'utf8' });
-  if (curl.error || curl.status !== 0) {
-    const res = await fetch(url, { redirect: 'follow' });
-    if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
-    fs.writeFileSync(tmp, Buffer.from(await res.arrayBuffer()));
-  }
-  return tmp;
 }
 
 // Returns { java, jar }. Throws ToolchainError with install guidance.
@@ -73,7 +55,7 @@ export async function resolveToolchain(env = process.env) {
   try {
     fs.mkdirSync(dir, { recursive: true });
     process.stderr.write(`Downloading tla2tools ${TLA2TOOLS_VERSION} into ${dir}\n`);
-    tmp = await download(TLA2TOOLS_URL, jar);
+    tmp = await downloadJar(jar);
     const sum = sha256File(tmp);
     if (sum !== TLA2TOOLS_SHA256) throw new Error(`checksum mismatch: got ${sum}, expected ${TLA2TOOLS_SHA256}`);
     fs.renameSync(tmp, jar);
@@ -84,8 +66,18 @@ export async function resolveToolchain(env = process.env) {
   }
 }
 
+// Java gets only the variables it needs to start, never the caller's whole
+// environment, so tokens and keys in the shell never reach the model checker.
+const JAVA_ENV_KEYS = ['PATH', 'HOME', 'USERPROFILE', 'JAVA_HOME', 'SystemRoot', 'SYSTEMROOT', 'WINDIR', 'TEMP', 'TMP', 'LANG', 'LC_ALL', 'LC_CTYPE'];
+
+export function javaEnv(base = process.env) {
+  const env = {};
+  for (const name of JAVA_ENV_KEYS) if (base[name] !== undefined) env[name] = base[name];
+  return env;
+}
+
 function runEnv(base, tmpDir) {
-  const env = { ...base, TMPDIR: tmpDir };
+  const env = { ...javaEnv(base), TMPDIR: tmpDir };
   if (process.platform !== 'darwin') env.LC_ALL = 'C.UTF-8';
   return env;
 }

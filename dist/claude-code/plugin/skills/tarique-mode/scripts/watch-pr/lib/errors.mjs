@@ -8,7 +8,7 @@ export class UsageError extends Error {
 }
 
 // A failure to read GitHub state. `kind` is one of:
-//   command-failed, json-parse, missing-key, unexpected-value,
+//   command-failed, json-parse, missing-field, unexpected-value,
 //   checks-unavailable, invalid-pr-url, context
 // `retryable` false means the watcher stops at once with exit 7.
 export class QueryError extends Error {
@@ -37,5 +37,5 @@ export function firstLine(text, max = 240) {
 // only has one shape to handle.
 export function asQueryError(err) {
   if (err instanceof QueryError) return err;
-  return new QueryError('missing-key', err?.message ?? String(err));
+  return new QueryError('missing-field', err?.message ?? String(err));
 }

@@ -13,7 +13,7 @@ Install it from Claude Code with `/plugin install endostack --marketplace requie
 - Optionally run `/setup-endostack` to choose which model each role uses. Every role has a default, so this step can wait.
 - Ask `/tarique-help` which skill fits a situation. It answers with one prompt and starts no work.
 
-The plugin contains 62 skills (37 workflows and 25 principles) and two subagents. The [quickstart](https://github.com/requie/endostack/blob/main/docs/quickstart.md) and the [guide](https://github.com/requie/endostack/blob/main/docs/guide/README.md) cover every workflow.
+The plugin contains 61 skills (36 workflows and 25 principles) and two subagents. One workflow from the repository, `make-bot-ui`, is left out here because it has you store a webhook secret for a local relay; the EndoStack installer adds it if you want it. The [quickstart](https://github.com/requie/endostack/blob/main/docs/quickstart.md) and the [guide](https://github.com/requie/endostack/blob/main/docs/guide/README.md) cover every workflow.
 
 ## What the plugin runs, reads, and sends
 
