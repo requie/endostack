@@ -2,6 +2,28 @@
 
 All notable changes to EndoStack are recorded here.
 
+## v1.0.1 (2026-10-29)
+
+This release packages EndoStack for the Claude plugin directory, adds a privacy policy, and closes the directory scanner's findings. Skill behavior is unchanged except where noted below.
+
+### Claude plugin
+
+- Claude Code now installs a self-contained plugin folder, `dist/claude-code/plugin`, through the marketplace entry. It holds 61 skills (36 workflows and 25 principles), the two subagents, a README that lists every script the plugin runs and every network call it makes, the license, and a 512 x 512 listing icon. Test fixtures stay out of it.
+- `make-bot-ui` is left out of the Claude plugin because it has you store a webhook secret for a local relay. The installer still adds it for every agent, Claude Code included.
+- The repository root no longer has a `.claude-plugin/plugin.json`. If you loaded the repo root directly as a Claude plugin, install through the marketplace instead: `/plugin marketplace add requie/endostack`, then `/plugin install endostack@endostack`.
+
+### Security and privacy
+
+- Added a [privacy policy](docs/privacy.md). EndoStack collects no data and has no telemetry, analytics or account. The policy lists what it reads, writes and sends.
+- `statechart` downloads the TLA+ tools jar with Node's built-in fetch, with no subprocess, and still verifies its SHA-256 before use. Java now starts with a short list of environment variables (PATH, HOME, JAVA_HOME, temp and locale settings) instead of your whole shell environment, so tokens and keys in your shell never reach the model checker.
+- The `/try-endostack` demo no longer ships a `.env` file. `demo/check.mjs` writes one marker line into the demo folder when it runs, so the traversal check still has a file to find.
+- `make-bot-ui` no longer has the agent copy secrets into the relay config. You add the secret to your OS keychain or a git-ignored settings file and hand it to the relay when you start it.
+- The issue-loop tests pass the scripts a minimal environment instead of yours, and the self-hosted runner example no longer uses `$PWD`.
+
+### Changed
+
+- `watch-pr` reports a missing field in GitHub's response with the error code `missing-field`. It was `missing-key`. Update any script that matches on the old code.
+
 ## v1.0.0 (2026-10-28)
 
 EndoStack is a plugin of skills, playbooks, principles and subagents that changes how a coding agent works. Before it changes code, the agent reads that code, compares more than one design, and checks the result by running what a user would actually run. When a change crosses a trust boundary, it threat-models the change before building it and security-reviews the diff before shipping it. The skills describe actions in agent-neutral terms, so the same set installs into 15 coding agents.

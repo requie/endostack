@@ -2,7 +2,7 @@
 export const META = {
   name: 'endostack',
   displayName: 'EndoStack',
-  version: '1.0.0',
+  version: '1.0.1',
   description:
     'Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.',
   author: { name: 'Tarique Smith', url: 'https://github.com/requie' },

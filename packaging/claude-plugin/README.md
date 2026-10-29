@@ -6,7 +6,7 @@ This plugin is built from the [EndoStack repository](https://github.com/requie/e
 
 ## Start here
 
-Install it from Claude Code with `/plugin install endostack --marketplace requie/endostack` (Claude Code 2.1.275 or later), or add it from the Claude directory.
+Install it from Claude Code with `/plugin marketplace add requie/endostack`, then `/plugin install endostack@endostack`, or add it from the Claude directory.
 
 - Type `/try-endostack` for a five-minute demo. It sets up a small file server whose reported bug has an obvious one-line fix that leaks the app's `.env` file, hands you a prompt for `/tarique-mode`, and then compares both fixes with one check script.
 - On your own code, type `/tarique-mode Fix <issue link, or one sentence describing the broken behavior>.`

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "endostack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
   "author": {
     "name": "Tarique Smith",

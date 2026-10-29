@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "endostack",
       "source": "./dist/claude-code/plugin",
       "description": "Security-first agent workflows for coding agents: route work through tested playbooks, review with multiple subagents, and verify before you ship.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Tarique Smith",
         "url": "https://github.com/requie"
