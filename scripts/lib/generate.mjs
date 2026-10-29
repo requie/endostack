@@ -191,6 +191,32 @@ function json(o) {
   return `${JSON.stringify(o, null, 2)}\n`;
 }
 
+// Listing fields for the OpenAI Plugins Directory (ChatGPT and Codex). Limits
+// from OpenAI's submission guide: displayName and shortDescription 30
+// characters, defaultPrompt at most 3 prompts of 128 characters, HTTPS URLs,
+// brandColor at least 2:1 against white.
+const OPENAI_INTERFACE = {
+  displayName: META.displayName,
+  shortDescription: 'Security-first agent workflows',
+  longDescription:
+    'EndoStack makes the agent read code before changing it, compare more than one design, and check its result by running what a user would run. When a change touches a trust boundary, such as input parsing, file paths, auth or secrets, it threat-models the change before building it and runs a security review on the diff before shipping. Text the agent reads from issues, web pages and logs is treated as data, never as instructions.\n\nType $try-endostack for a five-minute demo: the agent fixes a bug whose obvious one-line fix would leak the demo app\'s .env file, and a check script shows the difference. Type $tarique-mode with an issue link or a one-sentence bug description to use the same workflow on your own code.\n\nEndoStack collects no data and has no telemetry. Its scripts run on your machine.',
+  developerName: META.author.name,
+  category: 'Developer Tools',
+  capabilities: ['Read', 'Write'],
+  websiteURL: META.homepage,
+  supportURL: `${META.homepage}/issues`,
+  privacyPolicyURL: `${META.homepage}/blob/main/docs/privacy.md`,
+  termsOfServiceURL: `${META.homepage}/blob/main/LICENSE`,
+  defaultPrompt: [
+    'Run $try-endostack for the five-minute demo',
+    'Threat model the changes on this branch before I merge',
+    "Run a security review on this branch's diff",
+  ],
+  brandColor: '#0F172A',
+  composerIcon: './assets/logo.png',
+  logo: './assets/logo.png',
+};
+
 export function manifests(ctx) {
   const author = { name: META.author.name, url: META.author.url };
   const files = {};
@@ -207,14 +233,7 @@ export function manifests(ctx) {
     extensions: {
       'com.openai': {
         onboardingSkill: './skills/setup-endostack/SKILL.md',
-        interface: {
-          displayName: META.displayName,
-          shortDescription: META.description,
-          developerName: META.author.name,
-          category: 'Coding',
-          websiteURL: META.homepage,
-          logo: './assets/logo.png',
-        },
+        interface: OPENAI_INTERFACE,
       },
     },
   });
@@ -275,26 +294,7 @@ export function manifests(ctx) {
     license: META.license,
     keywords: META.keywords,
     skills: './skills/',
-    interface: {
-      displayName: META.displayName,
-      shortDescription: 'Security-first workflows for coding agents',
-      longDescription:
-        'EndoStack makes the agent read code before changing it, compare more than one design, and check its result by running what a user would run. When a change touches a trust boundary, it threat-models the change before building it and runs a security review on the diff before shipping. Text the agent reads from issues, web pages and logs is treated as data, never as instructions.',
-      developerName: META.author.name,
-      category: 'Developer Tools',
-      capabilities: ['Interactive', 'Read', 'Write'],
-      websiteURL: META.homepage,
-      privacyPolicyURL: `${META.homepage}/blob/main/docs/privacy.md`,
-      termsOfServiceURL: `${META.homepage}/blob/main/LICENSE`,
-      defaultPrompt: [
-        'Run $try-endostack for the five-minute demo',
-        'Threat model the changes on this branch before I merge',
-        "Run a security review on this branch's diff",
-      ],
-      brandColor: '#0F172A',
-      logo: './assets/logo.png',
-      screenshots: [],
-    },
+    interface: OPENAI_INTERFACE,
   });
   files['gemini-extension.json'] = json({
     name: META.name,
@@ -363,11 +363,53 @@ function claudePlugin(root, ctx, dist) {
   });
 }
 
+// The OpenAI Plugins Directory package: a self-contained folder with the root
+// Agent Plugins manifest, the skills (with Codex's explicit-only policy files),
+// the logo, README and LICENSE. Upload it as a ZIP of the folder's contents.
+export const OPENAI_PLUGIN_DIR = 'openai/plugin';
+
+function openaiPlugin(root, ctx, dist) {
+  const base = OPENAI_PLUGIN_DIR;
+  for (const s of ctx.skills) {
+    if (CLAUDE_PLUGIN_SKIP_SKILLS.has(s.folder)) continue;
+    const dir = join(root, 'skills', s.folder);
+    for (const rel of listFiles(dir)) dist[`${base}/skills/${s.folder}/${rel}`] = readFileSync(join(dir, rel), 'utf8');
+    const policy = dist[`codex/skills/${s.folder}/agents/openai.yaml`];
+    if (policy) dist[`${base}/skills/${s.folder}/agents/openai.yaml`] = policy;
+  }
+  const readme = join(root, 'packaging', 'openai-plugin', 'README.md');
+  if (existsSync(readme)) dist[`${base}/README.md`] = readFileSync(readme, 'utf8');
+  if (existsSync(join(root, 'LICENSE'))) dist[`${base}/LICENSE`] = readFileSync(join(root, 'LICENSE'), 'utf8');
+  const logo = join(root, 'assets', 'logo.png');
+  if (existsSync(logo)) dist[`${base}/assets/logo.png`] = readFileSync(logo);
+  dist[`${base}/plugin.json`] = json({
+    $schema: AGENT_PLUGINS_SCHEMA,
+    name: META.name,
+    version: META.version,
+    description: META.description,
+    author: { name: META.author.name, url: META.author.url },
+    homepage: META.homepage,
+    repository: META.repository,
+    license: META.license,
+    keywords: META.keywords,
+    extensions: {
+      'com.openai': {
+        onboardingSkill: './skills/try-endostack/SKILL.md',
+        interface: OPENAI_INTERFACE,
+        publication: { release_notes: OPENAI_RELEASE_NOTES },
+      },
+    },
+  });
+}
+
+const OPENAI_RELEASE_NOTES = `EndoStack ${META.version}: a skills-only plugin with no MCP server and no hooks. It adds security-first workflows: a router skill (tarique-mode) with 23 playbooks, threat-model and security-review gates, 25 principle skills, and a five-minute demo (try-endostack).`;
+
 export function generate(root) {
   const ctx = { skills: loadSkills(root), agents: loadAgents(root) };
   const dist = {};
   for (const id of Object.keys(gen)) gen[id](ctx, dist);
   claudePlugin(root, ctx, dist);
+  openaiPlugin(root, ctx, dist);
   const index = {
     note: GEN_NOTE,
     version: META.version,

@@ -166,6 +166,33 @@ test('the Claude directory plugin stays inside the directory limits', () => {
   }
 });
 
+test('the OpenAI package meets the Plugins Directory listing limits', () => {
+  const root = fixture();
+  try {
+    const { dist, rootFiles } = generate(root);
+    const m = JSON.parse(dist['openai/plugin/plugin.json']);
+    assert.ok(m.$schema, 'Agent Plugins manifests need $schema');
+    assert.match(m.name, /^[a-z0-9]+(-[a-z0-9]+)*$/);
+    assert.ok(m.name.length <= 64 && m.description.length <= 4000);
+    const oa = m.extensions['com.openai'];
+    for (const ui of [oa.interface, JSON.parse(rootFiles['.codex-plugin/plugin.json']).interface, JSON.parse(rootFiles['plugin.json']).extensions['com.openai'].interface]) {
+      assert.ok(ui.displayName.length <= 30, 'displayName is 30 characters or fewer');
+      assert.ok(ui.shortDescription.length <= 30, `shortDescription "${ui.shortDescription}" is over 30 characters`);
+      assert.ok(ui.longDescription.length <= 4000 && ui.developerName.length <= 80 && ui.category);
+      assert.ok(ui.defaultPrompt.length <= 3 && ui.defaultPrompt.every((p) => p.length <= 128 && !p.includes('@')));
+      for (const k of ['websiteURL', 'supportURL', 'privacyPolicyURL', 'termsOfServiceURL']) assert.match(ui[k], /^https:\/\//);
+      assert.match(ui.brandColor, /^#[0-9A-F]{6}$/i);
+      assert.ok(ui.logo && ui.composerIcon);
+    }
+    const files = Object.keys(dist).filter((p) => p.startsWith('openai/plugin/'));
+    assert.ok(files.includes('openai/plugin/assets/logo.png'));
+    assert.ok(files.includes(`openai/plugin/${oa.onboardingSkill.slice(2)}`) || !files.some((p) => p.includes('/skills/try-endostack/')));
+    for (const p of files) assert.doesNotMatch(p, /\/test\/|hooks|\.app\.json$|mcp\.json$/, `${p} would block submission`);
+  } finally {
+    cleanup(root);
+  }
+});
+
 test('the manifest check refuses unknown Agent Plugins fields and missing paths', () => {
   const root = fixture();
   try {

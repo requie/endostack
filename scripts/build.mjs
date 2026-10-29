@@ -8,7 +8,7 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, statSync, chmodSync } from 'node:fs';
-import { generate, CLAUDE_PLUGIN_DIR } from './lib/generate.mjs';
+import { generate, CLAUDE_PLUGIN_DIR, OPENAI_PLUGIN_DIR } from './lib/generate.mjs';
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -43,9 +43,10 @@ export function build(root, { check = false, log = console.log } = {}) {
     }
   }
   // Copied skill files keep their source's executable bit (the sh launchers).
-  const copiedPrefix = `dist/${CLAUDE_PLUGIN_DIR}/skills/`;
+  const copiedPrefixes = [`dist/${CLAUDE_PLUGIN_DIR}/skills/`, `dist/${OPENAI_PLUGIN_DIR}/skills/`];
   for (const rel of expected.keys()) {
-    if (!rel.startsWith(copiedPrefix)) continue;
+    const copiedPrefix = copiedPrefixes.find((p) => rel.startsWith(p));
+    if (!copiedPrefix) continue;
     const src = join(root, 'skills', rel.slice(copiedPrefix.length));
     const abs = join(root, rel);
     if (!existsSync(src) || !existsSync(abs)) continue;

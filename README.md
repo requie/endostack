@@ -437,6 +437,7 @@ docs/agents/                        one page per supported agent
 scripts/                            installer, build, lint and their tests
 dist/                               generated per-agent files; never edit by hand
 dist/claude-code/plugin/            the self-contained Claude plugin (skills without test fixtures, agents, README, LICENSE) that the Claude marketplace and directory install
+dist/openai/plugin/                 the OpenAI Plugins Directory package (skills, Codex policy files, logo, README, LICENSE), uploaded as a ZIP of its contents
 packaging/claude-plugin/README.md   the README that ships inside the Claude plugin
 ```
 

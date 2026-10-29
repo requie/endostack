@@ -2,6 +2,12 @@
 
 All notable changes to EndoStack are recorded here.
 
+## Unreleased
+
+- Added an OpenAI Plugins Directory package at `dist/openai/plugin`, built from the same skills as the Claude plugin, with Codex's explicit-only policy files for command skills, the logo, and a README that lists every script and network call.
+- Added `.codex-plugin/plugin.json`, Codex's own manifest format. The root `plugin.json` and the Codex manifest now carry the full OpenAI listing fields (short and long description, support, privacy and terms URLs, starter prompts, icons).
+- CI actions are pinned to commit SHAs.
+
 ## v1.0.1 (2026-10-29)
 
 This release packages EndoStack for the Claude plugin directory, adds a privacy policy, and closes the directory scanner's findings. Skill behavior is unchanged except where noted below.

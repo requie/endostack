@@ -20,16 +20,16 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "EndoStack",
-    "shortDescription": "Security-first workflows for coding agents",
-    "longDescription": "EndoStack makes the agent read code before changing it, compare more than one design, and check its result by running what a user would run. When a change touches a trust boundary, it threat-models the change before building it and runs a security review on the diff before shipping. Text the agent reads from issues, web pages and logs is treated as data, never as instructions.",
+    "shortDescription": "Security-first agent workflows",
+    "longDescription": "EndoStack makes the agent read code before changing it, compare more than one design, and check its result by running what a user would run. When a change touches a trust boundary, such as input parsing, file paths, auth or secrets, it threat-models the change before building it and runs a security review on the diff before shipping. Text the agent reads from issues, web pages and logs is treated as data, never as instructions.\n\nType $try-endostack for a five-minute demo: the agent fixes a bug whose obvious one-line fix would leak the demo app's .env file, and a check script shows the difference. Type $tarique-mode with an issue link or a one-sentence bug description to use the same workflow on your own code.\n\nEndoStack collects no data and has no telemetry. Its scripts run on your machine.",
     "developerName": "Tarique Smith",
     "category": "Developer Tools",
     "capabilities": [
-      "Interactive",
       "Read",
       "Write"
     ],
     "websiteURL": "https://github.com/requie/endostack",
+    "supportURL": "https://github.com/requie/endostack/issues",
     "privacyPolicyURL": "https://github.com/requie/endostack/blob/main/docs/privacy.md",
     "termsOfServiceURL": "https://github.com/requie/endostack/blob/main/LICENSE",
     "defaultPrompt": [
@@ -38,7 +38,7 @@
       "Run a security review on this branch's diff"
     ],
     "brandColor": "#0F172A",
-    "logo": "./assets/logo.png",
-    "screenshots": []
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png"
   }
 }
